@@ -16,7 +16,7 @@ interface CharacterPosition {
 }
 
 const FloatingCharacter = ({ 
-  imageUrl = "/My-Media/character.png", // Image stockée en local pour éviter les requêtes externes
+  imageUrl = "/image/character.png", // Image stockée en local pour éviter les requêtes externes
   count = 2 // Nombre de personnages simultanés
 }: FloatingCharacterProps) => {
   const [characters, setCharacters] = useState<CharacterPosition[]>([]);
