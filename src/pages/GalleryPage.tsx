@@ -28,10 +28,10 @@ const GalleryPage = () => {
 
   return (
     <>
-      <FloatingCharacter />
+      <FloatingCharacter count={3} />
       
       <div className="pt-20 pb-16 min-h-screen bg-gradient-to-b from-neon-dark to-black">
-        <div className="container mx-auto px-4">
+        <div className="container-fluid mx-auto px-4 max-w-full">
           <div className="mb-10">
             <h1 className="text-4xl font-bold mb-4 neon-text">{gallery.name}</h1>
             <p className="text-lg text-gray-300">
@@ -52,7 +52,7 @@ const GalleryPage = () => {
               <p className="text-gray-400">No images found in this gallery</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {images.map((image) => (
                 <ImageCard 
                   key={image.id} 

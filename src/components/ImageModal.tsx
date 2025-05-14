@@ -29,26 +29,26 @@ const ImageModal = ({ image, onClose }: ImageModalProps) => {
   if (!image) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md">
-      <div className="relative max-w-[90vw] max-h-[90vh]">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black">
+      <div className="relative w-screen h-screen flex flex-col items-center justify-center">
         <button 
           onClick={onClose}
-          className="absolute -top-10 right-0 p-2 text-white hover:text-neon-purple"
+          className="absolute top-4 right-4 z-[101] p-3 text-white hover:text-neon-purple bg-black/50 rounded-full"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
         
-        <div className="neon-border overflow-hidden">
+        <div className="w-full h-full flex items-center justify-center">
           <img
             src={image.url}
             alt={image.name}
-            className="max-w-full max-h-[80vh] object-contain"
+            className="max-w-full max-h-full object-contain"
           />
         </div>
         
-        <div className="mt-4 text-center">
+        <div className="absolute bottom-4 left-0 right-0 text-center bg-black/70 py-2">
           <h3 className="text-xl font-bold text-white">{image.name}</h3>
         </div>
       </div>

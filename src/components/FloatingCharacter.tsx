@@ -3,13 +3,23 @@ import { useEffect, useState } from "react";
 
 interface FloatingCharacterProps {
   imageUrl?: string;
+  count?: number;
+}
+
+interface CharacterPosition {
+  id: number;
+  x: number;
+  y: number;
+  edge: number;
+  exitPos: {x: number, y: number};
+  duration: number;
 }
 
 const FloatingCharacter = ({ 
-  imageUrl = "/My-Media/img/character.png" // Image par défaut
+  imageUrl = "/My-Media/img/character.png",
+  count = 2 // Nombre de personnages simultanés
 }: FloatingCharacterProps) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [position, setPosition] = useState({ x: 0, y: 0, edge: 0 });
+  const [characters, setCharacters] = useState<CharacterPosition[]>([]);
   
   // Fonction pour générer une position aléatoire
   const getRandomPosition = () => {
@@ -36,7 +46,17 @@ const FloatingCharacter = ({
         break;
     }
     
-    return { x, y, edge };
+    const exitPos = getExitPosition(edge);
+    const duration = Math.random() * 5000 + 8000; // Entre 8 et 13 secondes
+    
+    return { 
+      id: Date.now() + Math.random(), 
+      x, 
+      y, 
+      edge, 
+      exitPos,
+      duration
+    };
   };
   
   // Détermine la direction de sortie en fonction de l'entrée
@@ -56,73 +76,65 @@ const FloatingCharacter = ({
     }
   };
   
-  // Crée un style d'animation personnalisé
-  const createCustomAnimation = (startPos: {x: number, y: number}, edge: number) => {
-    const exitPos = getExitPosition(edge);
-    
-    return {
-      animation: `custom-character-move 10s linear forwards`,
-      position: 'absolute' as const,
-      left: `${startPos.x}%`,
-      top: `${startPos.y}%`,
-      transform: 'translate(-50%, -50%)',
-    };
+  // Ajouter un nouveau personnage
+  const addCharacter = () => {
+    if (characters.length < count) {
+      const newPosition = getRandomPosition();
+      setCharacters(prev => [...prev, newPosition]);
+      
+      // Supprimer après l'animation
+      setTimeout(() => {
+        setCharacters(prev => prev.filter(char => char.id !== newPosition.id));
+      }, newPosition.duration);
+    }
   };
   
   useEffect(() => {
-    // Fonction pour afficher le personnage
-    const showCharacter = () => {
-      const newPosition = getRandomPosition();
-      setPosition(newPosition);
-      setIsVisible(true);
-      
-      // Cacher après l'animation
-      setTimeout(() => {
-        setIsVisible(false);
-      }, 10000); // Correspondant à la durée de l'animation
-    };
+    // Premier personnage
+    setTimeout(() => addCharacter(), 1000);
     
-    // Apparition initiale
-    const initialTimeout = setTimeout(showCharacter, 2000);
-    
-    // Configurer l'intervalle pour les apparitions récurrentes
+    // Intervalle pour ajouter des personnages régulièrement
     const interval = setInterval(() => {
-      if (!isVisible) {
-        showCharacter();
-      }
-    }, Math.random() * 5000 + 5000); // Entre 5 et 10 secondes
+      addCharacter();
+    }, 5000);
     
-    // Ajouter une feuille de style pour l'animation personnalisée
-    const styleSheet = document.createElement("style");
-    const exitPos = getExitPosition(position.edge);
-    
-    styleSheet.innerText = `
-      @keyframes custom-character-move {
-        0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
-        10% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(5deg); }
-        90% { opacity: 1; transform: translate(${exitPos.x}%, ${exitPos.y}%) scale(1) rotate(-5deg); }
-        100% { opacity: 0; transform: translate(${exitPos.x}%, ${exitPos.y}%) scale(0.8); }
-      }
-    `;
-    document.head.appendChild(styleSheet);
-    
-    return () => {
-      clearTimeout(initialTimeout);
-      clearInterval(interval);
-      document.head.removeChild(styleSheet);
-    };
-  }, [isVisible, position]);
+    return () => clearInterval(interval);
+  }, [characters.length, count]);
   
-  if (!isVisible) return null;
+  // Crée un style d'animation personnalisé
+  const createCustomAnimation = (character: CharacterPosition) => {
+    return {
+      animation: `custom-character-move-${character.id} ${character.duration / 1000}s linear forwards`,
+      position: 'absolute' as const,
+      left: `${character.x}%`,
+      top: `${character.y}%`,
+      transform: 'translate(-50%, -50%)',
+      zIndex: 50
+    };
+  };
   
   return (
-    <div className="fixed z-50 pointer-events-none" style={{width: "100%", height: "100%"}}>
-      <img 
-        src={imageUrl}
-        alt="Character"
-        className="w-20 h-20 object-contain"
-        style={createCustomAnimation(position, position.edge)}
-      />
+    <div className="fixed w-full h-full pointer-events-none overflow-hidden">
+      {characters.map((character) => (
+        <div key={character.id} className="absolute" style={{width: "100%", height: "100%"}}>
+          <style>
+            {`
+            @keyframes custom-character-move-${character.id} {
+              0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+              10% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(5deg); }
+              90% { opacity: 1; transform: translate(${character.exitPos.x}%, ${character.exitPos.y}%) scale(1) rotate(-5deg); }
+              100% { opacity: 0; transform: translate(${character.exitPos.x}%, ${character.exitPos.y}%) scale(0.8); }
+            }
+            `}
+          </style>
+          <img 
+            src={imageUrl}
+            alt="Character"
+            className="w-20 h-20 object-contain"
+            style={createCustomAnimation(character)}
+          />
+        </div>
+      ))}
     </div>
   );
 };

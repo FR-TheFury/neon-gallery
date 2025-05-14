@@ -4,17 +4,39 @@ import FloatingCharacter from "@/components/FloatingCharacter";
 const AboutPage = () => {
   return (
     <>
-      <FloatingCharacter />
+      <FloatingCharacter count={3} />
       
-      <div className="pt-20 pb-16 min-h-screen bg-gradient-to-b from-neon-dark to-black">
-        <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto">
+      <div className="pt-20 pb-16 min-h-screen bg-gradient-to-b from-neon-dark to-black relative">
+        {/* Images côté gauche */}
+        <div className="hidden lg:block absolute left-0 top-0 h-full w-1/6 overflow-hidden pointer-events-none">
+          <div className="relative h-full w-full">
+            <img 
+              src="/lovable-uploads/69bdffb8-894c-498a-97ff-e0e20d923e47.png" 
+              alt="Left avatar"
+              className="absolute left-0 top-1/4 w-full object-contain opacity-70"
+            />
+          </div>
+        </div>
+        
+        {/* Images côté droit */}
+        <div className="hidden lg:block absolute right-0 top-0 h-full w-1/6 overflow-hidden pointer-events-none">
+          <div className="relative h-full w-full">
+            <img 
+              src="/lovable-uploads/69bdffb8-894c-498a-97ff-e0e20d923e47.png" 
+              alt="Right avatar"
+              className="absolute right-0 top-2/3 w-full object-contain opacity-70"
+            />
+          </div>
+        </div>
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-5xl mx-auto lg:max-w-3xl">
             <h1 className="text-4xl font-bold mb-8 neon-text text-center">About Me</h1>
             
             {/* Main profile section */}
             <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 mb-12">
               <div className="flex justify-center">
-                <div className="w-48 h-48 rounded-full overflow-hidden border border-neon-purple">
+                <div className="w-48 h-48 rounded-full overflow-hidden border border-neon-red neon-border">
                   {/* Replace with avatar/profile image */}
                   <img 
                     src="https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b" 
@@ -24,7 +46,7 @@ const AboutPage = () => {
                 </div>
               </div>
               
-              <div className="cyberpunk-card p-6 border-l-4 border-neon-purple">
+              <div className="cyberpunk-card p-6 border-l-4 border-neon-red neon-border">
                 <h2 className="text-2xl font-bold mb-4 neon-text">Himely_Puppy</h2>
                 <p className="text-gray-300 mb-4">
                   Hi! I'm Himely, a virtual reality enthusiast and an untiring explorer of the VRChat worlds. My mission is to create unforgettable immersive experiences and connect with people from all over the world through this incredible platform.
@@ -39,7 +61,7 @@ const AboutPage = () => {
             <h2 className="text-3xl font-bold mb-6 neon-text text-center">Friends & Collaborators</h2>
             
             {/* First collaborator */}
-            <div className="cyberpunk-card p-6 mb-12 grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 items-center">
+            <div className="cyberpunk-card p-6 mb-12 grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 items-center neon-border">
               <div>
                 <h3 className="text-xl font-bold mb-2 text-neon-pink">BaBimm !</h3>
                 <h4 className="text-2xl font-bold mb-4 neon-text">My Baby Boy &lt;3</h4>
@@ -47,7 +69,7 @@ const AboutPage = () => {
                   I realized that I had found the Baby Boy of my life. BaBimm is not just my partner but my soulmate, someone who brings warmth and happiness to every moment of my life. Since that day, my world has been brighter, filled with love, and I can't wait to share more beautiful memories together.
                 </p>
               </div>
-              <div className="rounded-md overflow-hidden border border-neon-pink">
+              <div className="rounded-md overflow-hidden border border-neon-pink neon-border">
                 <img 
                   src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6" 
                   alt="BaBimm" 
@@ -57,7 +79,7 @@ const AboutPage = () => {
             </div>
             
             {/* Second collaborator */}
-            <div className="cyberpunk-card p-6 mb-12 grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 items-center">
+            <div className="cyberpunk-card p-6 mb-12 grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 items-center neon-border">
               <div>
                 <h3 className="text-xl font-bold mb-2 text-neon-pink">MisterPandas !</h3>
                 <h4 className="text-2xl font-bold mb-4 neon-text">My Buddy Photographer</h4>
@@ -65,7 +87,7 @@ const AboutPage = () => {
                   MisterPandas is the talented photographer behind all the photos and GIFs on my site. His passion for capturing the perfect moments has made my VR experiences shine like never before. Every shot tells a story, and I am forever grateful for his amazing work and artistic vision.
                 </p>
               </div>
-              <div className="rounded-md overflow-hidden border border-neon-pink">
+              <div className="rounded-md overflow-hidden border border-neon-pink neon-border">
                 <img 
                   src="https://images.unsplash.com/photo-1555952494-efd681c7e3f9" 
                   alt="MisterPandas" 
@@ -75,7 +97,7 @@ const AboutPage = () => {
             </div>
             
             {/* Equipment & Techniques Section */}
-            <div className="cyberpunk-card p-6 border-l-4 border-neon-purple">
+            <div className="cyberpunk-card p-6 border-l-4 border-neon-red neon-border">
               <h2 className="text-2xl font-bold mb-4 neon-text">Equipment & Techniques</h2>
               <p className="text-gray-300 mb-4">
                 While traditional photographers rely on physical cameras and lenses, my craft utilizes advanced camera tools within VRChat, combined with post-processing techniques to enhance and perfect each image.
