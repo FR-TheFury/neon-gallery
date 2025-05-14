@@ -16,10 +16,24 @@ interface CharacterPosition {
 }
 
 const FloatingCharacter = ({ 
-  imageUrl = "/My-Media/img/character.png",
+  imageUrl = "/My-Media/character.png", // Image stockée en local pour éviter les requêtes externes
   count = 2 // Nombre de personnages simultanés
 }: FloatingCharacterProps) => {
   const [characters, setCharacters] = useState<CharacterPosition[]>([]);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  
+  // Précharger l'image pour garantir qu'elle est disponible avant l'animation
+  useEffect(() => {
+    const img = new Image();
+    img.src = imageUrl;
+    img.onload = () => setImageLoaded(true);
+    img.onerror = (e) => console.error("Erreur de chargement de l'image:", e);
+    
+    return () => {
+      img.onload = null;
+      img.onerror = null;
+    };
+  }, [imageUrl]);
   
   // Fonction pour générer une position aléatoire
   const getRandomPosition = () => {
@@ -78,7 +92,7 @@ const FloatingCharacter = ({
   
   // Ajouter un nouveau personnage
   const addCharacter = () => {
-    if (characters.length < count) {
+    if (characters.length < count && imageLoaded) {
       const newPosition = getRandomPosition();
       setCharacters(prev => [...prev, newPosition]);
       
@@ -90,18 +104,23 @@ const FloatingCharacter = ({
   };
   
   useEffect(() => {
+    if (!imageLoaded) return;
+    
     // Premier personnage
-    setTimeout(() => addCharacter(), 1000);
+    const initialTimeout = setTimeout(() => addCharacter(), 1000);
     
     // Intervalle pour ajouter des personnages régulièrement
     const interval = setInterval(() => {
       addCharacter();
     }, 5000);
     
-    return () => clearInterval(interval);
-  }, [characters.length, count]);
+    return () => {
+      clearTimeout(initialTimeout);
+      clearInterval(interval);
+    };
+  }, [characters.length, count, imageLoaded]);
   
-  // Crée un style d'animation personnalisé
+  // Crée un style d'animation personnalisé pour chaque personnage
   const createCustomAnimation = (character: CharacterPosition) => {
     return {
       animation: `custom-character-move-${character.id} ${character.duration / 1000}s linear forwards`,
@@ -109,9 +128,13 @@ const FloatingCharacter = ({
       left: `${character.x}%`,
       top: `${character.y}%`,
       transform: 'translate(-50%, -50%)',
+      width: '80px',
+      height: '80px',
       zIndex: 50
     };
   };
+  
+  if (!imageLoaded) return null;
   
   return (
     <div className="fixed w-full h-full pointer-events-none overflow-hidden">
@@ -130,7 +153,7 @@ const FloatingCharacter = ({
           <img 
             src={imageUrl}
             alt="Character"
-            className="w-20 h-20 object-contain"
+            className="object-contain"
             style={createCustomAnimation(character)}
           />
         </div>
