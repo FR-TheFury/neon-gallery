@@ -41,7 +41,7 @@ const AboutPage = () => {
                 <div className="w-48 h-48 rounded-full overflow-hidden border border-neon-red neon-border">
                   {/* Replace with avatar/profile image */}
                   <img
-                      src="/src/image/profile.png"
+                      src="/image/profile.png"
                       alt="Profile"
                       className="w-full h-full object-cover"
                   />
@@ -78,7 +78,7 @@ const AboutPage = () => {
               </div>
               <div className="rounded-md overflow-hidden border border-neon-pink neon-border">
                 <img
-                    src="/src/image/spy.png"
+                    src="/image/spy.png"
                     alt="GNRL_K"
                     className="w-full h-full object-cover"
                 />
@@ -89,7 +89,7 @@ const AboutPage = () => {
                 className="cyberpunk-card p-6 mb-12 grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 items-center neon-border">
               <div className="rounded-md overflow-hidden border border-neon-pink neon-border">
                 <img
-                    src="/src/image/baby.png"
+                    src="/image/baby.png"
                     alt="BaBimm"
                     className="w-full h-full object-cover"
                 />
@@ -119,7 +119,7 @@ const AboutPage = () => {
               </div>
               <div className="rounded-md overflow-hidden border border-neon-pink neon-border">
                 <img
-                    src="/src/image/panda.png"
+                    src="/image/panda.png"
                     alt="MisterPandas"
                     className="w-full h-full object-cover"
                 />

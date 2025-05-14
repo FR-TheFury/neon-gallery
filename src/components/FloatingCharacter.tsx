@@ -21,7 +21,7 @@ interface CharacterPosition {
 }
 
 const FloatingCharacter = ({
-  imageUrl = "/src/image/character.png",
+  imageUrl = "/image/character.png",
   count = 2
 }: FloatingCharacterProps) => {
   const [characters, setCharacters] = useState<CharacterPosition[]>([]);
