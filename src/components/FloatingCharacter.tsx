@@ -30,10 +30,10 @@ const FloatingCharacter = ({
   const animationRef = useRef<number | null>(null);
   const isMobile = useIsMobile();
   
-  // Réduire le nombre de personnages sur mobile
+  // Reduce character count on mobile
   const actualCount = isMobile ? Math.min(count, 1) : count;
   
-  // Préchargement de l'image
+  // Preload the image
   useEffect(() => {
     const img = new Image();
     img.src = imageUrl;
@@ -43,12 +43,13 @@ const FloatingCharacter = ({
     };
     img.onerror = () => {
       console.error("Failed to load character image");
-      // Essai avec un timestamp pour éviter les problèmes de cache
-      img.src = `${imageUrl}?t=${Date.now()}`;
+      // Try with a public URL fallback
+      const fallbackUrl = "https://images.unsplash.com/photo-1518770660439-4636190af475?w=50&h=50";
+      img.src = fallbackUrl;
     };
   }, [imageUrl]);
   
-  // Initialisation des personnages
+  // Initialize characters
   useEffect(() => {
     if (!imageLoaded) return;
     
@@ -57,14 +58,14 @@ const FloatingCharacter = ({
     for (let i = 0; i < actualCount; i++) {
       initialCharacters.push({
         id: Date.now() + Math.random(),
-        x: Math.random() * 100, // Position x aléatoire (en pourcentage de la fenêtre)
-        y: Math.random() * 100, // Position y aléatoire (en pourcentage de la fenêtre)
-        scale: 0.8 + Math.random() * 0.4, // Scale entre 0.8 et 1.2
-        rotation: Math.random() * 360, // Rotation aléatoire
-        speed: 0.05 + Math.random() * 0.05, // Vitesse entre 0.05 et 0.1 % par frame
+        x: Math.random() * 100, // Random x position (as percentage of window)
+        y: Math.random() * 100, // Random y position (as percentage of window)
+        scale: 0.5 + Math.random() * 0.3, // Scale between 0.5 and 0.8 (smaller)
+        rotation: Math.random() * 360, // Random rotation
+        speed: 0.1 + Math.random() * 0.1, // Speed between 0.1 and 0.2 (faster)
         direction: {
-          x: Math.random() > 0.5 ? 1 : -1, // Direction horizontale aléatoire
-          y: Math.random() > 0.5 ? 1 : -1, // Direction verticale aléatoire
+          x: Math.random() > 0.5 ? 1 : -1, // Random horizontal direction
+          y: Math.random() > 0.5 ? 1 : -1, // Random vertical direction
         }
       });
     }
@@ -78,20 +79,20 @@ const FloatingCharacter = ({
     };
   }, [imageLoaded, actualCount]);
   
-  // Animation des personnages
+  // Animate characters
   useEffect(() => {
     if (!imageLoaded || characters.length === 0) return;
     
     const animate = () => {
       setCharacters(prevChars => 
         prevChars.map(char => {
-          // Mise à jour de la position
+          // Update position
           let newX = char.x + (char.speed * char.direction.x);
           let newY = char.y + (char.speed * char.direction.y);
           let newDirX = char.direction.x;
           let newDirY = char.direction.y;
           
-          // Rebond sur les bords
+          // Bounce off edges
           if (newX <= 0 || newX >= 100) {
             newDirX *= -1;
             newX = Math.max(0, Math.min(100, newX));
@@ -102,8 +103,9 @@ const FloatingCharacter = ({
             newY = Math.max(0, Math.min(100, newY));
           }
           
-          // Légère variation de rotation
-          const newRotation = (char.rotation + (Math.random() - 0.5) * 2) % 360;
+          // Calculate rotation based on movement direction
+          // This makes the character face in the direction it's moving
+          let newRotation = Math.atan2(newDirY, newDirX) * (180 / Math.PI);
           
           return {
             ...char,
@@ -156,7 +158,7 @@ const FloatingCharacter = ({
           <img 
             src={imageUrl}
             alt="Floating Character"
-            className="w-20 h-20"
+            className="w-16 h-16" /* Smaller size (was w-20 h-20) */
             style={{
               filter: 'drop-shadow(0 0 10px rgba(255, 0, 128, 0.7))',
               animation: 'floating-glow 1.5s ease-in-out infinite'

@@ -1,27 +1,28 @@
 
-/* Styles pour les personnages flottants et les vidéos */
+/* Styles for floating characters and videos */
 .character-animate {
   will-change: transform, opacity;
   backface-visibility: hidden;
   filter: drop-shadow(0 0 10px rgba(255, 0, 128, 0.5));
-  transform-style: preserve-3d; /* Améliore le rendu des animations 3D */
+  transform-style: preserve-3d; /* Improves 3D animation rendering */
+  z-index: 9999 !important; /* Ensure characters are always on top */
 }
 
-/* Optimisation pour les médias locaux */
+/* Optimization for local media */
 video[src^="/"], 
 img[src^="/"] {
   will-change: transform, opacity;
-  contain: paint; /* Limite la zone de repeinture pour améliorer les performances */
+  contain: paint; /* Limits repaint area to improve performance */
 }
 
-/* Optimisations pour éviter les requêtes inutiles et améliorer le chargement */
+/* Optimizations to avoid unnecessary requests and improve loading */
 video, img {
   backface-visibility: hidden;
-  content-visibility: auto; /* Améliore le rendu en ne rendant que ce qui est visible */
-  contain-intrinsic-size: 100%; /* Aide le navigateur à gérer la taille avant chargement */
+  content-visibility: auto; /* Improves rendering by only rendering what's visible */
+  contain-intrinsic-size: 100%; /* Helps browser manage size before loading */
 }
 
-/* Placeholder pour les médias en chargement */
+/* Placeholder for loading media */
 .placeholder-loading {
   background: linear-gradient(90deg, #1a1a1a 25%, #252525 50%, #1a1a1a 75%);
   background-size: 200% 100%;
@@ -33,32 +34,24 @@ video, img {
   100% { background-position: -200% 0; }
 }
 
-/* Animation du personnage flottant - Pour faire passer au premier plan */
+/* Floating character glow animation */
 @keyframes floating-glow {
   0% { filter: drop-shadow(0 0 5px rgba(255, 0, 128, 0.3)); }
   50% { filter: drop-shadow(0 0 15px rgba(255, 0, 128, 0.7)); }
   100% { filter: drop-shadow(0 0 5px rgba(255, 0, 128, 0.3)); }
 }
 
-/* Optimisations spécifiques pour éviter les lags */
-.video-container {
+/* Specific optimizations to avoid lag */
+.background-image {
   transform: translateZ(0);
   will-change: opacity;
 }
 
-/* Optimisation pour les appareils à faible performance */
+/* Optimization for low-performance devices */
 @media screen and (prefers-reduced-motion: reduce) {
   .character-animate {
     animation: none !important;
     transition: none !important;
-  }
-  
-  .video-container video {
-    display: none;
-  }
-  
-  .video-container .fallback-image {
-    display: block;
   }
 }
 

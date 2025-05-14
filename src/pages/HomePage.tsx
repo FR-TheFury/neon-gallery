@@ -9,14 +9,13 @@ import { GalleryImage } from "@/types/gallery";
 import ImageCard from "@/components/ImageCard";
 import ImageModal from "@/components/ImageModal";
 import ThreeBackground from "@/components/ThreeBackground";
-import VideoBackground from "@/components/VideoBackground";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const HomePage = () => {
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
   const isMobile = useIsMobile();
   
-  // Fetch recent images avec options optimisées
+  // Fetch recent images
   const { data: recentImages = [], isLoading } = useQuery({
     queryKey: ["recentImages"],
     queryFn: () => fetchImagesFromFolder(galleries[0].folderId),
@@ -25,12 +24,20 @@ const HomePage = () => {
 
   return (
     <>
-      {/* Hero Section with Video Background */}
+      {/* Hero Section with Static Background */}
       <section className="relative h-screen">
-        <VideoBackground 
-          quality={isMobile ? 'low' : 'medium'}
-          lowPerformanceMode={isMobile} 
+        {/* Static Background Image */}
+        <div 
+          className="absolute inset-0 w-full h-full bg-cover bg-center"
+          style={{ 
+            backgroundImage: `url('/src/image/background.jpg')`,
+            willChange: 'opacity'
+          }}
         />
+        
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-neon-dark/30 to-neon-dark"></div>
+        
         <ThreeBackground />
         
         <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">

@@ -1,25 +1,44 @@
-
 import { useState, useRef, useEffect } from "react";
 import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX } from "lucide-react";
+import { toast } from "@/components/ui/use-toast";
 
 const AudioPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [volume, setVolume] = useState(0.7);
+  const [volume, setVolume] = useState(0.5); // Lower default volume
   const [audioLoaded, setAudioLoaded] = useState(false);
   const [audioError, setAudioError] = useState(false);
+  const [userInteracted, setUserInteracted] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   
-  // Précharger l'audio
+  // Listen for user interaction with the page
+  useEffect(() => {
+    const handleInteraction = () => {
+      setUserInteracted(true);
+    };
+    
+    // These events indicate user interaction
+    window.addEventListener('click', handleInteraction);
+    window.addEventListener('keydown', handleInteraction);
+    window.addEventListener('touchstart', handleInteraction);
+    
+    return () => {
+      window.removeEventListener('click', handleInteraction);
+      window.removeEventListener('keydown', handleInteraction);
+      window.removeEventListener('touchstart', handleInteraction);
+    };
+  }, []);
+  
+  // Preload the audio
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
     
-    // Configurer les événements audio
+    // Set up audio events
     const handleCanPlay = () => {
-      console.log("Audio chargé avec succès");
+      console.log("Audio loaded successfully");
       setAudioLoaded(true);
       setDuration(audio.duration || 0);
       setAudioError(false);
@@ -34,9 +53,9 @@ const AudioPlayer = () => {
     };
     
     const handleError = (e: Event) => {
-      console.error("Erreur de chargement audio:", e);
+      console.error("Audio loading error:", e);
       setAudioError(true);
-      // Essayer à nouveau avec cache-busting
+      // Try again with cache-busting
       setTimeout(() => {
         if (audio) {
           const currentSrc = audio.src.split('?')[0];
@@ -46,21 +65,21 @@ const AudioPlayer = () => {
       }, 2000);
     };
     
-    // Ajout des écouteurs d'événements
+    // Add event listeners
     audio.addEventListener('canplaythrough', handleCanPlay);
     audio.addEventListener('timeupdate', handleTimeUpdate);
     audio.addEventListener('ended', handleEnded);
     audio.addEventListener('error', handleError);
     
-    // Précharger l'audio
+    // Preload audio
     audio.load();
     
-    // Si déjà chargé
+    // If already loaded
     if (audio.readyState >= 3) {
       handleCanPlay();
     }
     
-    // Nettoyage
+    // Cleanup
     return () => {
       audio.removeEventListener('canplaythrough', handleCanPlay);
       audio.removeEventListener('timeupdate', handleTimeUpdate);
@@ -69,33 +88,50 @@ const AudioPlayer = () => {
     };
   }, []);
   
-  // Essayer de démarrer la lecture après le chargement
+  // Attempt to autoplay
   useEffect(() => {
     if (!audioLoaded || audioError) return;
     
     const audio = audioRef.current;
     if (!audio) return;
     
-    // Définir le volume
+    // Set the volume
     audio.volume = volume;
     
-    // Tenter la lecture avec délai pour permettre l'interaction utilisateur
-    const timer = setTimeout(() => {
+    // Function to try autoplay
+    const tryAutoplay = () => {
+      console.log("Attempting to autoplay audio...");
       const playPromise = audio.play();
       if (playPromise !== undefined) {
         playPromise.then(() => {
+          console.log("Autoplay successful!");
           setIsPlaying(true);
         }).catch(error => {
-          console.log("Lecture automatique bloquée (comportement normal):", error);
-          // La plupart des navigateurs bloquent la lecture auto sans interaction utilisateur
+          console.log("Autoplay blocked (normal browser behavior):", error);
+          // Most browsers block autoplay without user interaction
+          if (!userInteracted) {
+            // Show a toast message encouraging user interaction
+            toast({
+              title: "Cliquez pour activer la musique",
+              description: "Les navigateurs requièrent une interaction utilisateur pour lancer l'audio",
+              duration: 5000,
+            });
+          }
         });
       }
-    }, 1000);
+    };
     
-    return () => clearTimeout(timer);
-  }, [audioLoaded, volume, audioError]);
+    // Try autoplay immediately
+    tryAutoplay();
+    
+    // And also try when user interacts with the page
+    if (userInteracted) {
+      tryAutoplay();
+    }
+    
+  }, [audioLoaded, volume, audioError, userInteracted]);
 
-  // Formatage du temps
+  // Format time
   const formatTime = (time: number) => {
     if (time && !isNaN(time)) {
       const minutes = Math.floor(time / 60);
@@ -105,7 +141,7 @@ const AudioPlayer = () => {
     return "0:00";
   };
 
-  // Contrôle de la lecture
+  // Playback control
   const togglePlay = () => {
     const audio = audioRef.current;
     if (audio) {
@@ -118,15 +154,15 @@ const AudioPlayer = () => {
           playPromise.then(() => {
             setIsPlaying(true);
           }).catch(err => {
-            console.log("Erreur de lecture:", err);
-            // Afficher un message à l'utilisateur pour interagir avec la page
+            console.log("Playback error:", err);
+            // Show message to user to interact with page
           });
         }
       }
     }
   };
 
-  // Contrôle du volume
+  // Mute control
   const toggleMute = () => {
     const audio = audioRef.current;
     if (audio) {
@@ -135,7 +171,7 @@ const AudioPlayer = () => {
     }
   };
 
-  // Gestion de la progression
+  // Progress control
   const handleProgress = (e: React.ChangeEvent<HTMLInputElement>) => {
     const audio = audioRef.current;
     if (audio) {
@@ -145,7 +181,7 @@ const AudioPlayer = () => {
     }
   };
 
-  // Gestion du volume
+  // Volume control
   const handleVolume = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newVolume = parseFloat(e.target.value);
     setVolume(newVolume);

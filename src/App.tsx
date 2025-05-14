@@ -14,14 +14,14 @@ import Footer from "./components/Footer";
 import AudioPlayer from "./components/AudioPlayer";
 import FloatingCharacter from "./components/FloatingCharacter";
 
-// Créer un client de requête avec des options par défaut optimisées
+// Create a query client with optimized default options
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
       staleTime: 1000 * 60 * 5, // 5 minutes
-      retry: 1, // Réduire le nombre de tentatives pour éviter les charges inutiles
-      networkMode: 'online', // Ne pas retenter si hors ligne
+      retry: 1, // Reduce retry attempts to avoid unnecessary load
+      networkMode: 'online', // Don't retry if offline
     },
   },
 });
@@ -35,7 +35,7 @@ const App = () => (
         <div className="flex flex-col min-h-screen">
           <Navigation />
           <main className="flex-grow">
-            <FloatingCharacter />
+            <FloatingCharacter count={4} /> {/* Set global count to 4 */}
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/gallery/:galleryId" element={<GalleryPage />} />
