@@ -10,12 +10,12 @@ const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 bg-neon-dark bg-opacity-90 backdrop-blur-md">
+    <div className="fixed top-0 left-0 right-0 z-50 bg-neon-dark bg-opacity-90 backdrop-blur-md border-b border-neon-red">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          {/* Mobile menu button */}
+          {/* Bouton de menu mobile */}
           <button 
-            className="md:hidden text-foreground p-2"
+            className="md:hidden text-foreground p-2 neon-text"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <Menu className="h-6 w-6" />
@@ -23,32 +23,31 @@ const Navigation = () => {
           
           {/* Logo */}
           <div className="flex-1 md:flex-none">
-            <Link to="/" className="text-2xl font-bold tracking-tighter text-neon-purple flex items-center">
+            <Link to="/" className="text-2xl font-bold tracking-tighter text-neon-red flex items-center neon-text">
               <Headset className="mr-2 h-6 w-6" />
               VRChat Gallery
             </Link>
           </div>
           
-          {/* Desktop Navigation */}
+          {/* Navigation desktop */}
           <div className="hidden md:block">
             <NavigationMenu>
               <NavigationMenuList className="gap-2">
                 <NavigationMenuItem>
                   <Link 
                     to="/"
-                    className={cn(
-                      "flex items-center px-4 py-2 text-sm font-medium",
-                      "rounded-md transition-colors hover:bg-secondary"
-                    )}
+                    className="neon-menu-item flex items-center"
                   >
-                    <Home className="mr-2 h-4 w-4" /> Home
+                    <Home className="mr-2 h-4 w-4" /> Accueil
                   </Link>
                 </NavigationMenuItem>
                 
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-transparent hover:bg-secondary">Gallery</NavigationMenuTrigger>
+                  <NavigationMenuTrigger className="bg-transparent hover:bg-neon-dark hover:text-neon-pink">
+                    Galerie
+                  </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="grid w-[200px] gap-1 p-2">
+                    <ul className="grid w-[200px] gap-1 p-2 bg-neon-dark border border-neon-red neon-border">
                       {galleries.map((gallery) => (
                         <li key={gallery.id}>
                           <NavigationMenuLink asChild>
@@ -56,7 +55,7 @@ const Navigation = () => {
                               to={`/gallery/${gallery.id}`}
                               className={cn(
                                 "block select-none space-y-1 rounded-md p-3",
-                                "outline-none focus:bg-accent hover:bg-secondary hover:text-neon-purple"
+                                "outline-none focus:bg-accent hover:bg-black hover:text-neon-red"
                               )}
                             >
                               {gallery.name}
@@ -71,22 +70,16 @@ const Navigation = () => {
                 <NavigationMenuItem>
                   <Link 
                     to="/about"
-                    className={cn(
-                      "px-4 py-2 text-sm font-medium",
-                      "rounded-md transition-colors hover:bg-secondary"
-                    )}
+                    className="neon-menu-item"
                   >
-                    About
+                    À propos
                   </Link>
                 </NavigationMenuItem>
                 
                 <NavigationMenuItem>
                   <Link 
                     to="/contact"
-                    className={cn(
-                      "px-4 py-2 text-sm font-medium",
-                      "rounded-md transition-colors hover:bg-secondary"
-                    )}
+                    className="neon-menu-item"
                   >
                     Contact
                   </Link>
@@ -96,25 +89,25 @@ const Navigation = () => {
           </div>
         </div>
         
-        {/* Mobile menu */}
+        {/* Menu mobile */}
         {isMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 space-y-2">
+          <div className="md:hidden mt-4 pb-4 space-y-2 border-t border-neon-red pt-4">
             <Link 
               to="/" 
-              className="block px-4 py-2 rounded-md hover:bg-secondary"
+              className="block px-4 py-2 rounded-md hover:bg-black hover:text-neon-red"
               onClick={() => setIsMenuOpen(false)}
             >
-              <Home className="inline-block mr-2 h-4 w-4" /> Home
+              <Home className="inline-block mr-2 h-4 w-4" /> Accueil
             </Link>
             
             <div className="px-4 py-2">
-              <p className="mb-2 font-medium">Galleries</p>
+              <p className="mb-2 font-medium text-neon-red">Galeries</p>
               <div className="pl-4 space-y-2">
                 {galleries.map((gallery) => (
                   <Link 
                     key={gallery.id}
                     to={`/gallery/${gallery.id}`}
-                    className="block py-1 hover:text-neon-purple"
+                    className="block py-1 hover:text-neon-pink"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {gallery.name}
@@ -125,15 +118,15 @@ const Navigation = () => {
             
             <Link 
               to="/about" 
-              className="block px-4 py-2 rounded-md hover:bg-secondary"
+              className="block px-4 py-2 rounded-md hover:bg-black hover:text-neon-red"
               onClick={() => setIsMenuOpen(false)}
             >
-              About
+              À propos
             </Link>
             
             <Link 
               to="/contact" 
-              className="block px-4 py-2 rounded-md hover:bg-secondary"
+              className="block px-4 py-2 rounded-md hover:bg-black hover:text-neon-red"
               onClick={() => setIsMenuOpen(false)}
             >
               Contact

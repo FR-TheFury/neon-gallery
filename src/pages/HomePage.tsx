@@ -15,7 +15,7 @@ import VideoBackground from "@/components/VideoBackground";
 const HomePage = () => {
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
   
-  // Fetch recent images (using main gallery for now)
+  // Récupération des images récentes
   const { data: recentImages = [], isLoading } = useQuery({
     queryKey: ["recentImages"],
     queryFn: () => fetchImagesFromFolder(galleries[0].folderId),
@@ -25,30 +25,30 @@ const HomePage = () => {
     <>
       <FloatingCharacter />
       
-      {/* Hero Section with Video Background */}
+      {/* Section Hero avec Vidéo en arrière-plan */}
       <section className="relative h-screen">
         <VideoBackground />
         <ThreeBackground />
         
         <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-pulse-neon">
-            <span className="text-gradient-neon">VRChat Gallery</span>
+            <span className="text-gradient-neon">Explorez les mondes<br/>virtuels de <span className="text-neon-red">VRChat</span></span>
           </h1>
           <p className="text-lg md:text-xl max-w-2xl mb-8 text-white opacity-90">
-            Explore my collection of stunning VRChat photography with a neon cyberpunk gothic aesthetic.
+            Une collection de moments capturés dans le métavers avec un style cyberpunk néon
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link 
               to="/gallery/galleryMain"
-              className="px-6 py-3 rounded-md bg-neon-purple text-white font-medium hover:bg-opacity-80 transition-all neon-glow"
+              className="px-6 py-3 rounded-md bg-neon-red text-white font-medium hover:bg-opacity-80 transition-all neon-glow shadow-[0_0_10px_#D4095D]"
             >
-              Explore Gallery
+              Explorer la galerie
             </Link>
             <Link
               to="/about"
-              className="px-6 py-3 rounded-md border border-neon-purple text-white font-medium hover:bg-neon-purple/20 transition-all"
+              className="px-6 py-3 rounded-md neon-button"
             >
-              About Me
+              À propos
             </Link>
           </div>
         </div>
@@ -60,19 +60,19 @@ const HomePage = () => {
         </div>
       </section>
       
-      {/* Recent Photos Section */}
+      {/* Section Photos Récentes */}
       <section className="py-16 bg-neon-dark relative">
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex justify-between items-center mb-10">
-            <h2 className="text-3xl font-bold neon-text">Recent Photos</h2>
-            <Link to="/gallery/galleryMain" className="text-neon-purple hover:text-neon-pink transition-colors">
-              View All
+            <h2 className="text-3xl font-bold neon-text">Photos Récentes</h2>
+            <Link to="/gallery/galleryMain" className="text-neon-red hover:text-neon-pink transition-colors">
+              Voir Tout
             </Link>
           </div>
           
           {isLoading ? (
             <div className="flex justify-center py-20">
-              <div className="w-12 h-12 border-4 border-t-neon-purple rounded-full animate-spin"></div>
+              <div className="w-12 h-12 border-4 border-t-neon-red rounded-full animate-spin"></div>
             </div>
           ) : (
             <Carousel
@@ -101,23 +101,23 @@ const HomePage = () => {
         </div>
       </section>
       
-      {/* Gallery Categories */}
+      {/* Catégories de Galerie */}
       <section className="py-16 bg-gradient-to-b from-neon-dark to-black">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-10 text-center neon-text">Gallery Categories</h2>
+          <h2 className="text-3xl font-bold mb-10 text-center neon-text">Catégories de Galerie</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {galleries.map((gallery) => (
               <Link
                 key={gallery.id}
                 to={`/gallery/${gallery.id}`}
-                className="cyberpunk-card p-6 text-center hover:translate-y-[-5px] transition-all"
+                className="cyberpunk-card p-6 text-center hover:translate-y-[-5px] transition-all border border-neon-darkred hover:border-neon-red hover:shadow-[0_0_10px_rgba(212,9,93,0.5)]"
               >
                 <h3 className="text-xl font-bold mb-2 neon-text">{gallery.name}</h3>
-                <p className="text-gray-400 mb-4">Explore {gallery.name} collection</p>
+                <p className="text-gray-400 mb-4">Explorez la collection {gallery.name}</p>
                 <div className="mt-4">
-                  <span className="inline-block px-4 py-2 border border-neon-purple text-neon-purple rounded-md hover:bg-neon-purple hover:text-white transition-colors">
-                    View Gallery
+                  <span className="inline-block px-4 py-2 neon-button rounded-md">
+                    Voir la Galerie
                   </span>
                 </div>
               </Link>
@@ -126,7 +126,7 @@ const HomePage = () => {
         </div>
       </section>
       
-      {/* Image Modal */}
+      {/* Modal d'image */}
       {selectedImage && (
         <ImageModal 
           image={selectedImage} 

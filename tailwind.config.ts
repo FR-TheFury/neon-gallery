@@ -63,12 +63,14 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Updated neon colors to match the purple in the reference image
+				// Mise à jour des couleurs néon avec la couleur principale #D4095D
 				neon: {
-					purple: '#a655f5',
-					pink: '#D946EF',
-					rose: '#FF719A',
-					dark: '#1A1F2C'
+					red: '#D4095D',          // Nouvelle couleur principale (rose-rouge)
+					darkred: '#A30747',      // Version plus foncée
+					pink: '#FF3884',         // Version plus claire/rose
+					purple: '#9A1F7A',       // Variante violet-rouge
+					darkpurple: '#6A1253',   // Violet foncé
+					dark: '#1A1F2C'          // Couleur de fond inchangée
 				}
 			},
 			borderRadius: {
@@ -98,8 +100,8 @@ export default {
 					'50%': { transform: 'translateY(-10px)' }
 				},
 				'pulse-neon': {
-					'0%, 100%': { textShadow: '0 0 5px #a655f5, 0 0 10px #a655f5, 0 0 15px #a655f5' },
-					'50%': { textShadow: '0 0 20px #D946EF, 0 0 30px #D946EF, 0 0 40px #D946EF' }
+					'0%, 100%': { textShadow: '0 0 5px #D4095D, 0 0 10px #D4095D, 0 0 15px #D4095D' },
+					'50%': { textShadow: '0 0 20px #FF3884, 0 0 30px #FF3884, 0 0 40px #FF3884' }
 				},
 				'character-move': {
 					'0%': { transform: 'translate(-100%, -50%) rotate(0deg)', opacity: '0' },

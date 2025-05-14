@@ -11,13 +11,13 @@
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 285 100% 65%;
+    --primary: 339 94% 43%;
     --primary-foreground: 0 0% 98%;
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
-    --accent: 285 100% 65%;
+    --accent: 339 94% 43%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
@@ -27,7 +27,7 @@
     --radius: 0.5rem;
     --sidebar-background: 240 10% 3.9%;
     --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 285 100% 65%;
+    --sidebar-primary: 339 94% 43%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 3.7% 15.9%;
     --sidebar-accent-foreground: 0 0% 98%;
@@ -51,25 +51,51 @@
   }
 
   .text-gradient-neon {
-    @apply bg-gradient-to-r from-neon-purple via-neon-pink to-neon-purple bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-neon-red via-neon-pink to-neon-purple bg-clip-text text-transparent;
   }
 
-  /* Effet lumineux sur le texte mais pas de bordure */
+  /* Effet lumineux sur le texte sans bordure */
   .neon-text {
-    @apply text-neon-purple text-shadow-neon;
+    @apply text-neon-red text-shadow-neon;
   }
   
+  /* Ombre de texte néon */
   .text-shadow-neon {
-    text-shadow: 0 0 5px rgba(166, 85, 245, 0.7), 0 0 10px rgba(166, 85, 245, 0.5);
+    text-shadow: 0 0 5px rgba(212, 9, 93, 0.7), 0 0 10px rgba(212, 9, 93, 0.5);
   }
 
+  /* Bordure néon */
+  .neon-border {
+    @apply border border-neon-red shadow-[0_0_5px_#D4095D,0_0_10px_#D4095D];
+  }
+
+  /* Effet de brillance */
   .neon-glow {
     @apply transition-all duration-300;
+  }
+  
+  /* Bouton néon */
+  .neon-button {
+    @apply bg-transparent border border-neon-red text-neon-red 
+           shadow-[0_0_5px_#D4095D,0_0_10px_#D4095D] 
+           hover:bg-neon-red hover:text-white 
+           hover:shadow-[0_0_10px_#D4095D,0_0_20px_#D4095D]
+           transition-all duration-300;
   }
 }
 
 @layer components {
   .cyberpunk-card {
     @apply bg-neon-dark bg-opacity-80 rounded-md overflow-hidden transition-all duration-300;
+  }
+  
+  /* Menu avec contour néon */
+  .neon-menu-item {
+    @apply relative px-4 py-2 text-white hover:text-neon-pink
+           after:content-[''] after:absolute after:bottom-0 after:left-1/2 
+           after:w-0 after:h-[2px] after:bg-neon-red 
+           after:transform after:-translate-x-1/2
+           after:transition-all after:duration-300
+           hover:after:w-full hover:after:shadow-[0_0_5px_#D4095D];
   }
 }
