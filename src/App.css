@@ -1,2 +1,15 @@
 
-/* Ce fichier est intentionnellement vide pour éviter les conflits de style */
+/* Styles pour les personnages flottants et les vidéos */
+.character-animate {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+/* Optimisation pour les médias locaux */
+video[src^="/My-Media/"],
+img[src^="/My-Media/"] {
+  will-change: transform, opacity;
+}
+
+/* Ce fichier est principalement vide pour éviter les conflits de style, 
+   mais contient des optimisations pour les animations */

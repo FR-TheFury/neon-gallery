@@ -7,17 +7,24 @@ interface VideoBackgroundProps {
 }
 
 const VideoBackground = ({
-  videoSrc = "/My-Media/video/cyberpunk-video.mp4",
-  fallbackImageSrc = "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80"
+  videoSrc = "/My-Media/video/cyberpunk-video.mp4", // Chemin par défaut pour la vidéo locale
+  fallbackImageSrc = "/My-Media/img/cyberpunk-fallback.jpg" // Image de secours locale
 }: VideoBackgroundProps) => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
 
   useEffect(() => {
+    // Vérifie si le fichier vidéo existe et est accessible
     const videoElement = document.createElement('video');
     videoElement.src = videoSrc;
-    videoElement.oncanplaythrough = () => setIsVideoLoaded(true);
-    videoElement.onerror = () => setVideoError(true);
+    videoElement.oncanplaythrough = () => {
+      console.log("Vidéo chargée avec succès:", videoSrc);
+      setIsVideoLoaded(true);
+    };
+    videoElement.onerror = (e) => {
+      console.error("Erreur de chargement de la vidéo:", e);
+      setVideoError(true);
+    };
 
     return () => {
       videoElement.oncanplaythrough = null;
@@ -34,19 +41,24 @@ const VideoBackground = ({
           loop
           playsInline
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${isVideoLoaded ? 'opacity-100' : 'opacity-0'}`}
+          onCanPlay={() => setIsVideoLoaded(true)}
+          onError={(e) => {
+            console.error("Erreur de lecture vidéo:", e);
+            setVideoError(true);
+          }}
         >
           <source src={videoSrc} type="video/mp4" />
-          {/* Video not supported */}
+          {/* Vidéo non supportée */}
         </video>
       )}
       
-      {/* Fallback image always loaded but hidden when video is playing correctly */}
+      {/* Image de secours toujours chargée mais cachée quand la vidéo fonctionne */}
       <div 
         className={`absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-1000 ${isVideoLoaded && !videoError ? 'opacity-0' : 'opacity-100'}`}
         style={{ backgroundImage: `url(${fallbackImageSrc})` }}
       />
       
-      {/* Gradient overlay */}
+      {/* Superposition de gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-neon-dark/30 to-neon-dark"></div>
     </div>
   );
