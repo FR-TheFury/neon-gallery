@@ -10,7 +10,7 @@ const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 bg-neon-dark bg-opacity-90 backdrop-blur-md border-b border-neon-red">
+    <div className="fixed top-0 left-0 right-0 z-50 bg-neon-dark bg-opacity-90 backdrop-blur-md border-b border-neon-red shadow-[0_0_10px_rgba(212,9,93,0.5)]">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Bouton de menu mobile */}
@@ -43,7 +43,7 @@ const Navigation = () => {
                 </NavigationMenuItem>
                 
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-transparent hover:bg-neon-dark hover:text-neon-pink">
+                  <NavigationMenuTrigger className="bg-transparent hover:bg-neon-dark hover:text-neon-pink relative after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-[2px] after:bg-neon-red after:transform after:-translate-x-1/2 after:transition-all after:duration-300 hover:after:w-full hover:after:shadow-[0_0_5px_#D4095D]">
                     Galerie
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
@@ -54,8 +54,9 @@ const Navigation = () => {
                             <Link
                               to={`/gallery/${gallery.id}`}
                               className={cn(
-                                "block select-none space-y-1 rounded-md p-3",
-                                "outline-none focus:bg-accent hover:bg-black hover:text-neon-red"
+                                "block select-none space-y-1 rounded-md p-3 relative overflow-hidden",
+                                "outline-none focus:bg-accent hover:bg-black hover:text-neon-red",
+                                "after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-neon-red after:transform after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100"
                               )}
                             >
                               {gallery.name}
@@ -70,7 +71,7 @@ const Navigation = () => {
                 <NavigationMenuItem>
                   <Link 
                     to="/about"
-                    className="neon-menu-item"
+                    className="neon-menu-item relative after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-[2px] after:bg-neon-red after:transform after:-translate-x-1/2 after:transition-all after:duration-300 hover:after:w-full hover:after:shadow-[0_0_5px_#D4095D]"
                   >
                     À propos
                   </Link>
@@ -79,7 +80,7 @@ const Navigation = () => {
                 <NavigationMenuItem>
                   <Link 
                     to="/contact"
-                    className="neon-menu-item"
+                    className="neon-menu-item relative after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-[2px] after:bg-neon-red after:transform after:-translate-x-1/2 after:transition-all after:duration-300 hover:after:w-full hover:after:shadow-[0_0_5px_#D4095D]"
                   >
                     Contact
                   </Link>
@@ -94,20 +95,20 @@ const Navigation = () => {
           <div className="md:hidden mt-4 pb-4 space-y-2 border-t border-neon-red pt-4">
             <Link 
               to="/" 
-              className="block px-4 py-2 rounded-md hover:bg-black hover:text-neon-red"
+              className="block px-4 py-2 rounded-md hover:bg-black hover:text-neon-red relative overflow-hidden after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-neon-red after:transform after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100"
               onClick={() => setIsMenuOpen(false)}
             >
               <Home className="inline-block mr-2 h-4 w-4" /> Accueil
             </Link>
             
             <div className="px-4 py-2">
-              <p className="mb-2 font-medium text-neon-red">Galeries</p>
+              <p className="mb-2 font-medium text-neon-red neon-text">Galeries</p>
               <div className="pl-4 space-y-2">
                 {galleries.map((gallery) => (
                   <Link 
                     key={gallery.id}
                     to={`/gallery/${gallery.id}`}
-                    className="block py-1 hover:text-neon-pink"
+                    className="block py-1 hover:text-neon-pink relative overflow-hidden after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-neon-pink after:transform after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {gallery.name}
@@ -118,7 +119,7 @@ const Navigation = () => {
             
             <Link 
               to="/about" 
-              className="block px-4 py-2 rounded-md hover:bg-black hover:text-neon-red"
+              className="block px-4 py-2 rounded-md hover:bg-black hover:text-neon-red relative overflow-hidden after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-neon-red after:transform after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100"
               onClick={() => setIsMenuOpen(false)}
             >
               À propos
@@ -126,7 +127,7 @@ const Navigation = () => {
             
             <Link 
               to="/contact" 
-              className="block px-4 py-2 rounded-md hover:bg-black hover:text-neon-red"
+              className="block px-4 py-2 rounded-md hover:bg-black hover:text-neon-red relative overflow-hidden after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-neon-red after:transform after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100"
               onClick={() => setIsMenuOpen(false)}
             >
               Contact

@@ -11,6 +11,7 @@ import ContactPage from "./pages/ContactPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
+import AudioPlayer from "./components/AudioPlayer";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -39,6 +40,7 @@ const App = () => (
             </Routes>
           </main>
           <Footer />
+          <AudioPlayer />
         </div>
       </BrowserRouter>
     </TooltipProvider>
