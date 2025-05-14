@@ -16,17 +16,20 @@ const ImageCard = ({ image, onClick }: ImageCardProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
-  // Utiliser IntersectionObserver pour le chargement paresseux
+  // Use IntersectionObserver for lazy loading
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
           setIsVisible(true);
+          // Start preloading as soon as the card is visible
+          const preloadImage = new Image();
+          preloadImage.src = imageUrl;
           observer.disconnect();
         }
       },
       {
-        rootMargin: "200px", // Préchargement quand l'image est à 200px de la zone visible
+        rootMargin: "200px", // Preload when image is 200px from the visible area
         threshold: 0.1
       }
     );
@@ -38,7 +41,7 @@ const ImageCard = ({ image, onClick }: ImageCardProps) => {
     return () => {
       observer.disconnect();
     };
-  }, []);
+  }, [imageUrl]);
 
   const handleImageLoad = () => {
     setIsLoading(false);
@@ -47,7 +50,7 @@ const ImageCard = ({ image, onClick }: ImageCardProps) => {
 
   const handleImageError = () => {
     if (retryCount < 3) {
-      // Retry loading the image with a new timestamp
+      // Retry loading the image with a new timestamp to prevent cache issues
       setRetryCount(prev => prev + 1);
       const timestamp = new Date().getTime();
       const newUrl = `${image.url.split('&t=')[0]}&t=${timestamp}`;
@@ -101,7 +104,7 @@ const ImageCard = ({ image, onClick }: ImageCardProps) => {
             </button>
           </div>
         ) : (
-          // Ne charger l'image que lorsqu'elle est visible ou sur le point de l'être
+          // Only load the image when it's visible or about to be visible
           isVisible && (
             <img
               src={imageUrl}
@@ -109,6 +112,8 @@ const ImageCard = ({ image, onClick }: ImageCardProps) => {
               className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
               onLoad={handleImageLoad}
               onError={handleImageError}
+              loading="lazy"
+              decoding="async"
             />
           )
         )}

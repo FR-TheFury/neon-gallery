@@ -13,7 +13,7 @@ const Navigation = () => {
     <div className="fixed top-0 left-0 right-0 z-50 bg-neon-dark bg-opacity-90 backdrop-blur-md border-b border-neon-red shadow-[0_0_10px_rgba(212,9,93,0.5)]">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          {/* Bouton de menu mobile */}
+          {/* Mobile menu button */}
           <button 
             className="md:hidden text-foreground p-2 neon-text"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -24,12 +24,12 @@ const Navigation = () => {
           {/* Logo */}
           <div className="flex-1 md:flex-none">
             <Link to="/" className="text-2xl font-bold tracking-tighter text-neon-red flex items-center neon-text">
-              <img src="/src/image/icon.png" alt="Logo" className="mr-2 h-6 w-6" />
+              <img src="/src/image/icon.png" alt="Logo" className="mr-2 h-12 w-12" />
               VRChat Gallery
             </Link>
           </div>
           
-          {/* Navigation desktop */}
+          {/* Desktop navigation */}
           <div className="hidden md:block">
             <NavigationMenu>
               <NavigationMenuList className="gap-2">
@@ -90,7 +90,7 @@ const Navigation = () => {
           </div>
         </div>
         
-        {/* Menu mobile */}
+        {/* Mobile menu */}
         {isMenuOpen && (
           <div className="md:hidden mt-4 pb-4 space-y-2 border-t border-neon-red pt-4">
             <Link 
