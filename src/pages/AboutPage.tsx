@@ -17,26 +17,22 @@ const AboutPage = () => {
       </div>
       
       <div className="pt-12 pb-16 min-h-screen bg-gradient-to-b from-neon-dark to-black relative">
-        {/* Image côté gauche */}
-        <div className="hidden lg:block absolute left-0 top-0 h-full w-1/6 overflow-hidden pointer-events-none">
-          <div className="relative h-full w-full">
-            <img 
-              src="/lovable-uploads/a477eaf9-b6df-4755-aae1-5b5d92771e94.png" 
-              alt="Left avatar"
-              className="absolute left-0 top-1/4 w-full object-contain opacity-80 neon-border"
-            />
-          </div>
+        {/* Image côté gauche - intégrée au fond */}
+        <div className="hidden lg:block absolute left-0 top-0 h-full w-1/4 overflow-hidden pointer-events-none">
+          <img 
+            src="/lovable-uploads/a477eaf9-b6df-4755-aae1-5b5d92771e94.png" 
+            alt="Left background"
+            className="absolute left-0 top-0 h-full object-contain opacity-50"
+          />
         </div>
         
-        {/* Image côté droit */}
-        <div className="hidden lg:block absolute right-0 top-0 h-full w-1/6 overflow-hidden pointer-events-none">
-          <div className="relative h-full w-full">
-            <img 
-              src="/lovable-uploads/fe070187-8a25-42dc-9734-966d76c59dcb.png" 
-              alt="Right avatar"
-              className="absolute right-0 top-2/3 w-full object-contain opacity-80 neon-border"
-            />
-          </div>
+        {/* Image côté droit - intégrée au fond */}
+        <div className="hidden lg:block absolute right-0 top-0 h-full w-1/4 overflow-hidden pointer-events-none">
+          <img 
+            src="/lovable-uploads/fe070187-8a25-42dc-9734-966d76c59dcb.png" 
+            alt="Right background"
+            className="absolute right-0 top-0 h-full object-contain opacity-50"
+          />
         </div>
         
         <div className="container mx-auto px-4 relative z-10">

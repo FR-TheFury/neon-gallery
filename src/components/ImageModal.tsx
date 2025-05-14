@@ -30,7 +30,7 @@ const ImageModal = ({ image, onClose }: ImageModalProps) => {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black">
-      <div className="relative w-screen h-screen flex flex-col items-center justify-center">
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
         <button 
           onClick={onClose}
           className="absolute top-4 right-4 z-[101] p-3 text-white hover:text-neon-purple bg-black/50 rounded-full"
@@ -49,7 +49,7 @@ const ImageModal = ({ image, onClose }: ImageModalProps) => {
         </div>
         
         <div className="absolute bottom-4 left-0 right-0 text-center bg-black/70 py-2">
-          <h3 className="text-xl font-bold text-white">{image.name}</h3>
+          <h3 className="text-xl font-bold text-neon-red neon-text">{image.name}</h3>
         </div>
       </div>
     </div>
