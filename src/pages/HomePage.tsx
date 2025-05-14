@@ -8,7 +8,6 @@ import { galleries } from "@/config/galleries";
 import { GalleryImage } from "@/types/gallery";
 import ImageCard from "@/components/ImageCard";
 import ImageModal from "@/components/ImageModal";
-import FloatingCharacter from "@/components/FloatingCharacter";
 import ThreeBackground from "@/components/ThreeBackground";
 import VideoBackground from "@/components/VideoBackground";
 
@@ -23,8 +22,6 @@ const HomePage = () => {
 
   return (
     <>
-      <FloatingCharacter />
-      
       {/* Section Hero avec Vidéo en arrière-plan */}
       <section className="relative h-screen">
         <VideoBackground />

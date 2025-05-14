@@ -7,7 +7,6 @@ import { galleries } from "@/config/galleries";
 import { GalleryImage } from "@/types/gallery";
 import ImageCard from "@/components/ImageCard";
 import ImageModal from "@/components/ImageModal";
-import FloatingCharacter from "@/components/FloatingCharacter";
 import { toast } from "@/components/ui/use-toast";
 
 const GalleryPage = () => {
@@ -40,8 +39,6 @@ const GalleryPage = () => {
 
   return (
     <>
-      <FloatingCharacter count={3} />
-      
       <div className="pt-20 pb-16 min-h-screen bg-gradient-to-b from-neon-dark to-black">
         <div className="container-fluid mx-auto px-4 max-w-full">
           <div className="mb-10 flex justify-between items-center">

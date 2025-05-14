@@ -3,6 +3,7 @@
 .character-animate {
   will-change: transform, opacity;
   backface-visibility: hidden;
+  filter: drop-shadow(0 0 10px rgba(255, 0, 128, 0.5));
 }
 
 /* Optimisation pour les médias locaux */
@@ -26,6 +27,13 @@ video, img {
 @keyframes loading-pulse {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
+}
+
+/* Animation du personnage flottant - Pour faire passer au premier plan */
+@keyframes floating-glow {
+  0% { filter: drop-shadow(0 0 5px rgba(255, 0, 128, 0.3)); }
+  50% { filter: drop-shadow(0 0 15px rgba(255, 0, 128, 0.7)); }
+  100% { filter: drop-shadow(0 0 5px rgba(255, 0, 128, 0.3)); }
 }
 
 /* Ce fichier est principalement pour les optimisations de performance */

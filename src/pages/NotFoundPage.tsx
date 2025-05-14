@@ -1,12 +1,9 @@
 
 import { Link } from "react-router-dom";
-import FloatingCharacter from "@/components/FloatingCharacter";
 
 const NotFoundPage = () => {
   return (
     <>
-      <FloatingCharacter />
-      
       <div className="flex items-center justify-center min-h-screen bg-neon-dark">
         <div className="text-center">
           <h1 className="text-6xl font-bold mb-4 neon-text animate-pulse-neon">404</h1>

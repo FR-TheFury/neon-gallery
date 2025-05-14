@@ -55,7 +55,10 @@ const FloatingCharacter = ({
       // Pré-cache de l'image sans créer un élément DOM visible
       const img = new Image();
       img.src = imageUrl;
-      img.onload = () => setImageLoaded(true);
+      img.onload = () => {
+        console.log("Character image loaded successfully!");
+        setImageLoaded(true);
+      };
       img.onerror = (e) => {
         console.error("Erreur de chargement de l'image:", e);
         // Retry with cache-busting
@@ -145,6 +148,8 @@ const FloatingCharacter = ({
   useEffect(() => {
     if (!imageLoaded) return;
     
+    console.log("Character image is loaded, starting animations");
+    
     // Premier personnage
     const initialTimeout = setTimeout(() => addCharacter(), 1000);
     
@@ -157,7 +162,7 @@ const FloatingCharacter = ({
       clearTimeout(initialTimeout);
       clearInterval(interval);
     };
-  }, [characters.length, count, imageLoaded]);
+  }, [imageLoaded]);
   
   // Crée un style d'animation personnalisé pour chaque personnage
   const createCustomAnimation = (character: CharacterPosition) => {
@@ -169,23 +174,23 @@ const FloatingCharacter = ({
       transform: 'translate(-50%, -50%)',
       width: '80px',
       height: '80px',
-      zIndex: 50
+      zIndex: 999  // Increased z-index to ensure it appears in foreground
     };
   };
   
   if (!imageLoaded) return null;
   
   return (
-    <div className="fixed w-full h-full pointer-events-none overflow-hidden">
+    <div className="fixed w-full h-full pointer-events-none overflow-hidden z-50">
       {characters.map((character) => (
-        <div key={character.id} className="absolute" style={{width: "100%", height: "100%"}}>
+        <div key={character.id} className="absolute" style={{width: "100%", height: "100%", zIndex: 999}}>
           <style>
             {`
             @keyframes custom-character-move-${character.id} {
               0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
               10% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(5deg); }
-              90% { opacity: 1; transform: translate(${character.exitPos.x}%, ${character.exitPos.y}%) scale(1) rotate(-5deg); }
-              100% { opacity: 0; transform: translate(${character.exitPos.x}%, ${character.exitPos.y}%) scale(0.8); }
+              90% { opacity: 1; transform: translate(${character.exitPos.x - character.x}%, ${character.exitPos.y - character.y}%) scale(1) rotate(-5deg); }
+              100% { opacity: 0; transform: translate(${character.exitPos.x - character.x}%, ${character.exitPos.y - character.y}%) scale(0.8); }
             }
             `}
           </style>
@@ -195,6 +200,7 @@ const FloatingCharacter = ({
             className="object-contain character-animate"
             style={createCustomAnimation(character)}
             onError={(e) => {
+              console.error("Failed to load character image, retrying...");
               // En cas d'erreur, essayer à nouveau avec un cache-busting
               const target = e.target as HTMLImageElement;
               target.src = `${imageUrl}?t=${Date.now()}`;

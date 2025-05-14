@@ -12,6 +12,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import AudioPlayer from "./components/AudioPlayer";
+import FloatingCharacter from "./components/FloatingCharacter";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,6 +32,7 @@ const App = () => (
         <div className="flex flex-col min-h-screen">
           <Navigation />
           <main className="flex-grow">
+            <FloatingCharacter />
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/gallery/:galleryId" element={<GalleryPage />} />

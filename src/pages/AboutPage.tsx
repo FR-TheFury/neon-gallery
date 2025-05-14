@@ -1,11 +1,6 @@
-
-import FloatingCharacter from "@/components/FloatingCharacter";
-
 const AboutPage = () => {
   return (
     <>
-      <FloatingCharacter count={3} />
-      
       {/* Header banner with third image */}
       <div className="relative w-full h-48 sm:h-64 md:h-72 lg:h-80 overflow-hidden">
         <img 
