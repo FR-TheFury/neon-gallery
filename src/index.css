@@ -54,21 +54,22 @@
     @apply bg-gradient-to-r from-neon-purple via-neon-pink to-neon-blue bg-clip-text text-transparent;
   }
 
+  /* Suppression des effets lumineux */
   .neon-border {
-    @apply border border-neon-purple shadow-[0_0_10px_#9b87f5,0_0_20px_rgba(155,135,245,0.5)];
+    @apply border border-neon-purple;
   }
 
   .neon-glow {
-    @apply shadow-[0_0_10px_#9b87f5,0_0_20px_rgba(155,135,245,0.5),0_0_30px_rgba(155,135,245,0.3)] transition-all duration-300;
+    @apply transition-all duration-300;
   }
 
   .neon-text {
-    @apply text-neon-purple shadow-[0_0_5px_#9b87f5,0_0_10px_#9b87f5];
+    @apply text-neon-purple;
   }
 }
 
 @layer components {
   .cyberpunk-card {
-    @apply bg-neon-dark bg-opacity-80 border border-neon-purple rounded-md overflow-hidden transition-all duration-300 hover:neon-glow;
+    @apply bg-neon-dark bg-opacity-80 border border-neon-purple rounded-md overflow-hidden transition-all duration-300;
   }
 }

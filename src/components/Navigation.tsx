@@ -23,7 +23,7 @@ const Navigation = () => {
           
           {/* Logo */}
           <div className="flex-1 md:flex-none">
-            <Link to="/" className="text-2xl font-bold tracking-tighter neon-text animate-pulse-neon">
+            <Link to="/" className="text-2xl font-bold tracking-tighter text-neon-purple">
               VRChat Gallery
             </Link>
           </div>
@@ -55,7 +55,7 @@ const Navigation = () => {
                               to={`/gallery/${gallery.id}`}
                               className={cn(
                                 "block select-none space-y-1 rounded-md p-3",
-                                "outline-none focus:bg-accent hover:bg-secondary hover:neon-text"
+                                "outline-none focus:bg-accent hover:bg-secondary hover:text-neon-purple"
                               )}
                             >
                               {gallery.name}
@@ -113,7 +113,7 @@ const Navigation = () => {
                   <Link 
                     key={gallery.id}
                     to={`/gallery/${gallery.id}`}
-                    className="block py-1 hover:neon-text"
+                    className="block py-1 hover:text-neon-purple"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {gallery.name}
