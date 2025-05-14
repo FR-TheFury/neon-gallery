@@ -31,7 +31,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
+      <BrowserRouter basename="/">
         <div className="flex flex-col min-h-screen">
           <Navigation />
           <main className="flex-grow">
