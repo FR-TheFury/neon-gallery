@@ -63,9 +63,9 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Cyberpunk neon colors - Updated to red/pink shades
+				// Updated neon colors to match the purple in the reference image
 				neon: {
-					red: '#ea384c',
+					purple: '#a655f5',
 					pink: '#D946EF',
 					rose: '#FF719A',
 					dark: '#1A1F2C'
@@ -98,7 +98,7 @@ export default {
 					'50%': { transform: 'translateY(-10px)' }
 				},
 				'pulse-neon': {
-					'0%, 100%': { textShadow: '0 0 5px #9b87f5, 0 0 10px #9b87f5, 0 0 15px #9b87f5' },
+					'0%, 100%': { textShadow: '0 0 5px #a655f5, 0 0 10px #a655f5, 0 0 15px #a655f5' },
 					'50%': { textShadow: '0 0 20px #D946EF, 0 0 30px #D946EF, 0 0 40px #D946EF' }
 				},
 				'character-move': {

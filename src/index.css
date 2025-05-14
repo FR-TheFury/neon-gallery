@@ -11,13 +11,13 @@
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 345 100% 55%;
+    --primary: 285 100% 65%;
     --primary-foreground: 0 0% 98%;
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
-    --accent: 342 100% 60%;
+    --accent: 285 100% 65%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
@@ -27,7 +27,7 @@
     --radius: 0.5rem;
     --sidebar-background: 240 10% 3.9%;
     --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 345 100% 55%;
+    --sidebar-primary: 285 100% 65%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 3.7% 15.9%;
     --sidebar-accent-foreground: 0 0% 98%;
@@ -51,16 +51,16 @@
   }
 
   .text-gradient-neon {
-    @apply bg-gradient-to-r from-neon-red via-neon-pink to-neon-rose bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-neon-purple via-neon-pink to-neon-purple bg-clip-text text-transparent;
   }
 
   /* Effet lumineux sur le texte mais pas de bordure */
   .neon-text {
-    @apply text-neon-red text-shadow-neon;
+    @apply text-neon-purple text-shadow-neon;
   }
   
   .text-shadow-neon {
-    text-shadow: 0 0 5px rgba(234, 56, 77, 0.7), 0 0 10px rgba(234, 56, 77, 0.5);
+    text-shadow: 0 0 5px rgba(166, 85, 245, 0.7), 0 0 10px rgba(166, 85, 245, 0.5);
   }
 
   .neon-glow {

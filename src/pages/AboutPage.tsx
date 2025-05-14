@@ -8,13 +8,14 @@ const AboutPage = () => {
       
       <div className="pt-20 pb-16 min-h-screen bg-gradient-to-b from-neon-dark to-black">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-5xl mx-auto">
             <h1 className="text-4xl font-bold mb-8 neon-text text-center">About Me</h1>
             
+            {/* Main profile section */}
             <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 mb-12">
               <div className="flex justify-center">
-                <div className="w-48 h-48 rounded-full overflow-hidden neon-border">
-                  {/* Replace with your avatar/profile image */}
+                <div className="w-48 h-48 rounded-full overflow-hidden border border-neon-purple">
+                  {/* Replace with avatar/profile image */}
                   <img 
                     src="https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b" 
                     alt="Profile" 
@@ -23,31 +24,58 @@ const AboutPage = () => {
                 </div>
               </div>
               
-              <div className="cyberpunk-card p-6">
-                <h2 className="text-2xl font-bold mb-4 neon-text">VRChat Photographer</h2>
+              <div className="cyberpunk-card p-6 border-l-4 border-neon-purple">
+                <h2 className="text-2xl font-bold mb-4 neon-text">Himely_Puppy</h2>
                 <p className="text-gray-300 mb-4">
-                  Welcome to my gallery! I'm a passionate VRChat photographer specializing in cyberpunk and gothic aesthetics. I love capturing unique moments and creating art within virtual worlds.
+                  Hi! I'm Himely, a virtual reality enthusiast and an untiring explorer of the VRChat worlds. My mission is to create unforgettable immersive experiences and connect with people from all over the world through this incredible platform.
                 </p>
                 <p className="text-gray-300">
-                  My work focuses on the beauty of digital spaces, the emotions they evoke, and the stories they tell. Through my photography, I aim to bridge the gap between virtual reality and artistic expression.
+                  On VRChat, I love customizing my avatars, exploring creative worlds, and most importantly, participating in community events. Every day is a new adventure, and I enjoy pushing the boundaries of what's possible in the virtual world.
                 </p>
               </div>
             </div>
             
-            <div className="cyberpunk-card p-6 mb-12">
-              <h2 className="text-2xl font-bold mb-4 neon-text">My Journey</h2>
-              <p className="text-gray-300 mb-4">
-                I started my journey as a VRChat photographer in 2020, exploring the vast possibilities of virtual photography. What began as a hobby quickly evolved into a passion as I discovered the creative freedom that virtual worlds offer.
-              </p>
-              <p className="text-gray-300 mb-4">
-                Over the years, I've developed a distinctive style that combines neon cyberpunk elements with gothic aesthetics, creating images that feel both futuristic and hauntingly beautiful.
-              </p>
-              <p className="text-gray-300">
-                My work has been featured in virtual galleries and events, and I continue to push the boundaries of what's possible in virtual photography.
-              </p>
+            {/* Featured friends and collaborators */}
+            <h2 className="text-3xl font-bold mb-6 neon-text text-center">Friends & Collaborators</h2>
+            
+            {/* First collaborator */}
+            <div className="cyberpunk-card p-6 mb-12 grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 items-center">
+              <div>
+                <h3 className="text-xl font-bold mb-2 text-neon-pink">BaBimm !</h3>
+                <h4 className="text-2xl font-bold mb-4 neon-text">My Baby Boy &lt;3</h4>
+                <p className="text-gray-300 mb-4">
+                  I realized that I had found the Baby Boy of my life. BaBimm is not just my partner but my soulmate, someone who brings warmth and happiness to every moment of my life. Since that day, my world has been brighter, filled with love, and I can't wait to share more beautiful memories together.
+                </p>
+              </div>
+              <div className="rounded-md overflow-hidden border border-neon-pink">
+                <img 
+                  src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6" 
+                  alt="BaBimm" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
             
-            <div className="cyberpunk-card p-6">
+            {/* Second collaborator */}
+            <div className="cyberpunk-card p-6 mb-12 grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 items-center">
+              <div>
+                <h3 className="text-xl font-bold mb-2 text-neon-pink">MisterPandas !</h3>
+                <h4 className="text-2xl font-bold mb-4 neon-text">My Buddy Photographer</h4>
+                <p className="text-gray-300 mb-4">
+                  MisterPandas is the talented photographer behind all the photos and GIFs on my site. His passion for capturing the perfect moments has made my VR experiences shine like never before. Every shot tells a story, and I am forever grateful for his amazing work and artistic vision.
+                </p>
+              </div>
+              <div className="rounded-md overflow-hidden border border-neon-pink">
+                <img 
+                  src="https://images.unsplash.com/photo-1555952494-efd681c7e3f9" 
+                  alt="MisterPandas" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+            
+            {/* Equipment & Techniques Section */}
+            <div className="cyberpunk-card p-6 border-l-4 border-neon-purple">
               <h2 className="text-2xl font-bold mb-4 neon-text">Equipment & Techniques</h2>
               <p className="text-gray-300 mb-4">
                 While traditional photographers rely on physical cameras and lenses, my craft utilizes advanced camera tools within VRChat, combined with post-processing techniques to enhance and perfect each image.

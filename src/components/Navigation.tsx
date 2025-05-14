@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 import { galleries } from "@/config/galleries";
-import { Home, Menu } from "lucide-react";
+import { Home, Menu, Headset } from "lucide-react";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,7 +23,8 @@ const Navigation = () => {
           
           {/* Logo */}
           <div className="flex-1 md:flex-none">
-            <Link to="/" className="text-2xl font-bold tracking-tighter text-neon-red">
+            <Link to="/" className="text-2xl font-bold tracking-tighter text-neon-purple flex items-center">
+              <Headset className="mr-2 h-6 w-6" />
               VRChat Gallery
             </Link>
           </div>
@@ -55,7 +56,7 @@ const Navigation = () => {
                               to={`/gallery/${gallery.id}`}
                               className={cn(
                                 "block select-none space-y-1 rounded-md p-3",
-                                "outline-none focus:bg-accent hover:bg-secondary hover:text-neon-red"
+                                "outline-none focus:bg-accent hover:bg-secondary hover:text-neon-purple"
                               )}
                             >
                               {gallery.name}
@@ -113,7 +114,7 @@ const Navigation = () => {
                   <Link 
                     key={gallery.id}
                     to={`/gallery/${gallery.id}`}
-                    className="block py-1 hover:text-neon-red"
+                    className="block py-1 hover:text-neon-purple"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {gallery.name}
