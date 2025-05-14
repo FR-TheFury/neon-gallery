@@ -10,150 +10,129 @@ interface CharacterPosition {
   id: number;
   x: number;
   y: number;
-  edge: number;
-  exitPos: {x: number, y: number};
+  destinationX: number;
+  destinationY: number;
   duration: number;
 }
 
 const FloatingCharacter = ({
-  imageUrl = "/src/image/character.png", // Image stockée en local pour éviter les requêtes externes
-  count = 2 // Nombre de personnages simultanés
+  imageUrl = "/src/image/character.png",
+  count = 2
 }: FloatingCharacterProps) => {
   const [characters, setCharacters] = useState<CharacterPosition[]>([]);
   const [imageLoaded, setImageLoaded] = useState(false);
-  const imageRef = useRef<HTMLImageElement | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   
-  // Précharger l'image pour garantir qu'elle est disponible avant l'animation
+  // Preload image
   useEffect(() => {
-    // Utiliser l'image déjà préchargée si elle existe dans le DOM
-    if (imageRef.current) {
-      if (imageRef.current.complete) {
-        setImageLoaded(true);
-      } else {
-        const handleLoad = () => setImageLoaded(true);
-        const handleError = (e: ErrorEvent) => {
-          console.error("Erreur de chargement de l'image:", e);
-          // Essayer de charger à nouveau après un délai
-          setTimeout(() => {
-            if (imageRef.current) {
-              imageRef.current.src = `${imageUrl}?t=${Date.now()}`;
-            }
-          }, 1000);
-        };
-        
-        imageRef.current.addEventListener('load', handleLoad);
-        imageRef.current.addEventListener('error', handleError);
-        
-        return () => {
-          if (imageRef.current) {
-            imageRef.current.removeEventListener('load', handleLoad);
-            imageRef.current.removeEventListener('error', handleError);
-          }
-        };
-      }
-    } else {
-      // Pré-cache de l'image sans créer un élément DOM visible
-      const img = new Image();
-      img.src = imageUrl;
-      img.onload = () => {
-        console.log("Character image loaded successfully!");
-        setImageLoaded(true);
-      };
-      img.onerror = (e) => {
-        console.error("Erreur de chargement de l'image:", e);
-        // Retry with cache-busting
-        setTimeout(() => {
-          img.src = `${imageUrl}?t=${Date.now()}`;
-        }, 1000);
-      };
-      
-      imageRef.current = img;
-      
-      return () => {
-        img.onload = null;
-        img.onerror = null;
-        imageRef.current = null;
-      };
-    }
+    const img = new Image();
+    img.src = imageUrl;
+    img.onload = () => {
+      console.log("Character image successfully preloaded!");
+      setImageLoaded(true);
+    };
+    img.onerror = () => {
+      console.error("Failed to load character image");
+      // Try with a timestamp to avoid caching issues
+      img.src = `${imageUrl}?t=${Date.now()}`;
+    };
   }, [imageUrl]);
   
-  // Fonction pour générer une position aléatoire
-  const getRandomPosition = () => {
-    // Décide d'une entrée aléatoire (haut, bas, gauche, droite)
-    const edge = Math.floor(Math.random() * 4);
-    let x = 0, y = 0; // Position par défaut
+  // Function to generate random entry and exit points
+  const generateRandomPath = () => {
+    // Determine entry edge (0=top, 1=right, 2=bottom, 3=left)
+    const entryEdge = Math.floor(Math.random() * 4);
+    let entryX = 0, entryY = 0;
     
-    switch(edge) {
-      case 0: // Gauche
-        x = -10;
-        y = Math.random() * 80 + 10; // 10% à 90% de la hauteur
+    // Calculate entry position
+    switch(entryEdge) {
+      case 0: // top
+        entryX = Math.random() * 100;
+        entryY = -10;
         break;
-      case 1: // Droite
-        x = 110;
-        y = Math.random() * 80 + 10;
+      case 1: // right
+        entryX = 110;
+        entryY = Math.random() * 100;
         break;
-      case 2: // Haut
-        x = Math.random() * 100;
-        y = -10;
+      case 2: // bottom
+        entryX = Math.random() * 100;
+        entryY = 110;
         break;
-      case 3: // Bas
-        x = Math.random() * 100;
-        y = 110;
+      case 3: // left
+        entryX = -10;
+        entryY = Math.random() * 100;
         break;
     }
     
-    const exitPos = getExitPosition(edge);
-    const duration = Math.random() * 5000 + 8000; // Entre 8 et 13 secondes
+    // Determine exit edge (different from entry)
+    let exitEdge = (entryEdge + 2) % 4; // Get opposite side by default
+    if (Math.random() > 0.5) {
+      // Sometimes use an adjacent edge
+      exitEdge = (exitEdge + (Math.random() > 0.5 ? 1 : 3)) % 4;
+    }
     
-    return { 
+    let exitX = 0, exitY = 0;
+    
+    // Calculate exit position
+    switch(exitEdge) {
+      case 0: // top
+        exitX = Math.random() * 100;
+        exitY = -10;
+        break;
+      case 1: // right
+        exitX = 110;
+        exitY = Math.random() * 100;
+        break;
+      case 2: // bottom
+        exitX = Math.random() * 100;
+        exitY = 110;
+        break;
+      case 3: // left
+        exitX = -10;
+        exitY = Math.random() * 100;
+        break;
+    }
+    
+    // Calculate a reasonable duration based on distance
+    const distance = Math.sqrt(Math.pow(exitX - entryX, 2) + Math.pow(exitY - entryY, 2));
+    const duration = 5000 + (distance * 50); // 5sec base + distance factor
+    
+    return {
       id: Date.now() + Math.random(), 
-      x, 
-      y, 
-      edge, 
-      exitPos,
+      x: entryX, 
+      y: entryY,
+      destinationX: exitX,
+      destinationY: exitY,
       duration
     };
   };
   
-  // Détermine la direction de sortie en fonction de l'entrée
-  const getExitPosition = (entryEdge: number) => {
-    // Directions opposées pour une traversée diagonale
-    switch(entryEdge) {
-      case 0: // Si entre par la gauche, sort par la droite ou en bas
-        return Math.random() > 0.5 ? { x: 110, y: Math.random() * 100 } : { x: Math.random() * 100, y: 110 };
-      case 1: // Si entre par la droite, sort par la gauche ou en haut
-        return Math.random() > 0.5 ? { x: -10, y: Math.random() * 100 } : { x: Math.random() * 100, y: -10 };
-      case 2: // Si entre par le haut, sort par le bas ou à droite
-        return Math.random() > 0.5 ? { x: Math.random() * 100, y: 110 } : { x: 110, y: Math.random() * 100 };
-      case 3: // Si entre par le bas, sort par le haut ou à gauche
-        return Math.random() > 0.5 ? { x: Math.random() * 100, y: -10 } : { x: -10, y: Math.random() * 100 };
-      default:
-        return { x: 110, y: 50 };
-    }
-  };
-  
-  // Ajouter un nouveau personnage
+  // Add a new character
   const addCharacter = () => {
-    if (characters.length < count && imageLoaded) {
-      const newPosition = getRandomPosition();
-      setCharacters(prev => [...prev, newPosition]);
-      
-      // Supprimer après l'animation
-      setTimeout(() => {
-        setCharacters(prev => prev.filter(char => char.id !== newPosition.id));
-      }, newPosition.duration);
-    }
+    if (!imageLoaded || characters.length >= count) return;
+    
+    const newCharacter = generateRandomPath();
+    
+    setCharacters(prev => [...prev, newCharacter]);
+    
+    // Remove character after animation completes
+    setTimeout(() => {
+      setCharacters(prev => prev.filter(char => char.id !== newCharacter.id));
+    }, newCharacter.duration);
   };
   
+  // Initialization and interval for adding characters
   useEffect(() => {
     if (!imageLoaded) return;
     
-    console.log("Character image is loaded, starting animations");
+    console.log("Starting character animations");
     
-    // Premier personnage
-    const initialTimeout = setTimeout(() => addCharacter(), 1000);
+    // Add first character
+    const initialTimeout = setTimeout(() => {
+      addCharacter();
+    }, 1000);
     
-    // Intervalle pour ajouter des personnages régulièrement
+    // Add characters periodically
     const interval = setInterval(() => {
       addCharacter();
     }, 5000);
@@ -164,58 +143,53 @@ const FloatingCharacter = ({
     };
   }, [imageLoaded]);
   
-  // Crée un style d'animation personnalisé pour chaque personnage
-  const createCustomAnimation = (character: CharacterPosition) => {
-    return {
-      animation: `custom-character-move-${character.id} ${character.duration / 1000}s linear forwards`,
-      position: 'absolute' as const,
-      left: `${character.x}%`,
-      top: `${character.y}%`,
-      transform: 'translate(-50%, -50%)',
-      width: '80px',
-      height: '80px',
-      zIndex: 999  // Increased z-index to ensure it appears in foreground
-    };
-  };
-  
-  if (!imageLoaded) return null;
+  if (!imageLoaded) {
+    return null;
+  }
   
   return (
-    <div className="fixed w-full h-full pointer-events-none overflow-hidden z-50">
+    <div 
+      ref={containerRef} 
+      className="fixed inset-0 w-full h-full pointer-events-none overflow-hidden z-50"
+    >
       {characters.map((character) => (
-        <div key={character.id} className="absolute" style={{width: "100%", height: "100%", zIndex: 999}}>
+        <div key={character.id} className="absolute inset-0">
           <style>
             {`
-            @keyframes custom-character-move-${character.id} {
-              0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
-              10% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(5deg); }
-              90% { opacity: 1; transform: translate(${character.exitPos.x - character.x}%, ${character.exitPos.y - character.y}%) scale(1) rotate(-5deg); }
-              100% { opacity: 0; transform: translate(${character.exitPos.x - character.x}%, ${character.exitPos.y - character.y}%) scale(0.8); }
+            @keyframes character-move-${character.id} {
+              0% { 
+                opacity: 0; 
+                transform: translate(${character.x}vw, ${character.y}vh) scale(0.8);
+              }
+              10% { 
+                opacity: 1; 
+                transform: translate(${character.x}vw, ${character.y}vh) scale(1) rotate(5deg);
+              }
+              90% { 
+                opacity: 1; 
+                transform: translate(${character.destinationX}vw, ${character.destinationY}vh) scale(1) rotate(-5deg);
+              }
+              100% { 
+                opacity: 0; 
+                transform: translate(${character.destinationX}vw, ${character.destinationY}vh) scale(0.8);
+              }
             }
             `}
           </style>
           <img 
             src={imageUrl}
-            alt="Character"
-            className="object-contain character-animate"
-            style={createCustomAnimation(character)}
-            onError={(e) => {
-              console.error("Failed to load character image, retrying...");
-              // En cas d'erreur, essayer à nouveau avec un cache-busting
-              const target = e.target as HTMLImageElement;
-              target.src = `${imageUrl}?t=${Date.now()}`;
+            alt="Floating Character"
+            className="absolute character-animate"
+            style={{
+              width: '80px', 
+              height: '80px',
+              zIndex: 9999,
+              animation: `character-move-${character.id} ${character.duration / 1000}s linear forwards`,
+              filter: 'drop-shadow(0 0 10px rgba(255, 0, 128, 0.7))'
             }}
           />
         </div>
       ))}
-      
-      {/* Image cachée pour préchargement */}
-      <img 
-        src={imageUrl} 
-        alt="Preload" 
-        style={{ display: 'none' }} 
-        ref={imageRef}
-      />
     </div>
   );
 };

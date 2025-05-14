@@ -14,7 +14,7 @@ import VideoBackground from "@/components/VideoBackground";
 const HomePage = () => {
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
   
-  // Récupération des images récentes
+  // Fetch recent images
   const { data: recentImages = [], isLoading } = useQuery({
     queryKey: ["recentImages"],
     queryFn: () => fetchImagesFromFolder(galleries[0].folderId),
@@ -22,7 +22,7 @@ const HomePage = () => {
 
   return (
     <>
-      {/* Section Hero avec Vidéo en arrière-plan */}
+      {/* Hero Section with Video Background */}
       <section className="relative h-screen">
         <VideoBackground />
         <ThreeBackground />
@@ -57,7 +57,7 @@ const HomePage = () => {
         </div>
       </section>
       
-      {/* Section Photos Récentes */}
+      {/* Recent Photos Section */}
       <section className="py-16 bg-neon-dark relative">
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex justify-between items-center mb-10">
@@ -98,7 +98,7 @@ const HomePage = () => {
         </div>
       </section>
       
-      {/* Catégories de Galerie */}
+      {/* Gallery Categories */}
       <section className="py-16 bg-gradient-to-b from-neon-dark to-black">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold mb-10 text-center neon-text">Catégories de Galerie</h2>
@@ -123,7 +123,7 @@ const HomePage = () => {
         </div>
       </section>
       
-      {/* Modal d'image */}
+      {/* Image Modal */}
       {selectedImage && (
         <ImageModal 
           image={selectedImage} 
