@@ -100,7 +100,7 @@ const AudioPlayer = () => {
 
   return (
     <div className="fixed left-4 bottom-4 z-40 bg-neon-dark bg-opacity-90 backdrop-blur-sm p-4 rounded-lg border border-neon-red neon-border w-72">
-      <audio ref={audioRef} src="/music/background.mp3" preload="metadata" />
+      <audio ref={audioRef} src="/src/music/background.mp3" preload="metadata" />
       
       <div className="flex items-center justify-between mb-2">
         <div className="text-sm font-medium text-neon-red truncate">Musique de fond</div>
