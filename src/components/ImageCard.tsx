@@ -12,6 +12,7 @@ const ImageCard = ({ image, onClick }: ImageCardProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
+  const [imageUrl, setImageUrl] = useState(image.url);
 
   const handleImageLoad = () => {
     setIsLoading(false);
@@ -20,10 +21,11 @@ const ImageCard = ({ image, onClick }: ImageCardProps) => {
 
   const handleImageError = () => {
     if (retryCount < 3) {
-      // Retry loading the image up to 3 times
+      // Retry loading the image with a new timestamp
       setRetryCount(prev => prev + 1);
       const timestamp = new Date().getTime();
-      image.url = `${image.url}&timestamp=${timestamp}`;
+      const newUrl = `${image.url.split('&t=')[0]}&t=${timestamp}`;
+      setImageUrl(newUrl);
     } else {
       setIsLoading(false);
       setHasError(true);
@@ -31,8 +33,8 @@ const ImageCard = ({ image, onClick }: ImageCardProps) => {
   };
 
   const handleClick = () => {
-    if (onClick) {
-      onClick(image);
+    if (onClick && !hasError) {
+      onClick({...image, url: imageUrl});
     }
   };
 
@@ -42,7 +44,8 @@ const ImageCard = ({ image, onClick }: ImageCardProps) => {
     setHasError(false);
     setRetryCount(0);
     const timestamp = new Date().getTime();
-    image.url = `${image.url}&timestamp=${timestamp}`;
+    const newUrl = `${image.url.split('&t=')[0]}&t=${timestamp}`;
+    setImageUrl(newUrl);
   };
 
   return (
@@ -72,7 +75,7 @@ const ImageCard = ({ image, onClick }: ImageCardProps) => {
           </div>
         ) : (
           <img
-            src={image.url}
+            src={imageUrl}
             alt={image.name}
             className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
             onLoad={handleImageLoad}

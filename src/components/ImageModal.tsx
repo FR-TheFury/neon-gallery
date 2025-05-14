@@ -11,9 +11,10 @@ const ImageModal = ({ image, onClose }: ImageModalProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isZoomed, setIsZoomed] = useState(false);
   const [errorLoading, setErrorLoading] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
   
   // Use the higher quality image for full screen display
-  const fullSizeUrl = image ? image.url.replace('sz=w1000', 'sz=w2000') : '';
+  const fullSizeUrl = image ? image.url.replace('sz=w1000', 'sz=w3000') : '';
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -43,8 +44,28 @@ const ImageModal = ({ image, onClose }: ImageModalProps) => {
   };
 
   const handleImageError = () => {
-    setIsLoading(false);
-    setErrorLoading(true);
+    if (retryCount < 3) {
+      setRetryCount(prev => prev + 1);
+      // Try loading again with a new timestamp
+      const timestamp = new Date().getTime();
+      const img = new Image();
+      img.src = `${fullSizeUrl}&timestamp=${timestamp}`;
+      img.onload = () => {
+        setIsLoading(false);
+        setErrorLoading(false);
+        // Update the image source with the successful URL
+        document.getElementById('modal-image')?.setAttribute('src', img.src);
+      };
+      img.onerror = () => {
+        if (retryCount >= 2) {
+          setIsLoading(false);
+          setErrorLoading(true);
+        }
+      };
+    } else {
+      setIsLoading(false);
+      setErrorLoading(true);
+    }
   };
 
   const toggleZoom = (e: React.MouseEvent) => {
@@ -52,6 +73,26 @@ const ImageModal = ({ image, onClose }: ImageModalProps) => {
       e.stopPropagation();
       setIsZoomed(!isZoomed);
     }
+  };
+
+  const retryLoadImage = () => {
+    setIsLoading(true);
+    setErrorLoading(false);
+    setRetryCount(0);
+    // Force reload image with timestamp
+    const timestamp = new Date().getTime();
+    const newUrl = `${fullSizeUrl}&timestamp=${timestamp}`;
+    
+    const img = new Image();
+    img.src = newUrl;
+    img.onload = () => {
+      setIsLoading(false);
+      // Update the image source with the successful URL
+      document.getElementById('modal-image')?.setAttribute('src', newUrl);
+    };
+    img.onerror = () => {
+      handleImageError();
+    };
   };
 
   if (!image) return null;
@@ -89,12 +130,7 @@ const ImageModal = ({ image, onClose }: ImageModalProps) => {
               className="px-4 py-2 bg-neon-red text-white rounded-md hover:bg-neon-pink transition-colors"
               onClick={(e) => {
                 e.stopPropagation();
-                setIsLoading(true);
-                setErrorLoading(false);
-                // Force reload image with timestamp
-                const timestamp = new Date().getTime();
-                const img = document.createElement('img');
-                img.src = `${fullSizeUrl}&timestamp=${timestamp}`;
+                retryLoadImage();
               }}
             >
               Retry
@@ -102,10 +138,11 @@ const ImageModal = ({ image, onClose }: ImageModalProps) => {
           </div>
         ) : (
           <img
+            id="modal-image"
             src={fullSizeUrl}
             alt={image.name}
             className={`
-              ${isZoomed ? 'max-w-none max-h-none w-auto h-auto' : 'max-w-[95vw] max-h-[90vh] w-auto h-auto'} 
+              ${isZoomed ? 'max-w-none max-h-none w-auto h-auto' : 'max-w-[95vw] max-h-[95vh] w-auto h-auto'} 
               object-contain transition-transform duration-300
               ${isLoading ? 'opacity-0' : 'opacity-100'}
             `}

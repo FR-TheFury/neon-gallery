@@ -1,5 +1,6 @@
 
 import { GalleryImage } from "@/types/gallery";
+import { toast } from "@/components/ui/use-toast";
 
 const API_KEY = "AIzaSyB5WsFxRU6G95rjFliPZM0suaRTfrCu0xI";
 const FALLBACK_IMAGES = [
@@ -22,6 +23,37 @@ interface DriveResponse {
   nextPageToken?: string;
 }
 
+// Implement a retry function with exponential backoff
+const fetchWithRetry = async (url: string, options: RequestInit, retries = 3, delay = 1000) => {
+  try {
+    const response = await fetch(url, options);
+    if (response.ok) return response;
+    
+    if (response.status === 403 || response.status === 429) {
+      // Handle rate limiting specifically
+      console.warn(`Rate limited or forbidden (${response.status}), retrying...`);
+      toast({
+        title: "Loading images...",
+        description: "Please wait while we retrieve your images",
+        duration: 3000,
+      });
+      
+      if (retries > 0) {
+        await new Promise(resolve => setTimeout(resolve, delay));
+        return fetchWithRetry(url, options, retries - 1, delay * 2);
+      }
+    }
+    
+    return response; // Return the response even if it's an error after retries
+  } catch (error) {
+    if (retries > 0) {
+      await new Promise(resolve => setTimeout(resolve, delay));
+      return fetchWithRetry(url, options, retries - 1, delay * 2);
+    }
+    throw error;
+  }
+};
+
 export const fetchImagesFromFolder = async (
   folderId: string,
   isGifGallery: boolean = false
@@ -30,19 +62,24 @@ export const fetchImagesFromFolder = async (
     // First try to load from Google Drive
     const url = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents`
       + `&key=${API_KEY}&fields=nextPageToken,files(id,name,mimeType)`
-      + `&pageSize=100`; // Increased pageSize to load more images
+      + `&pageSize=1000`; // Increased to get all images at once
 
-    // Add a random query param to avoid caching issues
+    // Add a cache-busting parameter
     const timestamp = new Date().getTime();
     const urlWithTimestamp = `${url}&timestamp=${timestamp}`;
 
-    const response = await fetch(urlWithTimestamp, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
+    const response = await fetchWithRetry(
+      urlWithTimestamp,
+      {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+        },
+        cache: 'no-store',
       },
-      cache: 'no-store',
-    });
+      3, // 3 retries
+      1000 // 1 second initial delay
+    );
 
     // If Google Drive request is successful
     if (response.ok) {
@@ -50,6 +87,11 @@ export const fetchImagesFromFolder = async (
       
       if (!data.files || data.files.length === 0) {
         console.warn(`No images found in folder ${folderId}, using fallbacks`);
+        toast({
+          title: "No images found",
+          description: "Using placeholder images instead",
+          variant: "destructive",
+        });
         return createFallbackImages();
       }
 
@@ -66,10 +108,20 @@ export const fetchImagesFromFolder = async (
     } else {
       // Handle 403 errors or other issues
       console.warn(`Error fetching from Google Drive: ${response.status}, using fallbacks`);
+      toast({
+        title: "Error loading images",
+        description: "Could not load images from Google Drive",
+        variant: "destructive",
+      });
       return createFallbackImages();
     }
   } catch (error) {
     console.error(`Error fetching images from folder ${folderId}:`, error);
+    toast({
+      title: "Error loading images",
+      description: "An unexpected error occurred",
+      variant: "destructive",
+    });
     return createFallbackImages();
   }
 };

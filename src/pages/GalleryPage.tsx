@@ -8,6 +8,7 @@ import { GalleryImage } from "@/types/gallery";
 import ImageCard from "@/components/ImageCard";
 import ImageModal from "@/components/ImageModal";
 import FloatingCharacter from "@/components/FloatingCharacter";
+import { toast } from "@/components/ui/use-toast";
 
 const GalleryPage = () => {
   const { galleryId } = useParams<{ galleryId: string }>();
@@ -21,7 +22,7 @@ const GalleryPage = () => {
   
   const isGifGallery = gallery.id === "galleryGif";
   
-  const { data: images = [], isLoading, error } = useQuery({
+  const { data: images = [], isLoading, error, refetch } = useQuery({
     queryKey: ["gallery", gallery.id],
     queryFn: () => fetchImagesFromFolder(gallery.folderId, isGifGallery),
     staleTime: 1000 * 60 * 5, // 5 minutes
@@ -29,17 +30,33 @@ const GalleryPage = () => {
     refetchOnMount: true,
   });
 
+  const handleRefresh = () => {
+    toast({
+      title: "Refreshing gallery",
+      description: "Please wait while we fetch the latest images",
+    });
+    refetch();
+  };
+
   return (
     <>
       <FloatingCharacter count={3} />
       
       <div className="pt-20 pb-16 min-h-screen bg-gradient-to-b from-neon-dark to-black">
         <div className="container-fluid mx-auto px-4 max-w-full">
-          <div className="mb-10">
-            <h1 className="text-4xl font-bold mb-4 neon-text">{gallery.name}</h1>
-            <p className="text-lg text-gray-300">
-              Explore my {gallery.name.toLowerCase()} collection of VRChat photography.
-            </p>
+          <div className="mb-10 flex justify-between items-center">
+            <div>
+              <h1 className="text-4xl font-bold mb-4 neon-text">{gallery.name}</h1>
+              <p className="text-lg text-gray-300">
+                Explore my {gallery.name.toLowerCase()} collection of VRChat photography.
+              </p>
+            </div>
+            <button
+              onClick={handleRefresh}
+              className="px-4 py-2 bg-neon-purple hover:bg-neon-pink text-white rounded-md transition-colors"
+            >
+              Refresh Gallery
+            </button>
           </div>
           
           {isLoading ? (
@@ -50,7 +67,7 @@ const GalleryPage = () => {
             <div className="text-center py-20">
               <p className="text-red-400 mb-4">Failed to load gallery</p>
               <button 
-                onClick={() => window.location.reload()}
+                onClick={() => refetch()}
                 className="px-4 py-2 bg-neon-red text-white rounded-md hover:bg-neon-pink transition-colors"
               >
                 Try Again
@@ -61,7 +78,7 @@ const GalleryPage = () => {
               <p className="text-gray-400">No images found in this gallery</p>
             </div>
           ) : (
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 md:gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2">
               {images.map((image) => (
                 <div key={image.id} className="aspect-square">
                   <ImageCard 
