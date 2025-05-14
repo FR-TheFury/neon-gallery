@@ -26,6 +26,8 @@ jobs:
       - name: Build the site
         run: npm run build
 
+      # These steps are kept but will be redundant since the files will already be in the build
+      # through the public folder, but we keep them as a safety measure
       - name: Add CNAME file
         run: echo 'www.himely-puppy.ovh' > dist/CNAME
 
