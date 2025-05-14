@@ -64,6 +64,11 @@
     text-shadow: 0 0 5px rgba(212, 9, 93, 0.7), 0 0 10px rgba(212, 9, 93, 0.5);
   }
 
+  /* Ombre de texte néon douce */
+  .text-shadow-soft {
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.4), 0 0 7px rgba(212, 9, 93, 0.3);
+  }
+
   /* Bordure néon */
   .neon-border {
     @apply border border-neon-red shadow-[0_0_5px_#D4095D,0_0_10px_#D4095D];
