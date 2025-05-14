@@ -14,11 +14,14 @@ import Footer from "./components/Footer";
 import AudioPlayer from "./components/AudioPlayer";
 import FloatingCharacter from "./components/FloatingCharacter";
 
+// Créer un client de requête avec des options par défaut optimisées
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
       staleTime: 1000 * 60 * 5, // 5 minutes
+      retry: 1, // Réduire le nombre de tentatives pour éviter les charges inutiles
+      networkMode: 'online', // Ne pas retenter si hors ligne
     },
   },
 });

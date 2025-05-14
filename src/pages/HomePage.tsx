@@ -10,21 +10,27 @@ import ImageCard from "@/components/ImageCard";
 import ImageModal from "@/components/ImageModal";
 import ThreeBackground from "@/components/ThreeBackground";
 import VideoBackground from "@/components/VideoBackground";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const HomePage = () => {
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
+  const isMobile = useIsMobile();
   
-  // Fetch recent images
+  // Fetch recent images avec options optimisées
   const { data: recentImages = [], isLoading } = useQuery({
     queryKey: ["recentImages"],
     queryFn: () => fetchImagesFromFolder(galleries[0].folderId),
+    staleTime: 1000 * 60 * 15, // 15 minutes
   });
 
   return (
     <>
       {/* Hero Section with Video Background */}
       <section className="relative h-screen">
-        <VideoBackground />
+        <VideoBackground 
+          quality={isMobile ? 'low' : 'medium'}
+          lowPerformanceMode={isMobile} 
+        />
         <ThreeBackground />
         
         <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
@@ -80,7 +86,7 @@ const HomePage = () => {
               className="w-full"
             >
               <CarouselContent className="-ml-4">
-                {recentImages.slice(0, 10).map((image) => (
+                {recentImages.slice(0, isMobile ? 6 : 10).map((image) => (
                   <CarouselItem key={image.id} className="pl-4 md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
                     <ImageCard 
                       image={image} 

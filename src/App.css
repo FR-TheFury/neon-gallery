@@ -4,17 +4,21 @@
   will-change: transform, opacity;
   backface-visibility: hidden;
   filter: drop-shadow(0 0 10px rgba(255, 0, 128, 0.5));
+  transform-style: preserve-3d; /* Améliore le rendu des animations 3D */
 }
 
 /* Optimisation pour les médias locaux */
 video[src^="/"], 
 img[src^="/"] {
   will-change: transform, opacity;
+  contain: paint; /* Limite la zone de repeinture pour améliorer les performances */
 }
 
 /* Optimisations pour éviter les requêtes inutiles et améliorer le chargement */
 video, img {
   backface-visibility: hidden;
+  content-visibility: auto; /* Améliore le rendu en ne rendant que ce qui est visible */
+  contain-intrinsic-size: 100%; /* Aide le navigateur à gérer la taille avant chargement */
 }
 
 /* Placeholder pour les médias en chargement */
@@ -36,4 +40,38 @@ video, img {
   100% { filter: drop-shadow(0 0 5px rgba(255, 0, 128, 0.3)); }
 }
 
-/* Ce fichier est principalement pour les optimisations de performance */
+/* Optimisations spécifiques pour éviter les lags */
+.video-container {
+  transform: translateZ(0);
+  will-change: opacity;
+}
+
+/* Optimisation pour les appareils à faible performance */
+@media screen and (prefers-reduced-motion: reduce) {
+  .character-animate {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  .video-container video {
+    display: none;
+  }
+  
+  .video-container .fallback-image {
+    display: block;
+  }
+}
+
+/* Performance monitoring styles */
+.performance-indicator {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(0,0,0,0.7);
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 10px;
+  color: white;
+  z-index: 9999;
+  display: none;
+}
