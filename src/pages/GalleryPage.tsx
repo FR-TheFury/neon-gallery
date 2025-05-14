@@ -24,6 +24,9 @@ const GalleryPage = () => {
   const { data: images = [], isLoading, error } = useQuery({
     queryKey: ["gallery", gallery.id],
     queryFn: () => fetchImagesFromFolder(gallery.folderId, isGifGallery),
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    refetchOnWindowFocus: false,
+    refetchOnMount: true,
   });
 
   return (
@@ -46,13 +49,19 @@ const GalleryPage = () => {
           ) : error ? (
             <div className="text-center py-20">
               <p className="text-red-400 mb-4">Failed to load gallery</p>
+              <button 
+                onClick={() => window.location.reload()}
+                className="px-4 py-2 bg-neon-red text-white rounded-md hover:bg-neon-pink transition-colors"
+              >
+                Try Again
+              </button>
             </div>
           ) : images.length === 0 ? (
             <div className="text-center py-20">
               <p className="text-gray-400">No images found in this gallery</p>
             </div>
           ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-6">
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 md:gap-3">
               {images.map((image) => (
                 <div key={image.id} className="aspect-square">
                   <ImageCard 

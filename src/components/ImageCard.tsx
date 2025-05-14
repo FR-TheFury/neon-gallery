@@ -11,20 +11,38 @@ interface ImageCardProps {
 const ImageCard = ({ image, onClick }: ImageCardProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
 
   const handleImageLoad = () => {
     setIsLoading(false);
+    setHasError(false);
   };
 
   const handleImageError = () => {
-    setIsLoading(false);
-    setHasError(true);
+    if (retryCount < 3) {
+      // Retry loading the image up to 3 times
+      setRetryCount(prev => prev + 1);
+      const timestamp = new Date().getTime();
+      image.url = `${image.url}&timestamp=${timestamp}`;
+    } else {
+      setIsLoading(false);
+      setHasError(true);
+    }
   };
 
   const handleClick = () => {
     if (onClick) {
       onClick(image);
     }
+  };
+
+  // Retry loading the image with a slight delay
+  const retryImage = () => {
+    setIsLoading(true);
+    setHasError(false);
+    setRetryCount(0);
+    const timestamp = new Date().getTime();
+    image.url = `${image.url}&timestamp=${timestamp}`;
   };
 
   return (
@@ -35,13 +53,22 @@ const ImageCard = ({ image, onClick }: ImageCardProps) => {
       <div className="relative aspect-square overflow-hidden">
         {isLoading && (
           <div className="absolute inset-0 flex items-center justify-center bg-neon-dark">
-            <div className="w-8 h-8 border-3 border-t-neon-red rounded-full animate-spin"></div>
+            <div className="w-6 h-6 border-2 border-t-neon-red rounded-full animate-spin"></div>
           </div>
         )}
         
         {hasError ? (
-          <div className="absolute inset-0 flex items-center justify-center bg-neon-dark">
-            <p className="text-xs text-red-400">Failed to load</p>
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-neon-dark">
+            <p className="text-xs text-red-400 mb-2">Failed to load</p>
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                retryImage();
+              }}
+              className="text-xs px-2 py-1 bg-neon-red text-white rounded-sm hover:bg-neon-pink"
+            >
+              Retry
+            </button>
           </div>
         ) : (
           <img

@@ -30,13 +30,18 @@ export const fetchImagesFromFolder = async (
     // First try to load from Google Drive
     const url = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents`
       + `&key=${API_KEY}&fields=nextPageToken,files(id,name,mimeType)`
-      + `&pageSize=50`;
+      + `&pageSize=100`; // Increased pageSize to load more images
 
-    const response = await fetch(url, {
+    // Add a random query param to avoid caching issues
+    const timestamp = new Date().getTime();
+    const urlWithTimestamp = `${url}&timestamp=${timestamp}`;
+
+    const response = await fetch(urlWithTimestamp, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
       },
+      cache: 'no-store',
     });
 
     // If Google Drive request is successful
@@ -52,10 +57,11 @@ export const fetchImagesFromFolder = async (
         ? data.files.filter(file => file.mimeType.includes("gif"))
         : data.files;
 
+      // Use a higher quality thumbnail
       return filteredFiles.map(file => ({
         id: file.id,
         name: file.name,
-        url: `https://drive.google.com/thumbnail?id=${file.id}&sz=w1000`
+        url: `https://drive.google.com/thumbnail?id=${file.id}&sz=w1000&t=${timestamp}`
       }));
     } else {
       // Handle 403 errors or other issues
