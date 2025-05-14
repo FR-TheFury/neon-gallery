@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -103,6 +102,21 @@ export default {
 					'0%, 100%': { textShadow: '0 0 5px #D4095D, 0 0 10px #D4095D, 0 0 15px #D4095D' },
 					'50%': { textShadow: '0 0 20px #FF3884, 0 0 30px #FF3884, 0 0 40px #FF3884' }
 				},
+				'pulse-soft': {
+					'0%': { opacity: '0.8', boxShadow: '0 0 5px rgba(212, 9, 93, 0.7)' },
+					'50%': { opacity: '1', boxShadow: '0 0 15px rgba(212, 9, 93, 0.9)' },
+					'100%': { opacity: '0.8', boxShadow: '0 0 5px rgba(212, 9, 93, 0.7)' }
+				},
+				'pulse-medium': {
+					'0%': { opacity: '0.8', boxShadow: '0 0 5px rgba(129, 9, 212, 0.7)' },
+					'50%': { opacity: '1', boxShadow: '0 0 15px rgba(129, 9, 212, 0.9)' },
+					'100%': { opacity: '0.8', boxShadow: '0 0 5px rgba(129, 9, 212, 0.7)' }
+				},
+				'pulse-slow': {
+					'0%': { opacity: '0.8', boxShadow: '0 0 5px rgba(9, 132, 212, 0.7)' },
+					'50%': { opacity: '1', boxShadow: '0 0 15px rgba(9, 132, 212, 0.9)' },
+					'100%': { opacity: '0.8', boxShadow: '0 0 5px rgba(9, 132, 212, 0.7)' }
+				},
 				'character-move': {
 					'0%': { transform: 'translate(-100%, -50%) rotate(0deg)', opacity: '0' },
 					'10%': { transform: 'translate(0%, -50%) rotate(10deg)', opacity: '1' },
@@ -115,6 +129,9 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'float': 'float 5s ease-in-out infinite',
 				'pulse-neon': 'pulse-neon 2s ease-in-out infinite',
+				'pulse-soft': 'pulse-soft 2s ease-in-out infinite',
+				'pulse-medium': 'pulse-medium 2.5s ease-in-out infinite',
+				'pulse-slow': 'pulse-slow 3s ease-in-out infinite',
 				'character-move': 'character-move 10s linear forwards'
 			}
 		}

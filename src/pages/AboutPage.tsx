@@ -1,3 +1,4 @@
+
 const AboutPage = () => {
   return (
     <>
@@ -72,7 +73,7 @@ const AboutPage = () => {
                 <h3 className="text-xl font-bold mb-2 text-neon-pink">GNRL_K – aka THE SPY !</h3>
                 <h4 className="text-2xl font-bold mb-4 neon-text">My Shadow Companion</h4>
                 <p className="text-gray-300 mb-4">
-                  THE SPY isn’t just one of my closest friends — he’s a silent force behind the scenes. Always watching, always sharp, he spots what others miss. His presence is subtle but essential, woven into every move I make. Many plans wouldn’t have come together without his insight and loyalty. Thank you, brother in the shadows, for your unmatched instinct and unwavering support.
+                  THE SPY isn't just one of my closest friends — he's a silent force behind the scenes. Always watching, always sharp, he spots what others miss. His presence is subtle but essential, woven into every move I make. Many plans wouldn't have come together without his insight and loyalty. Thank you, brother in the shadows, for your unmatched instinct and unwavering support.
                 </p>
               </div>
               <div className="rounded-md overflow-hidden border border-neon-pink neon-border">
@@ -125,23 +126,85 @@ const AboutPage = () => {
               </div>
             </div>
 
-            {/* Equipment & Techniques Section */}
-            <div className="cyberpunk-card p-6 border-l-4 border-neon-red neon-border">
-              <h2 className="text-2xl font-bold mb-4 neon-text">Equipment & Techniques</h2>
-              <p className="text-gray-300 mb-4">
-                While traditional photographers rely on physical cameras and lenses, my craft utilizes advanced camera
-                tools within VRChat, combined with post-processing techniques to enhance and perfect each image.
-              </p>
-              <p className="text-gray-300 mb-4">
-                I pay special attention to lighting, composition, and atmosphere, often spending hours setting up the
-                perfect shot. Each image is carefully edited to bring out the neon glow and cyberpunk aesthetic that
-                defines my style.
-              </p>
-              <p className="text-gray-300">
-                I'm constantly exploring new worlds, avatars, and techniques to expand my portfolio and push the
-                boundaries of virtual photography.
-              </p>
+            {/* VR Skills Section - Remplacé à partir d'ici */}
+            <div className="cyberpunk-card p-6 border-l-4 border-neon-red neon-border mb-12">
+              <h2 className="text-3xl font-bold mb-6 text-neon-red">VR Skills</h2>
+              
+              <div className="space-y-6">
+                <div className="skill-item">
+                  <div className="flex justify-between mb-2">
+                    <span className="font-semibold text-white">Avatar Edition</span>
+                    <span className="text-neon-pink">85%</span>
+                  </div>
+                  <div className="relative h-4 rounded-full bg-neon-dark">
+                    <div className="absolute left-0 top-0 h-full w-[85%] rounded-full bg-gradient-to-r from-neon-red to-neon-pink animate-pulse-soft"></div>
+                  </div>
+                </div>
+                
+                <div className="skill-item">
+                  <div className="flex justify-between mb-2">
+                    <span className="font-semibold text-white">World Exploration</span>
+                    <span className="text-neon-pink">95%</span>
+                  </div>
+                  <div className="relative h-4 rounded-full bg-neon-dark">
+                    <div className="absolute left-0 top-0 h-full w-[95%] rounded-full bg-gradient-to-r from-neon-pink to-blue-400 animate-pulse-slow"></div>
+                  </div>
+                </div>
+                
+                <div className="skill-item">
+                  <div className="flex justify-between mb-2">
+                    <span className="font-semibold text-white">Event Hosting</span>
+                    <span className="text-neon-pink">90%</span>
+                  </div>
+                  <div className="relative h-4 rounded-full bg-neon-dark">
+                    <div className="absolute left-0 top-0 h-full w-[90%] rounded-full bg-gradient-to-r from-blue-400 to-purple-500 animate-pulse-medium"></div>
+                  </div>
+                </div>
+                
+                <div className="skill-item">
+                  <div className="flex justify-between mb-2">
+                    <span className="font-semibold text-white">Social Interaction</span>
+                    <span className="text-neon-pink">98%</span>
+                  </div>
+                  <div className="relative h-4 rounded-full bg-neon-dark">
+                    <div className="absolute left-0 top-0 h-full w-[98%] rounded-full bg-gradient-to-r from-purple-500 to-neon-red animate-pulse-soft"></div>
+                  </div>
+                </div>
+              </div>
             </div>
+            
+            {/* VR Experience Section */}
+            <div className="cyberpunk-card p-6 border-l-4 border-neon-red neon-border mb-12">
+              <h2 className="text-3xl font-bold mb-6 text-neon-red">VR Experience</h2>
+              
+              <div className="space-y-8">
+                <div>
+                  <h3 className="text-2xl font-bold text-neon-pink mb-1">VR Avatar Editor</h3>
+                  <p className="text-sm text-gray-400 mb-3">2022 - Present</p>
+                  <p className="text-gray-300">I have customized numerous avatars for myself and others, exploring various techniques and tools to perfect my craft.</p>
+                </div>
+                
+                <div>
+                  <h3 className="text-2xl font-bold text-neon-pink mb-1">World Explorer</h3>
+                  <p className="text-sm text-gray-400 mb-3">2018 - Present</p>
+                  <p className="text-gray-300">I have traveled and explored more than 500 worlds in VRChat, discovering unique environments and participating in immersive quests.</p>
+                </div>
+              </div>
+            </div>
+            
+            {/* Interests Section */}
+            <div className="cyberpunk-card p-6 border-l-4 border-neon-red neon-border">
+              <h2 className="text-3xl font-bold mb-6 text-neon-red">Interests</h2>
+              
+              <div className="flex flex-wrap gap-3">
+                <span className="px-4 py-2 rounded-full bg-gradient-to-r from-neon-red to-neon-pink text-white transition-all hover:scale-105">VR Content Creation</span>
+                <span className="px-4 py-2 rounded-full bg-gradient-to-r from-neon-pink to-purple-500 text-white transition-all hover:scale-105">Social Immersion</span>
+                <span className="px-4 py-2 rounded-full bg-gradient-to-r from-purple-500 to-blue-400 text-white transition-all hover:scale-105">3D Design</span>
+                <span className="px-4 py-2 rounded-full bg-gradient-to-r from-blue-400 to-green-400 text-white transition-all hover:scale-105">Gaming</span>
+                <span className="px-4 py-2 rounded-full bg-gradient-to-r from-green-400 to-neon-red text-white transition-all hover:scale-105">VR Technology</span>
+              </div>
+            </div>
+            
           </div>
         </div>
       </div>
