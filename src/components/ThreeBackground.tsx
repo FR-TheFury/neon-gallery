@@ -15,9 +15,9 @@ const ParticleScene = () => {
         saturation={0.5} 
         fade 
         speed={1} 
-        color="#9b87f5" 
       />
       <ambientLight intensity={0.5} />
+      <pointLight position={[10, 10, 10]} color="#9b87f5" intensity={1} />
     </>
   );
 };
