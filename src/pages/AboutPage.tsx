@@ -6,25 +6,35 @@ const AboutPage = () => {
     <>
       <FloatingCharacter count={3} />
       
-      <div className="pt-20 pb-16 min-h-screen bg-gradient-to-b from-neon-dark to-black relative">
-        {/* Images côté gauche */}
+      {/* Header banner with third image */}
+      <div className="relative w-full h-48 sm:h-64 md:h-72 lg:h-80 overflow-hidden">
+        <img 
+          src="/lovable-uploads/ff1c78a7-8325-4f2a-ba76-34ec60f3085d.png" 
+          alt="Header banner" 
+          className="w-full h-full object-cover object-center opacity-80"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-neon-dark"></div>
+      </div>
+      
+      <div className="pt-12 pb-16 min-h-screen bg-gradient-to-b from-neon-dark to-black relative">
+        {/* Image côté gauche */}
         <div className="hidden lg:block absolute left-0 top-0 h-full w-1/6 overflow-hidden pointer-events-none">
           <div className="relative h-full w-full">
             <img 
-              src="/lovable-uploads/69bdffb8-894c-498a-97ff-e0e20d923e47.png" 
+              src="/lovable-uploads/a477eaf9-b6df-4755-aae1-5b5d92771e94.png" 
               alt="Left avatar"
-              className="absolute left-0 top-1/4 w-full object-contain opacity-70"
+              className="absolute left-0 top-1/4 w-full object-contain opacity-80 neon-border"
             />
           </div>
         </div>
         
-        {/* Images côté droit */}
+        {/* Image côté droit */}
         <div className="hidden lg:block absolute right-0 top-0 h-full w-1/6 overflow-hidden pointer-events-none">
           <div className="relative h-full w-full">
             <img 
-              src="/lovable-uploads/69bdffb8-894c-498a-97ff-e0e20d923e47.png" 
+              src="/lovable-uploads/fe070187-8a25-42dc-9734-966d76c59dcb.png" 
               alt="Right avatar"
-              className="absolute right-0 top-2/3 w-full object-contain opacity-70"
+              className="absolute right-0 top-2/3 w-full object-contain opacity-80 neon-border"
             />
           </div>
         </div>
