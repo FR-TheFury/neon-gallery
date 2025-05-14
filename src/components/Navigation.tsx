@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 import { galleries } from "@/config/galleries";
-import { Home, Menu, Headset } from "lucide-react";
+import { Home, Menu } from "lucide-react";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -24,7 +24,7 @@ const Navigation = () => {
           {/* Logo */}
           <div className="flex-1 md:flex-none">
             <Link to="/" className="text-2xl font-bold tracking-tighter text-neon-red flex items-center neon-text">
-              <Headset className="mr-2 h-6 w-6" />
+              <img src="/src/image/character.png" alt="Logo" className="mr-2 h-6 w-6" />
               VRChat Gallery
             </Link>
           </div>

@@ -26,7 +26,7 @@ const HomePage = () => {
     <>
       {/* Hero Section with Static Background */}
       <section className="relative h-screen">
-        {/* Static Background Image */}
+        {/* Static Background Image - THIS IS WHERE THE BACKGROUND IMAGE PATH IS SET */}
         <div 
           className="absolute inset-0 w-full h-full bg-cover bg-center"
           style={{ 

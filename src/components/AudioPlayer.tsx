@@ -1,3 +1,4 @@
+
 import { useState, useRef, useEffect } from "react";
 import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
@@ -52,6 +53,14 @@ const AudioPlayer = () => {
       setIsPlaying(false);
     };
     
+    const handlePlay = () => {
+      setIsPlaying(true);
+    };
+    
+    const handlePause = () => {
+      setIsPlaying(false);
+    };
+    
     const handleError = (e: Event) => {
       console.error("Audio loading error:", e);
       setAudioError(true);
@@ -70,6 +79,8 @@ const AudioPlayer = () => {
     audio.addEventListener('timeupdate', handleTimeUpdate);
     audio.addEventListener('ended', handleEnded);
     audio.addEventListener('error', handleError);
+    audio.addEventListener('play', handlePlay);
+    audio.addEventListener('pause', handlePause);
     
     // Preload audio
     audio.load();
@@ -85,6 +96,8 @@ const AudioPlayer = () => {
       audio.removeEventListener('timeupdate', handleTimeUpdate);
       audio.removeEventListener('ended', handleEnded);
       audio.removeEventListener('error', handleError);
+      audio.removeEventListener('play', handlePlay);
+      audio.removeEventListener('pause', handlePause);
     };
   }, []);
   
@@ -141,23 +154,21 @@ const AudioPlayer = () => {
     return "0:00";
   };
 
-  // Playback control
+  // Playback control - Fixed to prevent double-click issue
   const togglePlay = () => {
     const audio = audioRef.current;
-    if (audio) {
-      if (isPlaying) {
-        audio.pause();
-        setIsPlaying(false);
-      } else {
-        const playPromise = audio.play();
-        if (playPromise !== undefined) {
-          playPromise.then(() => {
-            setIsPlaying(true);
-          }).catch(err => {
-            console.log("Playback error:", err);
-            // Show message to user to interact with page
-          });
-        }
+    if (!audio) return;
+    
+    if (isPlaying) {
+      audio.pause();
+      // State will be updated via the 'pause' event listener
+    } else {
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(err => {
+          console.log("Playback error:", err);
+          setIsPlaying(false);
+        });
       }
     }
   };
