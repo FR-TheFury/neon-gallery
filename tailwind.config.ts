@@ -63,11 +63,11 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Cyberpunk neon colors
+				// Cyberpunk neon colors - Updated to red/pink shades
 				neon: {
-					purple: '#9b87f5',
+					red: '#ea384c',
 					pink: '#D946EF',
-					blue: '#1EAEDB',
+					rose: '#FF719A',
 					dark: '#1A1F2C'
 				}
 			},
