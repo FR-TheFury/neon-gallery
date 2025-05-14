@@ -7,7 +7,7 @@ interface VideoBackgroundProps {
 }
 
 const VideoBackground = ({
-  videoSrc = "/My-Media/video/cyberpunk-video.mp4",
+  videoSrc = "/video/background.mp4",
   fallbackImageSrc = "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80"
 }: VideoBackgroundProps) => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
