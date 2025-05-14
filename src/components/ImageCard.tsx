@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { GalleryImage } from "@/types/gallery";
 
@@ -13,6 +13,32 @@ const ImageCard = ({ image, onClick }: ImageCardProps) => {
   const [hasError, setHasError] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
   const [imageUrl, setImageUrl] = useState(image.url);
+  const [isVisible, setIsVisible] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  // Utiliser IntersectionObserver pour le chargement paresseux
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      {
+        rootMargin: "200px", // Préchargement quand l'image est à 200px de la zone visible
+        threshold: 0.1
+      }
+    );
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   const handleImageLoad = () => {
     setIsLoading(false);
@@ -50,6 +76,7 @@ const ImageCard = ({ image, onClick }: ImageCardProps) => {
 
   return (
     <Card 
+      ref={cardRef}
       className="cyberpunk-card group cursor-pointer h-full neon-border transition-all duration-300 hover:scale-105"
       onClick={handleClick}
     >
@@ -74,14 +101,16 @@ const ImageCard = ({ image, onClick }: ImageCardProps) => {
             </button>
           </div>
         ) : (
-          <img
-            src={imageUrl}
-            alt={image.name}
-            className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
-            onLoad={handleImageLoad}
-            onError={handleImageError}
-            loading="lazy"
-          />
+          // Ne charger l'image que lorsqu'elle est visible ou sur le point de l'être
+          isVisible && (
+            <img
+              src={imageUrl}
+              alt={image.name}
+              className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
+              onLoad={handleImageLoad}
+              onError={handleImageError}
+            />
+          )
         )}
         
         <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">

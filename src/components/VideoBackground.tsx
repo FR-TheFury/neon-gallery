@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 interface VideoBackgroundProps {
   videoSrc?: string;
@@ -12,30 +12,59 @@ const VideoBackground = ({
 }: VideoBackgroundProps) => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  
+  // Format local? (commence par /)
+  const isLocalVideo = videoSrc.startsWith('/');
 
   useEffect(() => {
-    // Vérifie si le fichier vidéo existe et est accessible
-    const videoElement = document.createElement('video');
-    videoElement.src = videoSrc;
-    videoElement.oncanplaythrough = () => {
-      console.log("Vidéo chargée avec succès:", videoSrc);
-      setIsVideoLoaded(true);
-    };
-    videoElement.onerror = (e) => {
-      console.error("Erreur de chargement de la vidéo:", e);
-      setVideoError(true);
-    };
-
-    return () => {
-      videoElement.oncanplaythrough = null;
-      videoElement.onerror = null;
-    };
+    // Référence au video élément
+    const videoElement = videoRef.current;
+    
+    if (videoElement) {
+      // Configurer les écouteurs d'événements directement sur la référence
+      const handleCanPlay = () => {
+        console.log("Vidéo chargée avec succès:", videoSrc);
+        setIsVideoLoaded(true);
+        
+        // Essayer de démarrer la lecture
+        const playPromise = videoElement.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(e => {
+            console.warn("Lecture automatique bloquée (comportement normal):", e);
+            // La lecture automatique est souvent bloquée par les navigateurs
+          });
+        }
+      };
+      
+      const handleError = (e: Event) => {
+        console.error("Erreur de chargement/lecture de la vidéo:", e);
+        setVideoError(true);
+      };
+      
+      videoElement.addEventListener('canplaythrough', handleCanPlay);
+      videoElement.addEventListener('error', handleError);
+      
+      // Si la vidéo est déjà mise en mémoire tampon/chargée
+      if (videoElement.readyState >= 3) {
+        handleCanPlay();
+      }
+      
+      // Forcer le rechargement pour résoudre les problèmes potentiels
+      videoElement.load();
+      
+      return () => {
+        videoElement.removeEventListener('canplaythrough', handleCanPlay);
+        videoElement.removeEventListener('error', handleError);
+      };
+    }
   }, [videoSrc]);
 
   return (
     <div className="absolute inset-0 w-full h-full overflow-hidden">
       {!videoError && (
         <video 
+          ref={videoRef}
           autoPlay 
           muted 
           loop
@@ -47,7 +76,7 @@ const VideoBackground = ({
             setVideoError(true);
           }}
         >
-          <source src={videoSrc} type="video/mp4" />
+          <source src={`${videoSrc}${isLocalVideo ? `?t=${Date.now()}` : ''}`} type="video/mp4" />
           {/* Vidéo non supportée */}
         </video>
       )}

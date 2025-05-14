@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 interface FloatingCharacterProps {
   imageUrl?: string;
@@ -15,24 +15,63 @@ interface CharacterPosition {
   duration: number;
 }
 
-const FloatingCharacter = ({ 
+const FloatingCharacter = ({
   imageUrl = "/src/image/character.png", // Image stockée en local pour éviter les requêtes externes
   count = 2 // Nombre de personnages simultanés
 }: FloatingCharacterProps) => {
   const [characters, setCharacters] = useState<CharacterPosition[]>([]);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const imageRef = useRef<HTMLImageElement | null>(null);
   
   // Précharger l'image pour garantir qu'elle est disponible avant l'animation
   useEffect(() => {
-    const img = new Image();
-    img.src = imageUrl;
-    img.onload = () => setImageLoaded(true);
-    img.onerror = (e) => console.error("Erreur de chargement de l'image:", e);
-    
-    return () => {
-      img.onload = null;
-      img.onerror = null;
-    };
+    // Utiliser l'image déjà préchargée si elle existe dans le DOM
+    if (imageRef.current) {
+      if (imageRef.current.complete) {
+        setImageLoaded(true);
+      } else {
+        const handleLoad = () => setImageLoaded(true);
+        const handleError = (e: ErrorEvent) => {
+          console.error("Erreur de chargement de l'image:", e);
+          // Essayer de charger à nouveau après un délai
+          setTimeout(() => {
+            if (imageRef.current) {
+              imageRef.current.src = `${imageUrl}?t=${Date.now()}`;
+            }
+          }, 1000);
+        };
+        
+        imageRef.current.addEventListener('load', handleLoad);
+        imageRef.current.addEventListener('error', handleError);
+        
+        return () => {
+          if (imageRef.current) {
+            imageRef.current.removeEventListener('load', handleLoad);
+            imageRef.current.removeEventListener('error', handleError);
+          }
+        };
+      }
+    } else {
+      // Pré-cache de l'image sans créer un élément DOM visible
+      const img = new Image();
+      img.src = imageUrl;
+      img.onload = () => setImageLoaded(true);
+      img.onerror = (e) => {
+        console.error("Erreur de chargement de l'image:", e);
+        // Retry with cache-busting
+        setTimeout(() => {
+          img.src = `${imageUrl}?t=${Date.now()}`;
+        }, 1000);
+      };
+      
+      imageRef.current = img;
+      
+      return () => {
+        img.onload = null;
+        img.onerror = null;
+        imageRef.current = null;
+      };
+    }
   }, [imageUrl]);
   
   // Fonction pour générer une position aléatoire
@@ -153,11 +192,24 @@ const FloatingCharacter = ({
           <img 
             src={imageUrl}
             alt="Character"
-            className="object-contain"
+            className="object-contain character-animate"
             style={createCustomAnimation(character)}
+            onError={(e) => {
+              // En cas d'erreur, essayer à nouveau avec un cache-busting
+              const target = e.target as HTMLImageElement;
+              target.src = `${imageUrl}?t=${Date.now()}`;
+            }}
           />
         </div>
       ))}
+      
+      {/* Image cachée pour préchargement */}
+      <img 
+        src={imageUrl} 
+        alt="Preload" 
+        style={{ display: 'none' }} 
+        ref={imageRef}
+      />
     </div>
   );
 };
