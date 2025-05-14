@@ -8,43 +8,92 @@ const AudioPlayer = () => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(0.7);
+  const [audioLoaded, setAudioLoaded] = useState(false);
+  const [audioError, setAudioError] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
-
-  // Charger et lire automatiquement la musique
+  
+  // Précharger l'audio
   useEffect(() => {
     const audio = audioRef.current;
-    if (audio) {
-      // Configurer les événements audio
-      audio.addEventListener('loadedmetadata', () => {
-        setDuration(audio.duration);
-      });
-      
-      audio.addEventListener('timeupdate', () => {
-        setCurrentTime(audio.currentTime);
-      });
-      
-      audio.addEventListener('ended', () => {
-        setIsPlaying(false);
-      });
-      
-      // Lecture automatique (avec délai pour permettre le chargement)
-      const timer = setTimeout(() => {
-        audio.volume = volume;
-        audio.play().catch(error => {
-          console.log("Lecture automatique bloquée:", error);
+    if (!audio) return;
+    
+    // Configurer les événements audio
+    const handleCanPlay = () => {
+      console.log("Audio chargé avec succès");
+      setAudioLoaded(true);
+      setDuration(audio.duration || 0);
+      setAudioError(false);
+    };
+    
+    const handleTimeUpdate = () => {
+      setCurrentTime(audio.currentTime);
+    };
+    
+    const handleEnded = () => {
+      setIsPlaying(false);
+    };
+    
+    const handleError = (e: Event) => {
+      console.error("Erreur de chargement audio:", e);
+      setAudioError(true);
+      // Essayer à nouveau avec cache-busting
+      setTimeout(() => {
+        if (audio) {
+          const currentSrc = audio.src.split('?')[0];
+          audio.src = `${currentSrc}?t=${Date.now()}`;
+          audio.load();
+        }
+      }, 2000);
+    };
+    
+    // Ajout des écouteurs d'événements
+    audio.addEventListener('canplaythrough', handleCanPlay);
+    audio.addEventListener('timeupdate', handleTimeUpdate);
+    audio.addEventListener('ended', handleEnded);
+    audio.addEventListener('error', handleError);
+    
+    // Précharger l'audio
+    audio.load();
+    
+    // Si déjà chargé
+    if (audio.readyState >= 3) {
+      handleCanPlay();
+    }
+    
+    // Nettoyage
+    return () => {
+      audio.removeEventListener('canplaythrough', handleCanPlay);
+      audio.removeEventListener('timeupdate', handleTimeUpdate);
+      audio.removeEventListener('ended', handleEnded);
+      audio.removeEventListener('error', handleError);
+    };
+  }, []);
+  
+  // Essayer de démarrer la lecture après le chargement
+  useEffect(() => {
+    if (!audioLoaded || audioError) return;
+    
+    const audio = audioRef.current;
+    if (!audio) return;
+    
+    // Définir le volume
+    audio.volume = volume;
+    
+    // Tenter la lecture avec délai pour permettre l'interaction utilisateur
+    const timer = setTimeout(() => {
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          setIsPlaying(true);
+        }).catch(error => {
+          console.log("Lecture automatique bloquée (comportement normal):", error);
           // La plupart des navigateurs bloquent la lecture auto sans interaction utilisateur
         });
-        setIsPlaying(true);
-      }, 1000);
-      
-      return () => {
-        clearTimeout(timer);
-        audio.removeEventListener('loadedmetadata', () => {});
-        audio.removeEventListener('timeupdate', () => {});
-        audio.removeEventListener('ended', () => {});
-      };
-    }
-  }, []);
+      }
+    }, 1000);
+    
+    return () => clearTimeout(timer);
+  }, [audioLoaded, volume, audioError]);
 
   // Formatage du temps
   const formatTime = (time: number) => {
@@ -62,10 +111,18 @@ const AudioPlayer = () => {
     if (audio) {
       if (isPlaying) {
         audio.pause();
+        setIsPlaying(false);
       } else {
-        audio.play().catch(err => console.log("Erreur de lecture:", err));
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            setIsPlaying(true);
+          }).catch(err => {
+            console.log("Erreur de lecture:", err);
+            // Afficher un message à l'utilisateur pour interagir avec la page
+          });
+        }
       }
-      setIsPlaying(!isPlaying);
     }
   };
 
@@ -100,7 +157,11 @@ const AudioPlayer = () => {
 
   return (
     <div className="fixed left-4 bottom-4 z-40 bg-neon-dark bg-opacity-90 backdrop-blur-sm p-4 rounded-lg border border-neon-red neon-border w-72">
-      <audio ref={audioRef} src="/music/background.mp3" preload="metadata" />
+      <audio 
+        ref={audioRef} 
+        src={`/music/background.mp3?t=${Date.now()}`} 
+        preload="metadata" 
+      />
       
       <div className="flex items-center justify-between mb-2">
         <div className="text-sm font-medium text-neon-red truncate">Musique de fond</div>
@@ -125,7 +186,15 @@ const AudioPlayer = () => {
       {/* Contrôles */}
       <div className="flex items-center justify-between mt-3">
         <div className="flex items-center space-x-4">
-          <button className="text-white hover:text-neon-red transition-colors">
+          <button 
+            className="text-white hover:text-neon-red transition-colors"
+            onClick={() => {
+              const audio = audioRef.current;
+              if (audio) {
+                audio.currentTime = 0;
+              }
+            }}
+          >
             <SkipBack className="h-4 w-4" />
           </button>
           
@@ -140,7 +209,15 @@ const AudioPlayer = () => {
             )}
           </button>
           
-          <button className="text-white hover:text-neon-red transition-colors">
+          <button 
+            className="text-white hover:text-neon-red transition-colors"
+            onClick={() => {
+              const audio = audioRef.current;
+              if (audio && duration) {
+                audio.currentTime = Math.min(audio.currentTime + 30, duration);
+              }
+            }}
+          >
             <SkipForward className="h-4 w-4" />
           </button>
         </div>
@@ -170,6 +247,24 @@ const AudioPlayer = () => {
           />
         </div>
       </div>
+      
+      {audioError && (
+        <div className="mt-2 text-xs text-red-400">
+          Erreur de chargement audio. 
+          <button 
+            className="ml-2 underline text-neon-red"
+            onClick={() => {
+              setAudioError(false);
+              if (audioRef.current) {
+                audioRef.current.src = `/music/background.mp3?t=${Date.now()}`;
+                audioRef.current.load();
+              }
+            }}
+          >
+            Réessayer
+          </button>
+        </div>
+      )}
     </div>
   );
 };
