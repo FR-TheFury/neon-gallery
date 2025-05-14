@@ -32,6 +32,8 @@ jobs:
         run: npm run build
       - name: Create .nojekyll file
         run: touch ./dist/.nojekyll
+      - name: Copy CNAME to dist
+        run: cp CNAME ./dist/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
