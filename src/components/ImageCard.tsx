@@ -1,0 +1,65 @@
+
+import { useState } from "react";
+import { Card } from "@/components/ui/card";
+import { GalleryImage } from "@/types/gallery";
+
+interface ImageCardProps {
+  image: GalleryImage;
+  onClick?: (image: GalleryImage) => void;
+}
+
+const ImageCard = ({ image, onClick }: ImageCardProps) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+
+  const handleImageLoad = () => {
+    setIsLoading(false);
+  };
+
+  const handleImageError = () => {
+    setIsLoading(false);
+    setHasError(true);
+  };
+
+  const handleClick = () => {
+    if (onClick) {
+      onClick(image);
+    }
+  };
+
+  return (
+    <Card 
+      className="cyberpunk-card group cursor-pointer h-full"
+      onClick={handleClick}
+    >
+      <div className="relative aspect-square overflow-hidden">
+        {isLoading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-neon-dark">
+            <div className="w-10 h-10 border-4 border-t-neon-purple rounded-full animate-spin"></div>
+          </div>
+        )}
+        
+        {hasError ? (
+          <div className="absolute inset-0 flex items-center justify-center bg-neon-dark">
+            <p className="text-sm text-red-400">Failed to load image</p>
+          </div>
+        ) : (
+          <img
+            src={image.url}
+            alt={image.name}
+            className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
+            onLoad={handleImageLoad}
+            onError={handleImageError}
+            loading="lazy"
+          />
+        )}
+        
+        <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <p className="text-sm font-medium text-white truncate">{image.name}</p>
+        </div>
+      </div>
+    </Card>
+  );
+};
+
+export default ImageCard;

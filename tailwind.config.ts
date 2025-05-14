@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,13 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Cyberpunk neon colors
+				neon: {
+					purple: '#9b87f5',
+					pink: '#D946EF',
+					blue: '#1EAEDB',
+					dark: '#1A1F2C'
 				}
 			},
 			borderRadius: {
@@ -84,11 +92,28 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'float': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-10px)' }
+				},
+				'pulse-neon': {
+					'0%, 100%': { textShadow: '0 0 5px #9b87f5, 0 0 10px #9b87f5, 0 0 15px #9b87f5' },
+					'50%': { textShadow: '0 0 20px #D946EF, 0 0 30px #D946EF, 0 0 40px #D946EF' }
+				},
+				'character-move': {
+					'0%': { transform: 'translate(-100%, -50%) rotate(0deg)', opacity: '0' },
+					'10%': { transform: 'translate(0%, -50%) rotate(10deg)', opacity: '1' },
+					'90%': { transform: 'translate(calc(100vw - 100px), -50%) rotate(-10deg)', opacity: '1' },
+					'100%': { transform: 'translate(100vw, -50%) rotate(0deg)', opacity: '0' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'float': 'float 5s ease-in-out infinite',
+				'pulse-neon': 'pulse-neon 2s ease-in-out infinite',
+				'character-move': 'character-move 10s linear forwards'
 			}
 		}
 	},
