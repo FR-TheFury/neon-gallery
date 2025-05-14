@@ -41,8 +41,8 @@ const HomePage = () => {
         <ThreeBackground />
         
         <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-pulse-neon">
-            <span className="text-gradient-neon">Explorez les mondes<br/>virtuels de <span className="text-neon-red">VRChat</span></span>
+          <h1 className="text-5xl md:text-7xl font-bold mb-6">
+            <span className="text-gray-200">Explorez les mondes<br/>virtuels de <span className="text-neon-red">VRChat</span></span>
           </h1>
           <p className="text-lg md:text-xl max-w-2xl mb-8 text-white opacity-90">
             Une collection de moments capturés dans le métavers avec un style cyberpunk néon
