@@ -30,7 +30,7 @@ const HomePage = () => {
         <div 
           className="absolute inset-0 w-full h-full bg-cover bg-center"
           style={{ 
-            backgroundImage: `url('/src/image/background.jpg')`,
+            backgroundImage: `url('/src/image/background.png')`,
             willChange: 'opacity'
           }}
         />

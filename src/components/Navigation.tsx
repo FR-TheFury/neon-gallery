@@ -24,7 +24,7 @@ const Navigation = () => {
           {/* Logo */}
           <div className="flex-1 md:flex-none">
             <Link to="/" className="text-2xl font-bold tracking-tighter text-neon-red flex items-center neon-text">
-              <img src="/src/image/character.png" alt="Logo" className="mr-2 h-6 w-6" />
+              <img src="/src/image/icon.png" alt="Logo" className="mr-2 h-6 w-6" />
               VRChat Gallery
             </Link>
           </div>
