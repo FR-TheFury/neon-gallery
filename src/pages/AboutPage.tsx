@@ -16,16 +16,16 @@ const characters: Character[] = [
   {
     id: "himely",
     name: "Himely_Puppy",
-    quote: "Happiness in the virtual world is just as real as in the physical one.",
-    gifUrl: "/placeholder.svg", // Placeholder for you to replace later
+    quote: "Arf Arf Bark Bark warf warf, and i don't care <3 !",
+    gifUrl: "/image/puppy.gif", // Placeholder for you to replace later
     imagePath: "/image/profile.png"
   },
   {
     id: "spy",
     name: "GNRL_K",
     title: "aka THE SPY !",
-    quote: "I see everything. I know everything. Trust nobody, not even yourself.",
-    gifUrl: "/placeholder.svg", // Placeholder for you to replace later
+    quote: "He kidnapped my boyfriend, help me please, donate 1€ on my Tipeee, #FREEBABIMM",
+    gifUrl: "/image/spy.gif", // Placeholder for you to replace later
     imagePath: "/image/spy.png"
   },
   {
@@ -33,7 +33,7 @@ const characters: Character[] = [
     name: "BaBimm",
     title: "My Baby Boy <3",
     quote: "Every moment with you is a treasure, in VR and beyond.",
-    gifUrl: "/placeholder.svg", // Placeholder for you to replace later
+    gifUrl: "/image/gojo.gif", // Placeholder for you to replace later
     imagePath: "/image/baby.png"
   },
   {
@@ -41,7 +41,7 @@ const characters: Character[] = [
     name: "MisterPandas",
     title: "My Buddy Photographer",
     quote: "I don't take photos, I capture stories and emotions.",
-    gifUrl: "/placeholder.svg", // Placeholder for you to replace later
+    gifUrl: "/image/photo.gif", // Placeholder for you to replace later
     imagePath: "/image/panda.png"
   }
 ];
