@@ -23,14 +23,7 @@ export function CharacterQuoteDialog({ character, open, onOpenChange }: Characte
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="bg-black border border-neon-red shadow-[0_0_15px_rgba(212,9,93,0.5)] max-w-md w-[90vw] rounded-md">
-        <Button 
-          className="absolute right-4 top-4 rounded-full h-8 w-8 p-0 text-gray-400 hover:text-white hover:bg-neon-red/20" 
-          variant="ghost" 
-          onClick={() => onOpenChange(false)}
-        >
-          <X className="h-4 w-4" />
-          <span className="sr-only">Close</span>
-        </Button>
+        {/* Nous supprimons le bouton de fermeture personnalisé et utilisons celui intégré au DialogContent */}
         
         <DialogHeader>
           <DialogTitle className="text-xl font-bold text-neon-pink">
