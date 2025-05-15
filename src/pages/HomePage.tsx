@@ -56,7 +56,7 @@ const HomePage = () => {
             </Link>
             <Link
               to="/about"
-              className="px-6 py-3 rounded-md neon-button"
+              className="px-6 py-3 rounded-md bg-neon-red text-white font-medium hover:bg-opacity-80 transition-all neon-glow shadow-[0_0_10px_#D4095D]"
             >
               À propos
             </Link>

@@ -1,6 +1,6 @@
 
 import { useState, useRef, useEffect } from "react";
-import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX } from "lucide-react";
+import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, ChevronUp, ChevronDown, Music } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 
 const AudioPlayer = () => {
@@ -12,6 +12,7 @@ const AudioPlayer = () => {
   const [audioLoaded, setAudioLoaded] = useState(false);
   const [audioError, setAudioError] = useState(false);
   const [userInteracted, setUserInteracted] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   
   // Listen for user interaction with the page
@@ -202,113 +203,142 @@ const AudioPlayer = () => {
     }
   };
 
+  // Toggle minimized state
+  const toggleMinimize = () => {
+    setIsMinimized(!isMinimized);
+  };
+
   return (
-    <div className="fixed left-4 bottom-4 z-40 bg-neon-dark bg-opacity-90 backdrop-blur-sm p-4 rounded-lg border border-neon-red neon-border w-72">
+    <>
       <audio ref={audioRef} src="/music/background.mp3" preload="metadata" />
       
-      <div className="flex items-center justify-between mb-2">
-        <div className="text-sm font-medium text-neon-red truncate">Musique de fond</div>
-        <div className="text-xs text-gray-400">
-          {formatTime(currentTime)} / {formatTime(duration)}
+      {isMinimized ? (
+        // Minimized player - just a circle with music note
+        <div 
+          className="fixed left-4 bottom-4 z-40 bg-neon-red rounded-full w-12 h-12 flex items-center justify-center cursor-pointer shadow-[0_0_10px_#D4095D] transition-all hover:scale-105"
+          onClick={toggleMinimize}
+        >
+          <Music className="h-6 w-6 text-white" />
+          {isPlaying && (
+            <div className="absolute inset-0 rounded-full border-2 border-white opacity-30 animate-pulse"></div>
+          )}
         </div>
-      </div>
-      
-      {/* Barre de progression */}
-      <input
-        type="range"
-        min="0"
-        max={duration || 0}
-        value={currentTime}
-        step="0.1"
-        onChange={handleProgress}
-        className="w-full h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer 
-                 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:bg-neon-red 
-                 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:rounded-full"
-      />
-      
-      {/* Contrôles */}
-      <div className="flex items-center justify-between mt-3">
-        <div className="flex items-center space-x-4">
-          <button 
-            className="text-white hover:text-neon-red transition-colors"
-            onClick={() => {
-              const audio = audioRef.current;
-              if (audio) {
-                audio.currentTime = 0;
-              }
-            }}
-          >
-            <SkipBack className="h-4 w-4" />
-          </button>
+      ) : (
+        // Full player
+        <div className="fixed left-4 bottom-4 z-40 bg-neon-dark bg-opacity-90 backdrop-blur-sm p-4 rounded-lg border border-neon-red neon-border w-72 transition-all">
+          <div className="flex items-center justify-between mb-2">
+            <div className="text-sm font-medium text-neon-red truncate">Musique de fond</div>
+            <div className="flex items-center gap-2">
+              <div className="text-xs text-gray-400">
+                {formatTime(currentTime)} / {formatTime(duration)}
+              </div>
+              <button
+                onClick={toggleMinimize}
+                className="text-white hover:text-neon-red transition-colors"
+              >
+                <ChevronDown className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
           
-          <button 
-            className="p-2 rounded-full bg-neon-red text-white hover:bg-opacity-80 transition-all"
-            onClick={togglePlay}
-          >
-            {isPlaying ? (
-              <Pause className="h-4 w-4" />
-            ) : (
-              <Play className="h-4 w-4" />
-            )}
-          </button>
-          
-          <button 
-            className="text-white hover:text-neon-red transition-colors"
-            onClick={() => {
-              const audio = audioRef.current;
-              if (audio && duration) {
-                audio.currentTime = Math.min(audio.currentTime + 30, duration);
-              }
-            }}
-          >
-            <SkipForward className="h-4 w-4" />
-          </button>
-        </div>
-        
-        <div className="flex items-center space-x-2">
-          <button 
-            className="text-white hover:text-neon-red transition-colors"
-            onClick={toggleMute}
-          >
-            {isMuted ? (
-              <VolumeX className="h-4 w-4" />
-            ) : (
-              <Volume2 className="h-4 w-4" />
-            )}
-          </button>
-          
+          {/* Barre de progression */}
           <input
             type="range"
             min="0"
-            max="1"
-            step="0.01"
-            value={isMuted ? 0 : volume}
-            onChange={handleVolume}
-            className="w-14 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer
+            max={duration || 0}
+            value={currentTime}
+            step="0.1"
+            onChange={handleProgress}
+            className="w-full h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer 
                      [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:bg-neon-red 
-                     [&::-webkit-slider-thumb]:h-2 [&::-webkit-slider-thumb]:w-2 [&::-webkit-slider-thumb]:rounded-full"
+                     [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:rounded-full"
           />
-        </div>
-      </div>
-      
-      {audioError && (
-        <div className="mt-2 text-xs text-red-400">
-          Erreur de chargement audio. 
-          <button 
-            className="ml-2 underline text-neon-red"
-            onClick={() => {
-              setAudioError(false);
-              if (audioRef.current) {
-                audioRef.current.src = `/music/background.mp3?t=${Date.now()}`;
-                audioRef.current.load();
-              }
-            }}
-          >
-            Réessayer
-          </button>
+          
+          {/* Contrôles */}
+          <div className="flex items-center justify-between mt-3">
+            <div className="flex items-center space-x-4">
+              <button 
+                className="text-white hover:text-neon-red transition-colors"
+                onClick={() => {
+                  const audio = audioRef.current;
+                  if (audio) {
+                    audio.currentTime = 0;
+                  }
+                }}
+              >
+                <SkipBack className="h-4 w-4" />
+              </button>
+              
+              <button 
+                className="p-2 rounded-full bg-neon-red text-white hover:bg-opacity-80 transition-all"
+                onClick={togglePlay}
+              >
+                {isPlaying ? (
+                  <Pause className="h-4 w-4" />
+                ) : (
+                  <Play className="h-4 w-4" />
+                )}
+              </button>
+              
+              <button 
+                className="text-white hover:text-neon-red transition-colors"
+                onClick={() => {
+                  const audio = audioRef.current;
+                  if (audio && duration) {
+                    audio.currentTime = Math.min(audio.currentTime + 30, duration);
+                  }
+                }}
+              >
+                <SkipForward className="h-4 w-4" />
+              </button>
+            </div>
+            
+            <div className="flex items-center space-x-2">
+              <button 
+                className="text-white hover:text-neon-red transition-colors"
+                onClick={toggleMute}
+              >
+                {isMuted ? (
+                  <VolumeX className="h-4 w-4" />
+                ) : (
+                  <Volume2 className="h-4 w-4" />
+                )}
+              </button>
+              
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value={isMuted ? 0 : volume}
+                onChange={handleVolume}
+                className="w-14 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer
+                         [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:bg-neon-red 
+                         [&::-webkit-slider-thumb]:h-2 [&::-webkit-slider-thumb]:w-2 [&::-webkit-slider-thumb]:rounded-full"
+              />
+            </div>
+          </div>
+          
+          {audioError && (
+            <div className="mt-2 text-xs text-red-400">
+              Erreur de chargement audio. 
+              <button 
+                className="ml-2 underline text-neon-red"
+                onClick={() => {
+                  setAudioError(false);
+                  if (audioRef.current) {
+                    audioRef.current.src = `/music/background.mp3?t=${Date.now()}`;
+                    audioRef.current.load();
+                  }
+                }}
+              >
+                Réessayer
+              </button>
+            </div>
+          )}
         </div>
       )}
-    </div>
+    </>
   );
 };
 
