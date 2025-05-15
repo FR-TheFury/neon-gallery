@@ -13,6 +13,7 @@ import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import AudioPlayer from "./components/AudioPlayer";
 import FloatingCharacter from "./components/FloatingCharacter";
+import { NSFWWarningDialog } from "./components/NSFWWarningDialog";
 
 // Create a query client with optimized default options
 const queryClient = new QueryClient({
@@ -31,6 +32,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <NSFWWarningDialog />
       <BrowserRouter basename="/">
         <div className="flex flex-col min-h-screen">
           <Navigation />
