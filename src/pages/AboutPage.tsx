@@ -1,5 +1,60 @@
+import { useState } from "react";
+import { CharacterQuoteDialog } from "@/components/CharacterQuoteDialog";
+
+// Character data type
+type Character = {
+  id: string;
+  name: string;
+  title?: string;
+  quote: string;
+  gifUrl: string;
+  imagePath: string;
+};
+
+// Define character data
+const characters: Character[] = [
+  {
+    id: "himely",
+    name: "Himely_Puppy",
+    quote: "Happiness in the virtual world is just as real as in the physical one.",
+    gifUrl: "/placeholder.svg", // Placeholder for you to replace later
+    imagePath: "/image/profile.png"
+  },
+  {
+    id: "spy",
+    name: "GNRL_K",
+    title: "aka THE SPY !",
+    quote: "I see everything. I know everything. Trust nobody, not even yourself.",
+    gifUrl: "/placeholder.svg", // Placeholder for you to replace later
+    imagePath: "/image/spy.png"
+  },
+  {
+    id: "babimm",
+    name: "BaBimm",
+    title: "My Baby Boy <3",
+    quote: "Every moment with you is a treasure, in VR and beyond.",
+    gifUrl: "/placeholder.svg", // Placeholder for you to replace later
+    imagePath: "/image/baby.png"
+  },
+  {
+    id: "panda",
+    name: "MisterPandas",
+    title: "My Buddy Photographer",
+    quote: "I don't take photos, I capture stories and emotions.",
+    gifUrl: "/placeholder.svg", // Placeholder for you to replace later
+    imagePath: "/image/panda.png"
+  }
+];
 
 const AboutPage = () => {
+  const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const handleCharacterClick = (character: Character) => {
+    setSelectedCharacter(character);
+    setDialogOpen(true);
+  };
+
   return (
     <>
       {/* Header banner with third image */}
@@ -38,12 +93,14 @@ const AboutPage = () => {
             {/* Main profile section */}
             <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 mb-12">
               <div className="flex justify-center">
-                <div className="w-48 h-48 rounded-full overflow-hidden border border-neon-red neon-border">
-                  {/* Replace with avatar/profile image */}
+                <div 
+                  className="w-48 h-48 rounded-full overflow-hidden border border-neon-red neon-border cursor-pointer transition-transform hover:scale-105"
+                  onClick={() => handleCharacterClick(characters[0])}
+                >
                   <img
-                      src="/image/profile.png"
-                      alt="Profile"
-                      className="w-full h-full object-cover"
+                    src={characters[0].imagePath}
+                    alt="Profile"
+                    className="w-full h-full object-cover"
                   />
                 </div>
               </div>
@@ -76,9 +133,12 @@ const AboutPage = () => {
                   THE SPY isn't just one of my closest friends — he's a silent force behind the scenes. Always watching, always sharp, he spots what others miss. His presence is subtle but essential, woven into every move I make. Many plans wouldn't have come together without his insight and loyalty. Thank you, brother in the shadows, for your unmatched instinct and unwavering support.
                 </p>
               </div>
-              <div className="rounded-md overflow-hidden border border-neon-pink neon-border">
+              <div 
+                className="rounded-md overflow-hidden border border-neon-pink neon-border cursor-pointer transition-transform hover:scale-105"
+                onClick={() => handleCharacterClick(characters[1])}
+              >
                 <img
-                    src="/image/spy.png"
+                    src={characters[1].imagePath}
                     alt="GNRL_K"
                     className="w-full h-full object-cover"
                 />
@@ -87,9 +147,12 @@ const AboutPage = () => {
 
             <div
                 className="cyberpunk-card p-6 mb-12 grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 items-center neon-border">
-              <div className="rounded-md overflow-hidden border border-neon-pink neon-border">
+              <div 
+                className="rounded-md overflow-hidden border border-neon-pink neon-border cursor-pointer transition-transform hover:scale-105"
+                onClick={() => handleCharacterClick(characters[2])}
+              >
                 <img
-                    src="/image/baby.png"
+                    src={characters[2].imagePath}
                     alt="BaBimm"
                     className="w-full h-full object-cover"
                 />
@@ -117,16 +180,19 @@ const AboutPage = () => {
                   story, and I am forever grateful for his amazing work and artistic vision.
                 </p>
               </div>
-              <div className="rounded-md overflow-hidden border border-neon-pink neon-border">
+              <div 
+                className="rounded-md overflow-hidden border border-neon-pink neon-border cursor-pointer transition-transform hover:scale-105"
+                onClick={() => handleCharacterClick(characters[3])}
+              >
                 <img
-                    src="/image/panda.png"
+                    src={characters[3].imagePath}
                     alt="MisterPandas"
                     className="w-full h-full object-cover"
                 />
               </div>
             </div>
 
-            {/* VR Skills Section - Remplacé à partir d'ici */}
+            {/* VR Skills Section */}
             <div className="cyberpunk-card p-6 border-l-4 border-neon-red neon-border mb-12">
               <h2 className="text-3xl font-bold mb-6 text-neon-red">VR Skills</h2>
               
@@ -204,10 +270,16 @@ const AboutPage = () => {
                 <span className="px-4 py-2 rounded-full bg-gradient-to-r from-green-400 to-neon-red text-white transition-all hover:scale-105">VR Technology</span>
               </div>
             </div>
-            
           </div>
         </div>
       </div>
+      
+      {/* Character Quote Dialog */}
+      <CharacterQuoteDialog 
+        character={selectedCharacter}
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+      />
     </>
   );
 };
