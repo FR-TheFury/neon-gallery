@@ -14,6 +14,7 @@ import Footer from "./components/Footer";
 import AudioPlayer from "./components/AudioPlayer";
 import FloatingCharacter from "./components/FloatingCharacter";
 import { NSFWWarningDialog } from "./components/NSFWWarningDialog";
+import KeyboardTriggeredAnimation from "./components/KeyboardTriggeredAnimation";
 
 // Create a query client with optimized default options
 const queryClient = new QueryClient({
@@ -48,6 +49,12 @@ const App = () => (
           </main>
           <Footer />
           <AudioPlayer />
+          <KeyboardTriggeredAnimation 
+            triggerKey="h" 
+            cooldownTime={60000} 
+            gifUrl="/image/profile.png" 
+            quote="Coucou ! Je te vois !" 
+          />
         </div>
       </BrowserRouter>
     </TooltipProvider>
