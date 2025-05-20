@@ -65,8 +65,24 @@ video, img {
   }
 }
 
+/* New fade-out animation */
+@keyframes fade-out {
+  0% { 
+    opacity: 1;
+    transform: translateX(0) rotate(0deg);
+  }
+  100% { 
+    opacity: 0;
+    transform: translateX(30%) rotate(5deg);
+  }
+}
+
 .animate-slide-in-wave {
   animation: slide-in-wave 1s ease-out forwards;
+}
+
+.animate-fade-out {
+  animation: fade-out 1s ease-in forwards;
 }
 
 /* Specific optimizations to avoid lag */

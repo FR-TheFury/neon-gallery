@@ -7,19 +7,25 @@ interface KeyboardTriggeredAnimationProps {
   cooldownTime?: number; // in milliseconds
   gifUrl?: string;
   quote?: string;
+  goodbyeQuote?: string; // Added new prop for goodbye message
 }
 
 export function KeyboardTriggeredAnimation({
   triggerKey = 'h',
   cooldownTime = 60000, // 1 minute default
   gifUrl = '/image/hello.gif',
-  quote = 'Coucou ! Je te vois !'
+  quote = 'Coucou ! Je te vois !',
+  goodbyeQuote = 'Au revoir ! À bientôt !' // Default goodbye message
 }: KeyboardTriggeredAnimationProps) {
   const [showAnimation, setShowAnimation] = useState(false);
   const [isCooldown, setIsCooldown] = useState(false);
   const [isGifLoaded, setIsGifLoaded] = useState(false);
+  const [currentQuote, setCurrentQuote] = useState(quote);
+  const [isFadingOut, setIsFadingOut] = useState(false);
   const gifRef = useRef<HTMLImageElement>(null);
   const cooldownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const quoteTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const fadeOutTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   
   // Preload the GIF
   useEffect(() => {
@@ -39,16 +45,28 @@ export function KeyboardTriggeredAnimation({
     // Check if the key pressed is the trigger key (case insensitive)
     if (event.key.toLowerCase() === triggerKey.toLowerCase()) {
       if (!isCooldown && isGifLoaded) {
-        // Show animation
+        // Show animation and set initial quote
         setShowAnimation(true);
+        setIsFadingOut(false);
+        setCurrentQuote(quote);
         
-        // Set cooldown
-        setIsCooldown(true);
+        // Change quote halfway through
+        quoteTimeoutRef.current = setTimeout(() => {
+          setCurrentQuote(goodbyeQuote);
+        }, 2500); // Half of total display time
+        
+        // Start fade-out animation 1 second before hiding
+        fadeOutTimeoutRef.current = setTimeout(() => {
+          setIsFadingOut(true);
+        }, 4000);
         
         // Auto-hide animation after 5 seconds
         setTimeout(() => {
           setShowAnimation(false);
         }, 5000);
+        
+        // Set cooldown
+        setIsCooldown(true);
         
         // Reset cooldown after specified time
         cooldownTimeoutRef.current = setTimeout(() => {
@@ -63,7 +81,7 @@ export function KeyboardTriggeredAnimation({
         });
       }
     }
-  }, [triggerKey, isCooldown, isGifLoaded, cooldownTime]);
+  }, [triggerKey, isCooldown, isGifLoaded, cooldownTime, quote, goodbyeQuote]);
   
   // Add and remove event listener
   useEffect(() => {
@@ -75,6 +93,12 @@ export function KeyboardTriggeredAnimation({
       if (cooldownTimeoutRef.current) {
         clearTimeout(cooldownTimeoutRef.current);
       }
+      if (quoteTimeoutRef.current) {
+        clearTimeout(quoteTimeoutRef.current);
+      }
+      if (fadeOutTimeoutRef.current) {
+        clearTimeout(fadeOutTimeoutRef.current);
+      }
     };
   }, [handleKeyPress]);
   
@@ -83,7 +107,7 @@ export function KeyboardTriggeredAnimation({
   
   return (
     <div className="fixed inset-y-0 right-0 z-50 flex items-center justify-end">
-      <div className="character-animate animate-slide-in-wave">
+      <div className={`character-animate ${isFadingOut ? 'animate-fade-out' : 'animate-slide-in-wave'}`}>
         <div className="relative flex items-end">
           <img 
             ref={gifRef}
@@ -92,7 +116,7 @@ export function KeyboardTriggeredAnimation({
             className="w-auto h-64 object-contain"
           />
           <div className="absolute -top-10 right-0 bg-black/80 border border-neon-red p-2 rounded-md shadow-[0_0_10px_rgba(212,9,93,0.5)] max-w-xs">
-            <p className="text-white text-center text-sm">{quote}</p>
+            <p className="text-white text-center text-sm">{currentQuote}</p>
           </div>
         </div>
       </div>

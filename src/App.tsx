@@ -54,6 +54,7 @@ const App = () => (
             cooldownTime={60000} 
             gifUrl="/image/hello.gif" 
             quote="Coucou ! Je te vois !" 
+            goodbyeQuote="Au revoir ! À la prochaine fois !"
           />
         </div>
       </BrowserRouter>
