@@ -14,8 +14,8 @@ export function KeyboardTriggeredAnimation({
   triggerKey = 'h',
   cooldownTime = 60000, // 1 minute default
   gifUrl = '/image/hello.gif',
-  quote = 'Coucou ! Je te vois !',
-  goodbyeQuote = 'Au revoir ! À bientôt !' // Default goodbye message
+  quote = 'ARF ARF WARFF BARK !',
+  goodbyeQuote = 'Your Stupid, Bye <3' // Default goodbye message
 }: KeyboardTriggeredAnimationProps) {
   // States for component
   const [showAnimation, setShowAnimation] = useState<boolean>(false);
@@ -105,7 +105,7 @@ export function KeyboardTriggeredAnimation({
     quoteTimeoutRef.current = window.setTimeout(() => {
       console.log("Changing quote to:", goodbyeQuote);
       setCurrentQuote(goodbyeQuote);
-    }, 7000); // Changed to 7000ms (7 seconds)
+    }, 8500); // Changed to 7000ms (7 seconds)
     
     // Schedule fade-out - DOUBLED from 4000ms to 8000ms
     fadeOutTimeoutRef.current = window.setTimeout(() => {
