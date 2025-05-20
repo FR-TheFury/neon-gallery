@@ -62,14 +62,13 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Mise à jour des couleurs néon avec la couleur principale #D4095D
 				neon: {
-					red: '#D4095D',          // Nouvelle couleur principale (rose-rouge)
-					darkred: '#A30747',      // Version plus foncée
-					pink: '#FF3884',         // Version plus claire/rose
-					purple: '#9A1F7A',       // Variante violet-rouge
-					darkpurple: '#6A1253',   // Violet foncé
-					dark: '#1A1F2C'          // Couleur de fond inchangée
+					red: '#D4095D',
+					darkred: '#A30747',
+					pink: '#FF3884',
+					purple: '#9A1F7A',
+					darkpurple: '#6A1253',
+					dark: '#1A1F2C'
 				}
 			},
 			borderRadius: {
@@ -79,20 +78,12 @@ export default {
 			},
 			keyframes: {
 				'accordion-down': {
-					from: {
-						height: '0'
-					},
-					to: {
-						height: 'var(--radix-accordion-content-height)'
-					}
+					from: { height: '0' },
+					to: { height: 'var(--radix-accordion-content-height)' }
 				},
 				'accordion-up': {
-					from: {
-						height: 'var(--radix-accordion-content-height)'
-					},
-					to: {
-						height: '0'
-					}
+					from: { height: 'var(--radix-accordion-content-height)' },
+					to: { height: '0' }
 				},
 				'float': {
 					'0%, 100%': { transform: 'translateY(0)' },
@@ -122,6 +113,14 @@ export default {
 					'10%': { transform: 'translate(0%, -50%) rotate(10deg)', opacity: '1' },
 					'90%': { transform: 'translate(calc(100vw - 100px), -50%) rotate(-10deg)', opacity: '1' },
 					'100%': { transform: 'translate(100vw, -50%) rotate(0deg)', opacity: '0' }
+				},
+				'fade-out': {
+					'0%': { opacity: '1' },
+					'100%': { opacity: '0' }
+				},
+				'slide-in-wave': {
+					'0%': { opacity: '0', transform: 'translateY(30px)' },
+					'100%': { opacity: '1', transform: 'translateY(0)' }
 				}
 			},
 			animation: {
@@ -132,7 +131,9 @@ export default {
 				'pulse-soft': 'pulse-soft 2s ease-in-out infinite',
 				'pulse-medium': 'pulse-medium 2.5s ease-in-out infinite',
 				'pulse-slow': 'pulse-slow 3s ease-in-out infinite',
-				'character-move': 'character-move 10s linear forwards'
+				'character-move': 'character-move 10s linear forwards',
+				'fade-out': 'fade-out 1s ease-out forwards',
+				'slide-in-wave': 'slide-in-wave 0.6s ease-out forwards'
 			}
 		}
 	},
