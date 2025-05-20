@@ -50,19 +50,26 @@ export function KeyboardTriggeredAnimation({
         setIsFadingOut(false);
         setCurrentQuote(quote);
         
+        console.log("Animation triggered, showing initial quote:", quote);
+        
         // Change quote halfway through
         quoteTimeoutRef.current = setTimeout(() => {
+          console.log("Changing quote to:", goodbyeQuote);
           setCurrentQuote(goodbyeQuote);
         }, 2500); // Half of total display time
         
         // Start fade-out animation 1 second before hiding
         fadeOutTimeoutRef.current = setTimeout(() => {
+          console.log("Starting fade-out animation");
           setIsFadingOut(true);
         }, 4000);
         
         // Auto-hide animation after 5 seconds
         setTimeout(() => {
+          console.log("Hiding animation");
           setShowAnimation(false);
+          // Reset states for next appearance
+          setIsFadingOut(false);
         }, 5000);
         
         // Set cooldown
