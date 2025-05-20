@@ -65,11 +65,15 @@ video, img {
   }
 }
 
-/* New fade-out animation - fixed for proper visibility */
+/* Completely revised fade-out animation - smooth transition over 2 seconds */
 @keyframes fade-out {
   0% { 
     opacity: 1;
     transform: translateX(0) rotate(0deg);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateX(15%) rotate(2deg);
   }
   100% { 
     opacity: 0;
@@ -82,7 +86,7 @@ video, img {
 }
 
 .animate-fade-out {
-  animation: fade-out 1s ease-in forwards;
+  animation: fade-out 2s ease-in forwards;
 }
 
 /* Specific optimizations to avoid lag */
