@@ -12,7 +12,7 @@ interface KeyboardTriggeredAnimationProps {
 export function KeyboardTriggeredAnimation({
   triggerKey = 'h',
   cooldownTime = 60000, // 1 minute default
-  gifUrl = '/image/profile.png',
+  gifUrl = '/image/hello.gif',
   quote = 'Coucou ! Je te vois !'
 }: KeyboardTriggeredAnimationProps) {
   const [showAnimation, setShowAnimation] = useState(false);
@@ -89,7 +89,7 @@ export function KeyboardTriggeredAnimation({
             ref={gifRef}
             src={gifUrl} 
             alt="Animation" 
-            className="w-40 h-auto object-contain animate-wave"
+            className="w-auto h-64 object-contain"
           />
           <div className="absolute -top-10 right-0 bg-black/80 border border-neon-red p-2 rounded-md shadow-[0_0_10px_rgba(212,9,93,0.5)] max-w-xs">
             <p className="text-white text-center text-sm">{quote}</p>

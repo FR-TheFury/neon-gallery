@@ -52,7 +52,7 @@ const App = () => (
           <KeyboardTriggeredAnimation 
             triggerKey="h" 
             cooldownTime={60000} 
-            gifUrl="/image/profile.png" 
+            gifUrl="/image/hello.gif" 
             quote="Coucou ! Je te vois !" 
           />
         </div>
