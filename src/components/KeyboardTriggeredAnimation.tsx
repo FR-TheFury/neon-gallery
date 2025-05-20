@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { toast } from "@/components/ui/sonner";
 
@@ -87,7 +88,7 @@ export function KeyboardTriggeredAnimation({
     setCurrentQuote(quote);
   }, [quote]);
   
-  // Start animation with proper timing sequence
+  // Start animation with proper timing sequence - DOUBLED TIMINGS
   const triggerAnimation = useCallback(() => {
     console.log("Starting animation sequence");
     
@@ -100,23 +101,23 @@ export function KeyboardTriggeredAnimation({
     
     console.log("Animation triggered, showing initial quote:", quote);
     
-    // Schedule quote change
+    // Schedule quote change - DOUBLED from 2500ms to 5000ms
     quoteTimeoutRef.current = window.setTimeout(() => {
       console.log("Changing quote to:", goodbyeQuote);
       setCurrentQuote(goodbyeQuote);
-    }, 2500);
+    }, 5000); // Changed from 2500 to 5000
     
-    // Schedule fade-out (starts 1 second before hiding)
+    // Schedule fade-out - DOUBLED from 4000ms to 8000ms
     fadeOutTimeoutRef.current = window.setTimeout(() => {
       console.log("Starting fade-out animation");
       setIsFadingOut(true);
-    }, 4000);
+    }, 8000); // Changed from 4000 to 8000
     
-    // Schedule hide (after fade-out animation has time to complete)
+    // Schedule hide - DOUBLED from 6000ms to 12000ms + extra time for fade-out
     hideTimeoutRef.current = window.setTimeout(() => {
       console.log("Hiding animation completely");
       setShowAnimation(false);
-    }, 6000); // Increased to allow fade-out to complete
+    }, 12000); // Changed from 6000 to 12000
     
     // Set cooldown
     isCooldownRef.current = true;
