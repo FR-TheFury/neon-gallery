@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { toast } from "@/components/ui/sonner";
 
@@ -8,6 +9,29 @@ interface KeyboardTriggeredAnimationProps {
     quote?: string;
     goodbyeQuote?: string; // Added new prop for goodbye message
 }
+
+// Create a preloader for GIFs that can be used globally
+const preloadedGifs = new Map<string, HTMLImageElement>();
+
+const preloadGif = (url: string): Promise<void> => {
+    return new Promise((resolve, reject) => {
+        // Check if already preloaded
+        if (preloadedGifs.has(url)) {
+            resolve();
+            return;
+        }
+        
+        const img = new Image();
+        img.onload = () => {
+            preloadedGifs.set(url, img);
+            resolve();
+        };
+        img.onerror = () => {
+            reject(new Error(`Failed to preload image: ${url}`));
+        };
+        img.src = url;
+    });
+};
 
 export function KeyboardTriggeredAnimation({
                                                triggerKey = 'h',
@@ -41,22 +65,28 @@ export function KeyboardTriggeredAnimation({
         showAnimationRef.current = showAnimation;
     }, [showAnimation]);
 
-    // Preload the GIF
+    // Preload the GIF immediately when the component mounts
     useEffect(() => {
-        console.log("Preloading GIF:", gifUrl);
-        const preloadImage = new Image();
-        preloadImage.src = gifUrl;
-        preloadImage.onload = () => {
-            console.log("GIF preloaded successfully");
-            setIsGifLoaded(true);
-        };
-        preloadImage.onerror = () => {
-            console.error("Failed to load GIF");
-        };
-
+        console.log("Starting GIF preload:", gifUrl);
+        
+        // Start preloading immediately
+        preloadGif(gifUrl)
+            .then(() => {
+                console.log("GIF preloaded successfully:", gifUrl);
+                setIsGifLoaded(true);
+            })
+            .catch((error) => {
+                console.error("Failed to preload GIF:", error);
+                // Still set as loaded to avoid blocking the animation completely on error
+                setIsGifLoaded(true);
+                toast("Failed to preload animation", {
+                    duration: 3000,
+                });
+            });
+            
+        // Cleanup
         return () => {
-            preloadImage.onload = null;
-            preloadImage.onerror = null;
+            // No cleanup needed for preloaded images as they might be useful later
         };
     }, [gifUrl]);
 
@@ -92,7 +122,7 @@ export function KeyboardTriggeredAnimation({
         setCurrentQuote(quote);
     }, [quote]);
 
-    // Start animation with proper timing sequence - DOUBLED TIMINGS
+    // Start animation with proper timing sequence
     const triggerAnimation = useCallback(() => {
         console.log("Starting animation sequence");
 
@@ -105,23 +135,23 @@ export function KeyboardTriggeredAnimation({
 
         console.log("Animation triggered, showing initial quote:", quote);
 
-        // Schedule quote change - MOVED LATER to 7000ms (7 seconds)
+        // Schedule quote change - at 7000ms (7 seconds)
         quoteTimeoutRef.current = window.setTimeout(() => {
             console.log("Changing quote to:", goodbyeQuote);
             setCurrentQuote(goodbyeQuote);
-        }, 7000); // Changed to 7000ms (7 seconds)
+        }, 7000);
 
-        // Schedule fade-out - DOUBLED from 4000ms to 8000ms
+        // Schedule fade-out - at 8000ms (8 seconds)
         fadeOutTimeoutRef.current = window.setTimeout(() => {
             console.log("Starting fade-out animation");
             setIsFadingOut(true);
-        }, 8000); // Changed from 4000 to 8000
+        }, 8000);
 
-        // Schedule hide - DOUBLED from 6000ms to 12000ms + extra time for fade-out
+        // Schedule hide - at 12000ms (12 seconds)
         hideTimeoutRef.current = window.setTimeout(() => {
             console.log("Hiding animation completely");
             setShowAnimation(false);
-        }, 12000); // Changed from 6000 to 12000
+        }, 12000);
 
         // Set cooldown
         isCooldownRef.current = true;

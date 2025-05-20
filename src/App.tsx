@@ -53,8 +53,8 @@ const App = () => (
             triggerKey="h" 
             cooldownTime={60000} 
             gifUrl="/image/hello.gif" 
-            quote="Coucou ! Je te vois !" 
-            goodbyeQuote="Au revoir ! À la prochaine fois !"
+            quote="ARF ARF WARFF BARK UwU !" 
+            goodbyeQuote="Your Stupid, Bye <3"
           />
         </div>
       </BrowserRouter>
