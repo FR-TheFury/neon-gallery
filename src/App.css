@@ -41,6 +41,34 @@ video, img {
   100% { filter: drop-shadow(0 0 5px rgba(255, 0, 128, 0.3)); }
 }
 
+/* New slide-in animation with wave effect */
+@keyframes slide-in-wave {
+  0% { 
+    transform: translateX(100%) rotate(0deg); 
+    opacity: 0;
+  }
+  20% { 
+    transform: translateX(70%) rotate(-5deg); 
+    opacity: 1;
+  }
+  40% { 
+    transform: translateX(40%) rotate(5deg); 
+  }
+  60% {
+    transform: translateX(20%) rotate(-3deg);
+  }
+  80% {
+    transform: translateX(10%) rotate(2deg);
+  }
+  100% { 
+    transform: translateX(0) rotate(0deg);
+  }
+}
+
+.animate-slide-in-wave {
+  animation: slide-in-wave 1s ease-out forwards;
+}
+
 /* Specific optimizations to avoid lag */
 .background-image {
   transform: translateZ(0);

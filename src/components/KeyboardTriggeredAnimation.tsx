@@ -82,18 +82,18 @@ export function KeyboardTriggeredAnimation({
   if (!showAnimation) return null;
   
   return (
-    <div className="fixed bottom-10 right-10 z-50 animate-fade-in">
-      <div className="flex flex-col items-center">
-        <div className="relative w-40 h-auto mb-2 rounded-full overflow-hidden border-2 border-neon-pink shadow-[0_0_15px_rgba(212,9,93,0.7)] animate-pulse-soft">
+    <div className="fixed inset-y-0 right-0 z-50 flex items-center justify-end">
+      <div className="character-animate animate-slide-in-wave">
+        <div className="relative flex items-end">
           <img 
             ref={gifRef}
             src={gifUrl} 
             alt="Animation" 
-            className="w-full h-auto object-contain"
+            className="w-40 h-auto object-contain animate-wave"
           />
-        </div>
-        <div className="bg-black/80 border border-neon-red p-2 rounded-md shadow-[0_0_10px_rgba(212,9,93,0.5)] max-w-xs">
-          <p className="text-white text-center text-sm">{quote}</p>
+          <div className="absolute -top-10 right-0 bg-black/80 border border-neon-red p-2 rounded-md shadow-[0_0_10px_rgba(212,9,93,0.5)] max-w-xs">
+            <p className="text-white text-center text-sm">{quote}</p>
+          </div>
         </div>
       </div>
     </div>
