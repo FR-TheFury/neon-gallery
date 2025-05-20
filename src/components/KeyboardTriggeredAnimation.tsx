@@ -45,14 +45,18 @@ export function KeyboardTriggeredAnimation({
     // Check if the key pressed is the trigger key (case insensitive)
     if (event.key.toLowerCase() === triggerKey.toLowerCase()) {
       if (!isCooldown && isGifLoaded) {
-        // Show animation and set initial quote
+        // Clear any existing timeouts to prevent conflicts
+        if (quoteTimeoutRef.current) clearTimeout(quoteTimeoutRef.current);
+        if (fadeOutTimeoutRef.current) clearTimeout(fadeOutTimeoutRef.current);
+        
+        // Reset states and show animation
         setShowAnimation(true);
         setIsFadingOut(false);
         setCurrentQuote(quote);
         
         console.log("Animation triggered, showing initial quote:", quote);
         
-        // Change quote halfway through
+        // Change quote halfway through - using a separate function to ensure state update
         quoteTimeoutRef.current = setTimeout(() => {
           console.log("Changing quote to:", goodbyeQuote);
           setCurrentQuote(goodbyeQuote);
@@ -68,8 +72,6 @@ export function KeyboardTriggeredAnimation({
         setTimeout(() => {
           console.log("Hiding animation");
           setShowAnimation(false);
-          // Reset states for next appearance
-          setIsFadingOut(false);
         }, 5000);
         
         // Set cooldown
@@ -92,10 +94,10 @@ export function KeyboardTriggeredAnimation({
   
   // Add and remove event listener
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyPress);
+    window.addEventListener('keydown', handleKeyPress);
     
     return () => {
-      document.removeEventListener('keydown', handleKeyPress);
+      window.removeEventListener('keydown', handleKeyPress);
       // Clear any timeouts on unmount
       if (cooldownTimeoutRef.current) {
         clearTimeout(cooldownTimeoutRef.current);
@@ -113,18 +115,18 @@ export function KeyboardTriggeredAnimation({
   if (!showAnimation) return null;
   
   return (
-    <div className="fixed inset-y-0 right-0 z-50 flex items-center justify-end">
+    <div className="fixed bottom-4 right-4 z-50 flex items-end justify-end">
       <div className={`character-animate ${isFadingOut ? 'animate-fade-out' : 'animate-slide-in-wave'}`}>
-        <div className="relative flex items-end">
+        <div className="relative flex flex-col items-end">
+          <div className="bg-black/80 border border-neon-red p-2 rounded-md shadow-[0_0_10px_rgba(212,9,93,0.5)] max-w-xs mb-2">
+            <p className="text-white text-center text-sm">{currentQuote}</p>
+          </div>
           <img 
             ref={gifRef}
             src={gifUrl} 
             alt="Animation" 
             className="w-auto h-64 object-contain"
           />
-          <div className="absolute -top-10 right-0 bg-black/80 border border-neon-red p-2 rounded-md shadow-[0_0_10px_rgba(212,9,93,0.5)] max-w-xs">
-            <p className="text-white text-center text-sm">{currentQuote}</p>
-          </div>
         </div>
       </div>
     </div>

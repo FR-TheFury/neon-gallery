@@ -65,7 +65,7 @@ video, img {
   }
 }
 
-/* New fade-out animation */
+/* New fade-out animation - fixed for proper visibility */
 @keyframes fade-out {
   0% { 
     opacity: 1;
