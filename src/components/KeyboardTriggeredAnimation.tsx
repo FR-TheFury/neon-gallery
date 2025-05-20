@@ -14,7 +14,7 @@ export function KeyboardTriggeredAnimation({
   triggerKey = 'h',
   cooldownTime = 60000, // 1 minute default
   gifUrl = '/image/hello.gif',
-  quote = 'ARF ARF WARFF BARK !',
+  quote = 'ARF ARF WARFF BARK UwU !',
   goodbyeQuote = 'Your Stupid, Bye <3' // Default goodbye message
 }: KeyboardTriggeredAnimationProps) {
   // States for component
