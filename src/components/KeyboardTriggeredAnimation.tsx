@@ -101,11 +101,11 @@ export function KeyboardTriggeredAnimation({
     
     console.log("Animation triggered, showing initial quote:", quote);
     
-    // Schedule quote change - DOUBLED from 2500ms to 5000ms
+    // Schedule quote change - MOVED LATER to 7000ms (7 seconds)
     quoteTimeoutRef.current = window.setTimeout(() => {
       console.log("Changing quote to:", goodbyeQuote);
       setCurrentQuote(goodbyeQuote);
-    }, 5000); // Changed from 2500 to 5000
+    }, 7000); // Changed to 7000ms (7 seconds)
     
     // Schedule fade-out - DOUBLED from 4000ms to 8000ms
     fadeOutTimeoutRef.current = window.setTimeout(() => {
