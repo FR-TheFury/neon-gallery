@@ -105,7 +105,7 @@ export function KeyboardTriggeredAnimation({
     quoteTimeoutRef.current = window.setTimeout(() => {
       console.log("Changing quote to:", goodbyeQuote);
       setCurrentQuote(goodbyeQuote);
-    }, 8500); // Changed to 7000ms (7 seconds)
+    }, 7000); // Changed to 7000ms (7 seconds)
     
     // Schedule fade-out - DOUBLED from 4000ms to 8000ms
     fadeOutTimeoutRef.current = window.setTimeout(() => {
