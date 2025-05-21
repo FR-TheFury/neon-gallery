@@ -46,8 +46,8 @@ const preloadAudio = (url: string): Promise<void> => {
 export function FullscreenKeyboardAnimation({
     triggerKey = 'g',
     cooldownTime = 60000, // 1 minute default
-    gifUrl = '/image/hello.gif',
-    soundUrl = '/music/background.mp3',
+    gifUrl = '/image/gay.gif',
+    soundUrl = '/music/gay.mp3',
     duration = 3000 // 3 seconds default
 }: FullscreenKeyboardAnimationProps) {
     // States for component

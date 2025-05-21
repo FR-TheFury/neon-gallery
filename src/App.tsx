@@ -60,8 +60,8 @@ const App = () => (
           <FullscreenKeyboardAnimation 
             triggerKey="g"
             cooldownTime={60000}
-            gifUrl="/image/gojo.gif"
-            soundUrl="/music/background.mp3"
+            gifUrl="/image/gay.gif"
+            soundUrl="/music/gay.mp3"
             duration={3000}
           />
         </div>
