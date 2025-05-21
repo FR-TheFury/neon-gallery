@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { toast } from "@/components/ui/sonner";
 import { emitAudioEvent } from '@/events/audioEvents';
@@ -96,7 +97,8 @@ export function FullscreenKeyboardAnimation({
                 // Create audio element after preloading
                 if (!audioRef.current) {
                     audioRef.current = new Audio(soundUrl);
-                    audioRef.current.volume = 0.7; // Set volume to 70%
+                    audioRef.current.volume = 1.0; // Set volume to 100% (full volume)
+                    console.log("Audio element created with volume at 100%");
                 }
             })
             .catch((error) => {
@@ -144,15 +146,28 @@ export function FullscreenKeyboardAnimation({
         // Show animation
         setShowAnimation(true);
         
-        // Play sound
+        // Play sound with forced interaction and volume check
         if (audioRef.current) {
+            // Make absolutely sure volume is at maximum
+            audioRef.current.volume = 1.0;
             audioRef.current.currentTime = 0; // Reset to start
-            audioRef.current.play().catch(err => {
-                console.error("Failed to play audio:", err);
-                toast("Failed to play sound. Try clicking on the page first.", {
-                    duration: 3000,
+            
+            console.log("Attempting to play animation sound at volume:", audioRef.current.volume);
+            
+            // Try to play with user gesture simulation
+            const playPromise = audioRef.current.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    console.log("Animation sound playing successfully");
+                }).catch(err => {
+                    console.error("Failed to play audio:", err);
+                    toast("Failed to play sound. Try clicking on the page first.", {
+                        duration: 3000,
+                    });
                 });
-            });
+            }
+        } else {
+            console.error("Audio reference not available when trying to play sound");
         }
 
         // Schedule hide after the duration

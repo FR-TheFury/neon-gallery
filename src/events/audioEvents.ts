@@ -19,12 +19,14 @@ export const emitAudioEvent = (eventType: AudioEventType): void => {
 // Subscribe to an event
 export const onAudioEvent = (eventType: AudioEventType, callback: AudioEventCallback): () => void => {
   listeners[eventType].push(callback);
+  console.log(`Listener added for: ${eventType}, total listeners: ${listeners[eventType].length}`);
   
   // Return unsubscribe function
   return () => {
     const index = listeners[eventType].indexOf(callback);
     if (index !== -1) {
       listeners[eventType].splice(index, 1);
+      console.log(`Listener removed for: ${eventType}, remaining listeners: ${listeners[eventType].length}`);
     }
   };
 };
