@@ -1,7 +1,7 @@
-
 import { useState, useRef, useEffect } from "react";
 import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, ChevronUp, ChevronDown, Music } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
+import { onAudioEvent } from "@/events/audioEvents";
 
 const AudioPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -13,6 +13,7 @@ const AudioPlayer = () => {
   const [audioError, setAudioError] = useState(false);
   const [userInteracted, setUserInteracted] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
+  const [wasPlayingBeforePause, setWasPlayingBeforePause] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   
   // Listen for user interaction with the page
@@ -32,6 +33,51 @@ const AudioPlayer = () => {
       window.removeEventListener('touchstart', handleInteraction);
     };
   }, []);
+  
+  // Listen for audio events
+  useEffect(() => {
+    // Set up event handlers
+    const handlePauseMusic = () => {
+      console.log("Received event to pause background music");
+      const audio = audioRef.current;
+      if (!audio) return;
+      
+      // Store current playing state before pausing
+      setWasPlayingBeforePause(isPlaying);
+      
+      // Pause audio if playing
+      if (isPlaying && audio) {
+        audio.pause();
+        // State will be updated via the 'pause' event listener
+      }
+    };
+    
+    const handleResumeMusic = () => {
+      console.log("Received event to resume background music");
+      const audio = audioRef.current;
+      if (!audio) return;
+      
+      // Only resume if it was playing before being paused
+      if (wasPlayingBeforePause) {
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(err => {
+            console.log("Resume error:", err);
+          });
+        }
+      }
+    };
+    
+    // Subscribe to events
+    const unsubscribePause = onAudioEvent('pause-background-music', handlePauseMusic);
+    const unsubscribeResume = onAudioEvent('resume-background-music', handleResumeMusic);
+    
+    // Cleanup event subscriptions
+    return () => {
+      unsubscribePause();
+      unsubscribeResume();
+    };
+  }, [isPlaying, wasPlayingBeforePause]);
   
   // Preload the audio
   useEffect(() => {

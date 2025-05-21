@@ -1,6 +1,6 @@
-
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { toast } from "@/components/ui/sonner";
+import { emitAudioEvent } from '@/events/audioEvents';
 
 interface FullscreenKeyboardAnimationProps {
     triggerKey?: string;
@@ -138,6 +138,9 @@ export function FullscreenKeyboardAnimation({
         // Clear existing timeouts
         clearAllTimeouts();
 
+        // Emit event to pause background music before playing animation sound
+        emitAudioEvent('pause-background-music');
+
         // Show animation
         setShowAnimation(true);
         
@@ -162,6 +165,10 @@ export function FullscreenKeyboardAnimation({
                 audioRef.current.pause();
                 audioRef.current.currentTime = 0;
             }
+            
+            // Emit event to resume background music after animation ends
+            emitAudioEvent('resume-background-music');
+            
         }, duration);
 
         // Set cooldown
@@ -215,6 +222,11 @@ export function FullscreenKeyboardAnimation({
             if (audioRef.current) {
                 audioRef.current.pause();
                 audioRef.current = null;
+            }
+            
+            // Make sure to resume background music if component unmounts while animation is showing
+            if (showAnimationRef.current) {
+                emitAudioEvent('resume-background-music');
             }
         };
     }, [handleKeyPress, clearAllTimeouts]);
