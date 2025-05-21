@@ -1,3 +1,4 @@
+
 import { useState, useRef, useEffect } from "react";
 import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, ChevronUp, ChevronDown, Music } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
@@ -256,7 +257,7 @@ const AudioPlayer = () => {
 
   return (
     <>
-      <audio ref={audioRef} src="/music/background.mp3" preload="metadata" />
+      <audio ref={audioRef} src="/music/background.mp3" preload="metadata" loop />
       
       {isMinimized ? (
         // Minimized player - just a circle with music note
