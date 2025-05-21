@@ -15,6 +15,7 @@ import AudioPlayer from "./components/AudioPlayer";
 import FloatingCharacter from "./components/FloatingCharacter";
 import { NSFWWarningDialog } from "./components/NSFWWarningDialog";
 import KeyboardTriggeredAnimation from "./components/KeyboardTriggeredAnimation";
+import FullscreenKeyboardAnimation from "./components/FullscreenKeyboardAnimation";
 
 // Create a query client with optimized default options
 const queryClient = new QueryClient({
@@ -55,6 +56,13 @@ const App = () => (
             gifUrl="/image/hello.gif" 
             quote="ARF ARF WARFF BARK UwU !" 
             goodbyeQuote="Your Stupid, Bye <3"
+          />
+          <FullscreenKeyboardAnimation 
+            triggerKey="g"
+            cooldownTime={60000}
+            gifUrl="/image/gojo.gif"
+            soundUrl="/music/background.mp3"
+            duration={3000}
           />
         </div>
       </BrowserRouter>
