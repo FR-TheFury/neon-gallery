@@ -70,6 +70,24 @@ export function FullscreenKeyboardAnimation({
         showAnimationRef.current = showAnimation;
     }, [showAnimation]);
 
+    // Create audio element immediately
+    useEffect(() => {
+        // Create audio element right away
+        if (!audioRef.current) {
+            audioRef.current = new Audio(soundUrl);
+            audioRef.current.volume = 1.0; // Set volume to 100%
+            console.log("Audio element created immediately with volume at 100%");
+        }
+        
+        return () => {
+            // Clean up audio on unmount
+            if (audioRef.current) {
+                audioRef.current.pause();
+                audioRef.current = null;
+            }
+        };
+    }, [soundUrl]);
+
     // Preload the GIF and audio immediately
     useEffect(() => {
         console.log("Starting fullscreen resources preload");
@@ -94,11 +112,10 @@ export function FullscreenKeyboardAnimation({
                 console.log("Audio preloaded successfully:", soundUrl);
                 setIsAudioLoaded(true);
                 
-                // Create audio element after preloading
-                if (!audioRef.current) {
-                    audioRef.current = new Audio(soundUrl);
-                    audioRef.current.volume = 1.0; // Set volume to 100% (full volume)
-                    console.log("Audio element created with volume at 100%");
+                // Ensure audio element is created and has proper volume
+                if (audioRef.current) {
+                    audioRef.current.volume = 1.0;
+                    console.log("Audio volume confirmed at 100%");
                 }
             })
             .catch((error) => {
@@ -108,14 +125,6 @@ export function FullscreenKeyboardAnimation({
                     duration: 3000,
                 });
             });
-            
-        return () => {
-            // Clean up audio on unmount
-            if (audioRef.current) {
-                audioRef.current.pause();
-                audioRef.current = null;
-            }
-        };
     }, [gifUrl, soundUrl]);
 
     // Clear all timeouts to prevent conflicts
@@ -146,6 +155,13 @@ export function FullscreenKeyboardAnimation({
         // Show animation
         setShowAnimation(true);
         
+        // Double check audio element exists, create if needed
+        if (!audioRef.current) {
+            console.log("Creating audio element on demand");
+            audioRef.current = new Audio(soundUrl);
+            audioRef.current.volume = 1.0;
+        }
+        
         // Play sound with forced interaction and volume check
         if (audioRef.current) {
             // Make absolutely sure volume is at maximum
@@ -154,18 +170,25 @@ export function FullscreenKeyboardAnimation({
             
             console.log("Attempting to play animation sound at volume:", audioRef.current.volume);
             
+            // Force a load before playing to ensure readiness
+            audioRef.current.load();
+            
             // Try to play with user gesture simulation
-            const playPromise = audioRef.current.play();
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    console.log("Animation sound playing successfully");
-                }).catch(err => {
-                    console.error("Failed to play audio:", err);
-                    toast("Failed to play sound. Try clicking on the page first.", {
-                        duration: 3000,
-                    });
-                });
-            }
+            setTimeout(() => {
+                if (audioRef.current) {
+                    const playPromise = audioRef.current.play();
+                    if (playPromise !== undefined) {
+                        playPromise.then(() => {
+                            console.log("Animation sound playing successfully");
+                        }).catch(err => {
+                            console.error("Failed to play audio:", err);
+                            toast("Failed to play sound. Try clicking on the page first.", {
+                                duration: 3000,
+                            });
+                        });
+                    }
+                }
+            }, 100); // Small delay to ensure DOM is ready
         } else {
             console.error("Audio reference not available when trying to play sound");
         }
@@ -198,7 +221,7 @@ export function FullscreenKeyboardAnimation({
             });
         }, cooldownTime);
 
-    }, [duration, cooldownTime, clearAllTimeouts]);
+    }, [duration, cooldownTime, clearAllTimeouts, soundUrl]);
 
     // Handle key press
     const handleKeyPress = useCallback((event: KeyboardEvent) => {
