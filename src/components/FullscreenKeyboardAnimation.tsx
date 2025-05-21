@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { toast } from "@/components/ui/sonner";
 
@@ -223,11 +224,11 @@ export function FullscreenKeyboardAnimation({
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
-            <div className="fullscreen-animation animate-fade-in">
+            <div className="fullscreen-animation animate-fade-in w-full max-w-[95vw] mx-auto border-4 border-neon-red shadow-[0_0_15px_#D4095D,inset_0_0_10px_#D4095D]">
                 <img
                     src={gifUrl}
                     alt="Fullscreen Animation"
-                    className="max-h-screen max-w-full object-contain"
+                    className="w-full h-auto max-h-[90vh] object-contain"
                 />
             </div>
         </div>

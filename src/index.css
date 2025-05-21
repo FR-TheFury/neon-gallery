@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -145,5 +146,32 @@
     10% { opacity: 1; transform: scale(1); }
     90% { opacity: 1; transform: scale(1); }
     100% { opacity: 0; transform: scale(1.1); }
+  }
+  
+  /* Neon pulsing border for fullscreen animation */
+  .fullscreen-animation {
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 20px rgba(212, 9, 93, 0.8), inset 0 0 15px rgba(212, 9, 93, 0.5);
+    animation: fullscreen-pulse 3s ease-in-out;
+  }
+  
+  @keyframes fullscreen-pulse {
+    0% { 
+      opacity: 0; 
+      box-shadow: 0 0 10px rgba(212, 9, 93, 0.5), inset 0 0 5px rgba(212, 9, 93, 0.3);
+    }
+    10% { 
+      opacity: 1; 
+      box-shadow: 0 0 25px rgba(212, 9, 93, 0.9), inset 0 0 15px rgba(212, 9, 93, 0.7);
+    }
+    90% { 
+      opacity: 1; 
+      box-shadow: 0 0 25px rgba(212, 9, 93, 0.9), inset 0 0 15px rgba(212, 9, 93, 0.7);
+    }
+    100% { 
+      opacity: 0; 
+      box-shadow: 0 0 5px rgba(212, 9, 93, 0.3), inset 0 0 2px rgba(212, 9, 93, 0.2);
+    }
   }
 }
