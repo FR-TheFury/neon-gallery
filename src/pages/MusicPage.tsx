@@ -100,13 +100,18 @@ const MusicPage = () => {
                   <span className="text-sm">Deezer</span>
                   <div className="text-xs text-neon-pink mt-1">In Coming</div>
                 </div>
-                <div className="neon-button p-3 text-center rounded-md cursor-not-allowed opacity-50">
+                <a 
+                  href="https://soundcloud.com/himely_pup" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="neon-button p-3 text-center rounded-md hover:shadow-[0_0_20px_rgba(212,9,93,0.8)] transition-all duration-300"
+                >
                   <div className="mx-auto mb-2 w-6 h-6 flex items-center justify-center">
                     <SiSoundcloud className="w-6 h-6 text-orange-600" />
                   </div>
                   <span className="text-sm">SoundCloud</span>
                   <div className="text-xs text-neon-pink mt-1">Available</div>
-                </div>
+                </a>
                 <div className="neon-button p-3 text-center rounded-md cursor-not-allowed opacity-50">
                   <div className="mx-auto mb-2 w-6 h-6 flex items-center justify-center">
                     <SiAmazonmusic className="w-6 h-6 text-blue-500" />
