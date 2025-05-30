@@ -1,5 +1,5 @@
 
-import { Music, Headphones, Volume2 } from "lucide-react";
+import { Music, Headphones, Volume2, Play, Disc3, Youtube } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 const MusicPage = () => {
@@ -75,22 +75,30 @@ const MusicPage = () => {
               </h3>
               <div className="grid grid-cols-2 gap-4">
                 <div className="neon-button p-3 text-center rounded-md cursor-not-allowed opacity-50">
-                  <Volume2 className="mx-auto mb-2" />
+                  <div className="mx-auto mb-2 w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
+                    <Play className="w-3 h-3 text-white fill-white" />
+                  </div>
                   <span className="text-sm">Spotify</span>
                   <div className="text-xs text-neon-pink mt-1">In Coming</div>
                 </div>
                 <div className="neon-button p-3 text-center rounded-md cursor-not-allowed opacity-50">
-                  <Volume2 className="mx-auto mb-2" />
+                  <div className="mx-auto mb-2 w-6 h-6 rounded-full bg-gradient-to-r from-orange-400 to-purple-600 flex items-center justify-center">
+                    <Disc3 className="w-3 h-3 text-white" />
+                  </div>
                   <span className="text-sm">Deezer</span>
                   <div className="text-xs text-neon-pink mt-1">In Coming</div>
                 </div>
                 <div className="neon-button p-3 text-center rounded-md cursor-not-allowed opacity-50">
-                  <Volume2 className="mx-auto mb-2" />
+                  <div className="mx-auto mb-2 w-6 h-6 rounded-full bg-orange-500 flex items-center justify-center">
+                    <Volume2 className="w-3 h-3 text-white" />
+                  </div>
                   <span className="text-sm">SoundCloud</span>
                   <div className="text-xs text-neon-pink mt-1">Available</div>
                 </div>
                 <div className="neon-button p-3 text-center rounded-md cursor-not-allowed opacity-50">
-                  <Volume2 className="mx-auto mb-2" />
+                  <div className="mx-auto mb-2 w-6 h-6 rounded-sm bg-red-600 flex items-center justify-center">
+                    <Youtube className="w-3 h-3 text-white" />
+                  </div>
                   <span className="text-sm">YouTube</span>
                   <div className="text-xs text-neon-pink mt-1">In Coming</div>
                 </div>
