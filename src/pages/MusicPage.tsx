@@ -1,7 +1,31 @@
 
 import { Music, Headphones, Volume2 } from "lucide-react";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 const MusicPage = () => {
+  const albums = [
+    {
+      id: 1,
+      title: "Fucked Up Vision",
+      image: "/image/FuckedUpVision.png"
+    },
+    {
+      id: 2,
+      title: "Digital Dreams",
+      image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=400&h=400&fit=crop"
+    },
+    {
+      id: 3,
+      title: "Neon Nights",
+      image: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400&h=400&fit=crop"
+    },
+    {
+      id: 4,
+      title: "Cyber Soul",
+      image: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?w=400&h=400&fit=crop"
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-neon-dark via-black to-neon-darkpurple pt-20">
       {/* Hero Section */}
@@ -62,8 +86,8 @@ const MusicPage = () => {
                 </div>
                 <div className="neon-button p-3 text-center rounded-md cursor-not-allowed opacity-50">
                   <Volume2 className="mx-auto mb-2" />
-                  <span className="text-sm">Apple Music</span>
-                  <div className="text-xs text-neon-pink mt-1">In Coming</div>
+                  <span className="text-sm">SoundCloud</span>
+                  <div className="text-xs text-neon-pink mt-1">Available</div>
                 </div>
                 <div className="neon-button p-3 text-center rounded-md cursor-not-allowed opacity-50">
                   <Volume2 className="mx-auto mb-2" />
@@ -85,6 +109,35 @@ const MusicPage = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-neon-red/20 to-transparent rounded-lg pointer-events-none"></div>
             </div>
           </div>
+        </div>
+
+        {/* Albums Carousel */}
+        <div className="cyberpunk-card p-8 neon-border mb-8">
+          <h2 className="text-3xl font-bold text-neon-red mb-6 text-center">
+            Mes Albums
+          </h2>
+          <Carousel className="w-full max-w-5xl mx-auto">
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {albums.map((album) => (
+                <CarouselItem key={album.id} className="pl-2 md:pl-4 basis-1/2 lg:basis-1/4">
+                  <div className="cyberpunk-card p-4 neon-border hover:shadow-[0_0_20px_rgba(212,9,93,0.8)] transition-all duration-300">
+                    <div className="aspect-square overflow-hidden rounded-md mb-4 neon-border">
+                      <img 
+                        src={album.image}
+                        alt={album.title}
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <h3 className="text-lg font-semibold text-neon-pink text-center neon-text">
+                      {album.title}
+                    </h3>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="neon-button" />
+            <CarouselNext className="neon-button" />
+          </Carousel>
         </div>
 
         {/* SoundCloud Integration */}
