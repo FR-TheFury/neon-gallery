@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, ChevronUp, ChevronDown, Music, Shuffle } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 import { onAudioEvent } from "@/events/audioEvents";
-import { soundcloudService, SoundCloudTrack } from "@/services/soundcloudService";
+import { soundcloudService, SoundCloudTrack, SoundCloudAlbum } from "@/services/soundcloudService";
 
 const AudioPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -16,26 +16,73 @@ const AudioPlayer = () => {
   const [isMinimized, setIsMinimized] = useState(false);
   const [wasPlayingBeforePause, setWasPlayingBeforePause] = useState(false);
   const [currentTrack, setCurrentTrack] = useState<SoundCloudTrack | null>(null);
+  const [currentAlbum, setCurrentAlbum] = useState<SoundCloudAlbum | null>(null);
   const [isLoadingTrack, setIsLoadingTrack] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   
-  // Initialize with a random track
+  // Initialize with a random album and track
   useEffect(() => {
-    const initialTrack = soundcloudService.getRandomTrack();
+    const initialAlbum = soundcloudService.getRandomAlbum();
+    const initialTrack = soundcloudService.getRandomTrackFromAlbum(initialAlbum.id);
+    setCurrentAlbum(initialAlbum);
     setCurrentTrack(initialTrack);
   }, []);
 
-  // Load next random track
+  // Load next track in album
   const loadNextTrack = () => {
+    if (!currentAlbum || !currentTrack) return;
+    
     setIsLoadingTrack(true);
-    const nextTrack = soundcloudService.getNextRandomTrack(currentTrack?.id);
-    setCurrentTrack(nextTrack);
+    const nextTrack = soundcloudService.getNextTrackInAlbum(currentAlbum.id, currentTrack.id);
+    if (nextTrack) {
+      setCurrentTrack(nextTrack);
+      setAudioLoaded(false);
+      setAudioError(false);
+      setCurrentTime(0);
+      setDuration(0);
+      
+      const audio = audioRef.current;
+      if (audio) {
+        audio.pause();
+        setIsPlaying(false);
+      }
+    }
+  };
+
+  // Load previous track in album
+  const loadPreviousTrack = () => {
+    if (!currentAlbum || !currentTrack) return;
+    
+    setIsLoadingTrack(true);
+    const previousTrack = soundcloudService.getPreviousTrackInAlbum(currentAlbum.id, currentTrack.id);
+    if (previousTrack) {
+      setCurrentTrack(previousTrack);
+      setAudioLoaded(false);
+      setAudioError(false);
+      setCurrentTime(0);
+      setDuration(0);
+      
+      const audio = audioRef.current;
+      if (audio) {
+        audio.pause();
+        setIsPlaying(false);
+      }
+    }
+  };
+
+  // Load random album
+  const loadRandomAlbum = () => {
+    setIsLoadingTrack(true);
+    const randomAlbum = soundcloudService.getRandomAlbum();
+    const randomTrack = soundcloudService.getRandomTrackFromAlbum(randomAlbum.id);
+    
+    setCurrentAlbum(randomAlbum);
+    setCurrentTrack(randomTrack);
     setAudioLoaded(false);
     setAudioError(false);
     setCurrentTime(0);
     setDuration(0);
     
-    // Reset audio element
     const audio = audioRef.current;
     if (audio) {
       audio.pause();
@@ -316,10 +363,10 @@ const AudioPlayer = () => {
           <div className="flex items-center justify-between mb-2">
             <div className="flex-1 min-w-0">
               <div className="text-sm font-medium text-neon-red truncate">
-                {isLoadingTrack ? "Chargement..." : currentTrack?.title || "Musique"}
+                {isLoadingTrack ? "Chargement..." : currentTrack?.title || "Track"}
               </div>
               <div className="text-xs text-gray-400 truncate">
-                {currentTrack?.artist || "Himely"}
+                {currentAlbum?.title || "Album"} • {currentTrack?.artist || "Himely"}
               </div>
             </div>
             <div className="flex items-center gap-2 ml-2">
@@ -353,12 +400,8 @@ const AudioPlayer = () => {
             <div className="flex items-center space-x-3">
               <button 
                 className="text-white hover:text-neon-red transition-colors"
-                onClick={() => {
-                  const audio = audioRef.current;
-                  if (audio) {
-                    audio.currentTime = 0;
-                  }
-                }}
+                onClick={loadPreviousTrack}
+                disabled={isLoadingTrack}
               >
                 <SkipBack className="h-4 w-4" />
               </button>
@@ -380,19 +423,15 @@ const AudioPlayer = () => {
                 onClick={loadNextTrack}
                 disabled={isLoadingTrack}
               >
-                <Shuffle className="h-4 w-4" />
+                <SkipForward className="h-4 w-4" />
               </button>
               
               <button 
                 className="text-white hover:text-neon-red transition-colors"
-                onClick={() => {
-                  const audio = audioRef.current;
-                  if (audio && duration) {
-                    audio.currentTime = Math.min(audio.currentTime + 30, duration);
-                  }
-                }}
+                onClick={loadRandomAlbum}
+                disabled={isLoadingTrack}
               >
-                <SkipForward className="h-4 w-4" />
+                <Shuffle className="h-4 w-4" />
               </button>
             </div>
             
