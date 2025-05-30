@@ -70,6 +70,15 @@ const Navigation = () => {
                 
                 <NavigationMenuItem>
                   <Link 
+                    to="/music"
+                    className="neon-menu-item relative after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-[2px] after:bg-neon-red after:transform after:-translate-x-1/2 after:transition-all after:duration-300 hover:after:w-full hover:after:shadow-[0_0_5px_#D4095D]"
+                  >
+                    Music
+                  </Link>
+                </NavigationMenuItem>
+                
+                <NavigationMenuItem>
+                  <Link 
                     to="/about"
                     className="neon-menu-item relative after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-[2px] after:bg-neon-red after:transform after:-translate-x-1/2 after:transition-all after:duration-300 hover:after:w-full hover:after:shadow-[0_0_5px_#D4095D]"
                   >
@@ -116,6 +125,14 @@ const Navigation = () => {
                 ))}
               </div>
             </div>
+            
+            <Link 
+              to="/music" 
+              className="block px-4 py-2 rounded-md hover:bg-black hover:text-neon-red relative overflow-hidden after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-neon-red after:transform after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Music
+            </Link>
             
             <Link 
               to="/about" 
