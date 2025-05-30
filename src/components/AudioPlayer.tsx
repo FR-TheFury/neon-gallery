@@ -1,5 +1,6 @@
+
 import { useState, useRef, useEffect } from "react";
-import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, ChevronUp, ChevronDown, Music, Shuffle } from "lucide-react";
+import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, ChevronUp, ChevronDown, Music, Shuffle, ExternalLink } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 import { onAudioEvent } from "@/events/audioEvents";
 import { soundcloudService, SoundCloudTrack, SoundCloudAlbum } from "@/services/soundcloudService";
@@ -22,10 +23,25 @@ const AudioPlayer = () => {
   
   // Initialize with a random album and track
   useEffect(() => {
-    const initialAlbum = soundcloudService.getRandomAlbum();
-    const initialTrack = soundcloudService.getRandomTrackFromAlbum(initialAlbum.id);
-    setCurrentAlbum(initialAlbum);
-    setCurrentTrack(initialTrack);
+    // Délai pour permettre au service de charger les données
+    const initializePlayer = () => {
+      const initialAlbum = soundcloudService.getRandomAlbum();
+      const initialTrack = soundcloudService.getRandomTrackFromAlbum(initialAlbum.id);
+      setCurrentAlbum(initialAlbum);
+      setCurrentTrack(initialTrack);
+    };
+    
+    // Initialiser immédiatement, puis réessayer après un délai si nécessaire
+    initializePlayer();
+    
+    // Réessayer après 1 seconde si les données ne sont pas encore chargées
+    const timer = setTimeout(() => {
+      if (!currentTrack || currentTrack.title === "Loading track...") {
+        initializePlayer();
+      }
+    }, 1000);
+    
+    return () => clearTimeout(timer);
   }, []);
 
   // Load next track in album
@@ -95,10 +111,25 @@ const AudioPlayer = () => {
     const audio = audioRef.current;
     if (!audio || !currentTrack) return;
 
-    // For now, fallback to local file since we need real SoundCloud URLs
-    // In production, you would use: audio.src = currentTrack.url;
-    audio.src = "/music/background.mp3";
-    audio.load();
+    // Essayer d'abord l'URL SoundCloud, puis fallback vers le fichier local
+    const tryLoadAudio = (url: string, fallback = true) => {
+      audio.src = url;
+      audio.load();
+      
+      const handleError = () => {
+        if (fallback && !url.includes('background.mp3')) {
+          console.log('SoundCloud URL failed, falling back to local file');
+          tryLoadAudio('/music/background.mp3', false);
+        } else {
+          setAudioError(true);
+        }
+        audio.removeEventListener('error', handleError);
+      };
+      
+      audio.addEventListener('error', handleError, { once: true });
+    };
+
+    tryLoadAudio(currentTrack.url);
     setIsLoadingTrack(false);
   }, [currentTrack]);
 
@@ -108,7 +139,6 @@ const AudioPlayer = () => {
       setUserInteracted(true);
     };
     
-    // These events indicate user interaction
     window.addEventListener('click', handleInteraction);
     window.addEventListener('keydown', handleInteraction);
     window.addEventListener('touchstart', handleInteraction);
@@ -122,19 +152,15 @@ const AudioPlayer = () => {
   
   // Listen for audio events
   useEffect(() => {
-    // Set up event handlers
     const handlePauseMusic = () => {
       console.log("Received event to pause background music");
       const audio = audioRef.current;
       if (!audio) return;
       
-      // Store current playing state before pausing
       setWasPlayingBeforePause(isPlaying);
       
-      // Pause audio if playing
       if (isPlaying && audio) {
         audio.pause();
-        // State will be updated via the 'pause' event listener
       }
     };
     
@@ -143,7 +169,6 @@ const AudioPlayer = () => {
       const audio = audioRef.current;
       if (!audio) return;
       
-      // Only resume if it was playing before being paused
       if (wasPlayingBeforePause) {
         const playPromise = audio.play();
         if (playPromise !== undefined) {
@@ -154,23 +179,20 @@ const AudioPlayer = () => {
       }
     };
     
-    // Subscribe to events
     const unsubscribePause = onAudioEvent('pause-background-music', handlePauseMusic);
     const unsubscribeResume = onAudioEvent('resume-background-music', handleResumeMusic);
     
-    // Cleanup event subscriptions
     return () => {
       unsubscribePause();
       unsubscribeResume();
     };
   }, [isPlaying, wasPlayingBeforePause]);
   
-  // Preload the audio
+  // Set up audio events
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
     
-    // Set up audio events
     const handleCanPlay = () => {
       console.log("Audio loaded successfully");
       setAudioLoaded(true);
@@ -184,7 +206,6 @@ const AudioPlayer = () => {
     
     const handleEnded = () => {
       setIsPlaying(false);
-      // Auto-load next track when current one ends
       loadNextTrack();
     };
     
@@ -199,17 +220,15 @@ const AudioPlayer = () => {
     const handleError = (e: Event) => {
       console.error("Audio loading error:", e);
       setAudioError(true);
-      // Try again with cache-busting
       setTimeout(() => {
-        if (audio) {
-          const currentSrc = audio.src.split('?')[0];
-          audio.src = `${currentSrc}?t=${Date.now()}`;
+        if (audio && !audio.src.includes('background.mp3')) {
+          console.log("Retrying with local fallback");
+          audio.src = "/music/background.mp3";
           audio.load();
         }
       }, 2000);
     };
     
-    // Add event listeners
     audio.addEventListener('canplaythrough', handleCanPlay);
     audio.addEventListener('timeupdate', handleTimeUpdate);
     audio.addEventListener('ended', handleEnded);
@@ -217,15 +236,12 @@ const AudioPlayer = () => {
     audio.addEventListener('play', handlePlay);
     audio.addEventListener('pause', handlePause);
     
-    // Preload audio
     audio.load();
     
-    // If already loaded
     if (audio.readyState >= 3) {
       handleCanPlay();
     }
     
-    // Cleanup
     return () => {
       audio.removeEventListener('canplaythrough', handleCanPlay);
       audio.removeEventListener('timeupdate', handleTimeUpdate);
@@ -243,10 +259,8 @@ const AudioPlayer = () => {
     const audio = audioRef.current;
     if (!audio) return;
     
-    // Set the volume
     audio.volume = volume;
     
-    // Function to try autoplay
     const tryAutoplay = () => {
       console.log("Attempting to autoplay audio...");
       const playPromise = audio.play();
@@ -256,9 +270,7 @@ const AudioPlayer = () => {
           setIsPlaying(true);
         }).catch(error => {
           console.log("Autoplay blocked (normal browser behavior):", error);
-          // Most browsers block autoplay without user interaction
           if (!userInteracted) {
-            // Show a toast message encouraging user interaction
             toast({
               title: "Cliquez pour activer la musique",
               description: "Les navigateurs requièrent une interaction utilisateur pour lancer l'audio",
@@ -269,10 +281,8 @@ const AudioPlayer = () => {
       }
     };
     
-    // Try autoplay immediately
     tryAutoplay();
     
-    // And also try when user interacts with the page
     if (userInteracted) {
       tryAutoplay();
     }
@@ -289,14 +299,13 @@ const AudioPlayer = () => {
     return "0:00";
   };
 
-  // Playback control - Fixed to prevent double-click issue
+  // Playback control
   const togglePlay = () => {
     const audio = audioRef.current;
     if (!audio) return;
     
     if (isPlaying) {
       audio.pause();
-      // State will be updated via the 'pause' event listener
     } else {
       const playPromise = audio.play();
       if (playPromise !== undefined) {
@@ -342,12 +351,18 @@ const AudioPlayer = () => {
     setIsMinimized(!isMinimized);
   };
 
+  // Open SoundCloud album
+  const openSoundCloudAlbum = () => {
+    if (currentAlbum?.soundcloudUrl) {
+      window.open(currentAlbum.soundcloudUrl, '_blank');
+    }
+  };
+
   return (
     <>
       <audio ref={audioRef} preload="metadata" loop={false} />
       
       {isMinimized ? (
-        // Minimized player - just a circle with music note
         <div 
           className="fixed left-4 bottom-4 z-40 bg-neon-red rounded-full w-12 h-12 flex items-center justify-center cursor-pointer shadow-[0_0_10px_#D4095D] transition-all hover:scale-105"
           onClick={toggleMinimize}
@@ -358,7 +373,6 @@ const AudioPlayer = () => {
           )}
         </div>
       ) : (
-        // Full player
         <div className="fixed left-4 bottom-4 z-40 bg-neon-dark bg-opacity-90 backdrop-blur-sm p-4 rounded-lg border border-neon-red neon-border w-80 transition-all">
           <div className="flex items-center justify-between mb-2">
             <div className="flex-1 min-w-0">
@@ -373,6 +387,15 @@ const AudioPlayer = () => {
               <div className="text-xs text-gray-400 whitespace-nowrap">
                 {formatTime(currentTime)} / {formatTime(duration)}
               </div>
+              {currentAlbum?.soundcloudUrl && (
+                <button
+                  onClick={openSoundCloudAlbum}
+                  className="text-white hover:text-neon-red transition-colors"
+                  title="Ouvrir sur SoundCloud"
+                >
+                  <ExternalLink className="h-3 w-3" />
+                </button>
+              )}
               <button
                 onClick={toggleMinimize}
                 className="text-white hover:text-neon-red transition-colors"
