@@ -1,6 +1,6 @@
 
-
-import { Music, Headphones, Volume2, Play, Disc3, ShoppingCart } from "lucide-react";
+import { Music, Headphones } from "lucide-react";
+import { SiSpotify, SiDeezer, SiSoundcloud, SiAmazonmusic } from "react-icons/si";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 const MusicPage = () => {
@@ -8,22 +8,26 @@ const MusicPage = () => {
     {
       id: 1,
       title: "Fucked Up Vision",
-      image: "/image/FuckedUpVision.png"
+      image: "/image/FuckedUpVision.png",
+      status: "available"
     },
     {
       id: 2,
-      title: "Digital Dreams",
-      image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=400&h=400&fit=crop"
+      title: "Coming Soon",
+      image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=400&h=400&fit=crop",
+      status: "coming-soon"
     },
     {
       id: 3,
-      title: "Neon Nights",
-      image: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400&h=400&fit=crop"
+      title: "Coming Soon",
+      image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=400&fit=crop",
+      status: "coming-soon"
     },
     {
       id: 4,
-      title: "Cyber Soul",
-      image: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?w=400&h=400&fit=crop"
+      title: "Coming Soon",
+      image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=400&fit=crop",
+      status: "coming-soon"
     }
   ];
 
@@ -76,29 +80,29 @@ const MusicPage = () => {
               </h3>
               <div className="grid grid-cols-2 gap-4">
                 <div className="neon-button p-3 text-center rounded-md cursor-not-allowed opacity-50">
-                  <div className="mx-auto mb-2 w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
-                    <Play className="w-3 h-3 text-white fill-white" />
+                  <div className="mx-auto mb-2 w-6 h-6 flex items-center justify-center">
+                    <SiSpotify className="w-6 h-6 text-green-500" />
                   </div>
                   <span className="text-sm">Spotify</span>
                   <div className="text-xs text-neon-pink mt-1">In Coming</div>
                 </div>
                 <div className="neon-button p-3 text-center rounded-md cursor-not-allowed opacity-50">
-                  <div className="mx-auto mb-2 w-6 h-6 rounded-full bg-gradient-to-r from-orange-400 to-purple-600 flex items-center justify-center">
-                    <Disc3 className="w-3 h-3 text-white" />
+                  <div className="mx-auto mb-2 w-6 h-6 flex items-center justify-center">
+                    <SiDeezer className="w-6 h-6 text-orange-500" />
                   </div>
                   <span className="text-sm">Deezer</span>
                   <div className="text-xs text-neon-pink mt-1">In Coming</div>
                 </div>
                 <div className="neon-button p-3 text-center rounded-md cursor-not-allowed opacity-50">
-                  <div className="mx-auto mb-2 w-6 h-6 rounded-full bg-orange-500 flex items-center justify-center">
-                    <Volume2 className="w-3 h-3 text-white" />
+                  <div className="mx-auto mb-2 w-6 h-6 flex items-center justify-center">
+                    <SiSoundcloud className="w-6 h-6 text-orange-600" />
                   </div>
                   <span className="text-sm">SoundCloud</span>
                   <div className="text-xs text-neon-pink mt-1">Available</div>
                 </div>
                 <div className="neon-button p-3 text-center rounded-md cursor-not-allowed opacity-50">
-                  <div className="mx-auto mb-2 w-6 h-6 rounded-sm bg-blue-600 flex items-center justify-center">
-                    <ShoppingCart className="w-3 h-3 text-white" />
+                  <div className="mx-auto mb-2 w-6 h-6 flex items-center justify-center">
+                    <SiAmazonmusic className="w-6 h-6 text-blue-500" />
                   </div>
                   <span className="text-sm">Amazon Music</span>
                   <div className="text-xs text-neon-pink mt-1">In Coming</div>
@@ -129,15 +133,28 @@ const MusicPage = () => {
             <CarouselContent className="-ml-2 md:-ml-4">
               {albums.map((album) => (
                 <CarouselItem key={album.id} className="pl-2 md:pl-4 basis-1/2 lg:basis-1/4">
-                  <div className="cyberpunk-card p-4 neon-border hover:shadow-[0_0_20px_rgba(212,9,93,0.8)] transition-all duration-300">
-                    <div className="aspect-square overflow-hidden rounded-md mb-4 neon-border">
+                  <div className={`cyberpunk-card p-4 neon-border transition-all duration-300 ${
+                    album.status === 'available' 
+                      ? 'hover:shadow-[0_0_20px_rgba(212,9,93,0.8)]' 
+                      : 'opacity-70'
+                  }`}>
+                    <div className="aspect-square overflow-hidden rounded-md mb-4 neon-border relative">
                       <img 
                         src={album.image}
                         alt={album.title}
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        className={`w-full h-full object-cover transition-transform duration-300 ${
+                          album.status === 'available' ? 'hover:scale-105' : 'filter grayscale'
+                        }`}
                       />
+                      {album.status === 'coming-soon' && (
+                        <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+                          <span className="text-neon-pink font-bold text-lg neon-text">SOON</span>
+                        </div>
+                      )}
                     </div>
-                    <h3 className="text-lg font-semibold text-neon-pink text-center neon-text">
+                    <h3 className={`text-lg font-semibold text-center neon-text ${
+                      album.status === 'available' ? 'text-neon-pink' : 'text-gray-400'
+                    }`}>
                       {album.title}
                     </h3>
                   </div>
@@ -202,4 +219,3 @@ const MusicPage = () => {
 };
 
 export default MusicPage;
-
