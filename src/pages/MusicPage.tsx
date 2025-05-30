@@ -152,7 +152,7 @@ const MusicPage = () => {
         {/* SoundCloud Integration */}
         <div className="cyberpunk-card p-8 neon-border">
           <h2 className="text-3xl font-bold text-neon-red mb-6 text-center">
-            Fucked Up Vision - Ma Playlist Actuelle
+            Fucked Up Vision - Mon Album Actuelle
           </h2>
           <div className="bg-black/50 p-4 rounded-lg neon-border">
             <iframe 
