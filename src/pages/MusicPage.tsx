@@ -26,19 +26,19 @@ const MusicPage = () => {
               </h2>
               <div className="space-y-4 text-gray-300 leading-relaxed">
                 <p>
-                  Bienvenue dans mon univers sonore, un espace où mes émotions prennent vie à travers les beats et les mélodies. 
-                  Chaque track que je crée est un fragment de mon âme, une empreinte digitale de mes vécus les plus intenses.
+                  Welcome to my sonic universe, a space where my emotions come to life through beats and melodies.
+                  Every track I create is a fragment of my soul, a digital fingerprint of my most intense experiences.
                 </p>
                 <p>
-                  Ma musique naît de la fusion entre mes humeurs changeantes et mes expériences personnelles. 
-                  Du chaos de mes nuits blanches aux euphories de mes moments de liberté, chaque son raconte une histoire authentique.
+                  My music is born from the fusion of my shifting moods and personal experiences.
+                  From the chaos of sleepless nights to the euphoria of moments of freedom, every sound tells an authentic story.
                 </p>
                 <p className="text-neon-pink font-semibold">
-                  Dans ce monde virtuel et réel qui se mélangent, ma musique devient le pont entre qui je suis et qui je rêve d'être.
+                  In this world where the virtual and the real collide, my music becomes the bridge between who I am and who I dream of being.
                 </p>
                 <p>
-                  Laissez-vous porter par ces vibrations électroniques, ces basslines qui font trembler l'âme, 
-                  et ces mélodies qui transcendent les frontières entre le physique et le digital.
+                  Let yourself be carried away by these electronic vibrations, these basslines that shake the soul,
+                  and these melodies that transcend the boundaries between the physical and the digital.
                 </p>
               </div>
             </div>
@@ -78,7 +78,7 @@ const MusicPage = () => {
           <div className="flex justify-center">
             <div className="relative">
               <img 
-                src="/lovable-uploads/39b9b9ca-3265-44e4-bfae-b2b847ead63a.png" 
+                src="/images/FuckedUpVision.png" 
                 alt="Himely Music" 
                 className="max-w-full h-auto rounded-lg shadow-2xl neon-border animate-pulse-soft"
               />
