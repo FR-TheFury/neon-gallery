@@ -1,6 +1,5 @@
-
 import { useState, useRef, useEffect } from "react";
-import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, ChevronUp, ChevronDown, Music, Shuffle, ExternalLink } from "lucide-react";
+import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, ChevronUp, ChevronDown, Music, Shuffle, ExternalLink, Settings } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 import { onAudioEvent } from "@/events/audioEvents";
 import { soundcloudService, SoundCloudTrack, SoundCloudAlbum } from "@/services/soundcloudService";
@@ -19,8 +18,26 @@ const AudioPlayer = () => {
   const [currentTrack, setCurrentTrack] = useState<SoundCloudTrack | null>(null);
   const [currentAlbum, setCurrentAlbum] = useState<SoundCloudAlbum | null>(null);
   const [isLoadingTrack, setIsLoadingTrack] = useState(false);
+  const [apiStatus, setApiStatus] = useState<'configured' | 'pending' | 'error'>('pending');
   const audioRef = useRef<HTMLAudioElement>(null);
   
+  // Check API status on mount
+  useEffect(() => {
+    const checkApiStatus = () => {
+      if (soundcloudService.isApiConfigured()) {
+        setApiStatus('configured');
+      } else {
+        setApiStatus('pending');
+      }
+    };
+    
+    checkApiStatus();
+    
+    // Check again after a delay in case API gets configured
+    const timer = setTimeout(checkApiStatus, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
   // Initialize with a random album and track
   useEffect(() => {
     // Délai pour permettre au service de charger les données
@@ -111,25 +128,41 @@ const AudioPlayer = () => {
     const audio = audioRef.current;
     if (!audio || !currentTrack) return;
 
-    // Essayer d'abord l'URL SoundCloud, puis fallback vers le fichier local
+    // Utiliser l'URL de streaming SoundCloud si disponible, sinon fallback
     const tryLoadAudio = (url: string, fallback = true) => {
+      console.log(`Attempting to load audio from: ${url}`);
       audio.src = url;
       audio.load();
       
       const handleError = () => {
+        console.error(`Failed to load audio from: ${url}`);
         if (fallback && !url.includes('background.mp3')) {
-          console.log('SoundCloud URL failed, falling back to local file');
+          console.log('Falling back to local audio file');
           tryLoadAudio('/music/background.mp3', false);
         } else {
           setAudioError(true);
+          toast({
+            title: "Erreur de lecture",
+            description: "Impossible de charger cette piste audio",
+            variant: "destructive"
+          });
         }
         audio.removeEventListener('error', handleError);
       };
       
+      const handleCanPlay = () => {
+        console.log(`Audio loaded successfully from: ${url}`);
+        setAudioError(false);
+        audio.removeEventListener('canplay', handleCanPlay);
+      };
+      
       audio.addEventListener('error', handleError, { once: true });
+      audio.addEventListener('canplay', handleCanPlay, { once: true });
     };
 
-    tryLoadAudio(currentTrack.url);
+    // Priorité : streamUrl SoundCloud > url normale > fallback local
+    const audioUrl = currentTrack.streamUrl || currentTrack.url;
+    tryLoadAudio(audioUrl);
     setIsLoadingTrack(false);
   }, [currentTrack]);
 
@@ -358,6 +391,16 @@ const AudioPlayer = () => {
     }
   };
 
+  // Show API configuration status
+  const showApiStatus = () => {
+    const stats = soundcloudService.getStats();
+    toast({
+      title: "SoundCloud API Status",
+      description: `API: ${apiStatus === 'configured' ? 'Configurée' : 'En attente'} | Albums: ${stats.albumsLoaded} | Tracks: ${stats.totalTracks}`,
+      duration: 3000,
+    });
+  };
+
   return (
     <>
       <audio ref={audioRef} preload="metadata" loop={false} />
@@ -371,6 +414,9 @@ const AudioPlayer = () => {
           {isPlaying && (
             <div className="absolute inset-0 rounded-full border-2 border-white opacity-30 animate-pulse"></div>
           )}
+          {apiStatus === 'pending' && (
+            <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-500 rounded-full animate-pulse"></div>
+          )}
         </div>
       ) : (
         <div className="fixed left-4 bottom-4 z-40 bg-neon-dark bg-opacity-90 backdrop-blur-sm p-4 rounded-lg border border-neon-red neon-border w-80 transition-all">
@@ -382,11 +428,21 @@ const AudioPlayer = () => {
               <div className="text-xs text-gray-400 truncate">
                 {currentAlbum?.title || "Album"} • {currentTrack?.artist || "Himely"}
               </div>
+              {apiStatus === 'pending' && (
+                <div className="text-xs text-yellow-400">API SoundCloud en attente</div>
+              )}
             </div>
             <div className="flex items-center gap-2 ml-2">
               <div className="text-xs text-gray-400 whitespace-nowrap">
                 {formatTime(currentTime)} / {formatTime(duration)}
               </div>
+              <button
+                onClick={showApiStatus}
+                className="text-white hover:text-neon-red transition-colors"
+                title="Statut API"
+              >
+                <Settings className="h-3 w-3" />
+              </button>
               {currentAlbum?.soundcloudUrl && (
                 <button
                   onClick={openSoundCloudAlbum}

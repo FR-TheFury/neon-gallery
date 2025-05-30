@@ -1,12 +1,13 @@
-
-import { scrapeAlbumData, convertScrapedToAlbum, extractAlbumIdFromUrl } from './soundcloudScraper';
+import { scrapeAlbumData, convertScrapedToAlbum, extractAlbumIdFromUrl, setSoundCloudClientId, isSoundCloudApiConfigured } from './soundcloudScraper';
 
 export interface SoundCloudTrack {
   id: string;
   title: string;
   artist: string;
   url: string;
+  streamUrl?: string;
   duration?: number;
+  artwork?: string;
 }
 
 export interface SoundCloudAlbum {
@@ -16,6 +17,8 @@ export interface SoundCloudAlbum {
   tracks: SoundCloudTrack[];
   coverImage?: string;
   soundcloudUrl?: string;
+  description?: string;
+  releaseDate?: string;
 }
 
 // Albums avec données automatiquement récupérées
@@ -25,15 +28,26 @@ let himely_albums: SoundCloudAlbum[] = [];
 export const initializeAlbumsFromUrls = async (albumUrls: string[]) => {
   const albums: SoundCloudAlbum[] = [];
   
+  console.log(`Loading ${albumUrls.length} albums...`);
+  console.log(`API configured: ${isSoundCloudApiConfigured()}`);
+  
   for (const url of albumUrls) {
     try {
       const albumId = extractAlbumIdFromUrl(url);
-      if (!albumId) continue;
+      if (!albumId) {
+        console.warn(`Could not extract album ID from: ${url}`);
+        continue;
+      }
       
+      console.log(`Loading album: ${albumId} from ${url}`);
       const scrapedData = await scrapeAlbumData(url);
+      
       if (scrapedData) {
         const album = convertScrapedToAlbum(scrapedData, albumId, url);
         albums.push(album);
+        console.log(`Successfully loaded: ${album.title} (${album.tracks.length} tracks)`);
+      } else {
+        console.warn(`No data returned for album: ${url}`);
       }
     } catch (error) {
       console.error(`Failed to load album from ${url}:`, error);
@@ -41,7 +55,7 @@ export const initializeAlbumsFromUrls = async (albumUrls: string[]) => {
   }
   
   himely_albums = albums;
-  console.log(`Loaded ${albums.length} albums automatically`);
+  console.log(`Loaded ${albums.length} albums total`);
 };
 
 // URLs des albums à charger automatiquement
@@ -139,6 +153,23 @@ export const soundcloudService = {
     return album.tracks[previousIndex];
   },
 
+  // Fonction pour configurer l'API SoundCloud
+  configureApi: (clientId: string) => {
+    setSoundCloudClientId(clientId);
+    // Recharger les albums avec la vraie API
+    initializeAlbumsFromUrls(ALBUM_URLS);
+  },
+
+  // Vérifier si l'API est configurée
+  isApiConfigured: (): boolean => {
+    return isSoundCloudApiConfigured();
+  },
+
+  // Recharger tous les albums
+  reloadAlbums: async () => {
+    await initializeAlbumsFromUrls(ALBUM_URLS);
+  },
+
   // Ajouter un nouvel album via son URL
   addAlbumFromUrl: async (albumUrl: string): Promise<boolean> => {
     try {
@@ -164,5 +195,15 @@ export const soundcloudService = {
       console.error('Error adding album:', error);
       return false;
     }
+  },
+
+  // Obtenir les statistiques du service
+  getStats: () => {
+    const totalTracks = himely_albums.reduce((sum, album) => sum + album.tracks.length, 0);
+    return {
+      albumsLoaded: himely_albums.length,
+      totalTracks,
+      apiConfigured: isSoundCloudApiConfigured()
+    };
   }
 };
