@@ -1,5 +1,6 @@
 
-import { Music, Headphones, Volume2, Play, Disc3, Youtube } from "lucide-react";
+
+import { Music, Headphones, Volume2, Play, Disc3, ShoppingCart } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 const MusicPage = () => {
@@ -96,10 +97,10 @@ const MusicPage = () => {
                   <div className="text-xs text-neon-pink mt-1">Available</div>
                 </div>
                 <div className="neon-button p-3 text-center rounded-md cursor-not-allowed opacity-50">
-                  <div className="mx-auto mb-2 w-6 h-6 rounded-sm bg-red-600 flex items-center justify-center">
-                    <Youtube className="w-3 h-3 text-white" />
+                  <div className="mx-auto mb-2 w-6 h-6 rounded-sm bg-blue-600 flex items-center justify-center">
+                    <ShoppingCart className="w-3 h-3 text-white" />
                   </div>
-                  <span className="text-sm">YouTube</span>
+                  <span className="text-sm">Amazon Music</span>
                   <div className="text-xs text-neon-pink mt-1">In Coming</div>
                 </div>
               </div>
@@ -201,3 +202,4 @@ const MusicPage = () => {
 };
 
 export default MusicPage;
+
