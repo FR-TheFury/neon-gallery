@@ -78,7 +78,7 @@ const MusicPage = () => {
           <div className="flex justify-center">
             <div className="relative">
               <img 
-                src="/image/FuckedUpVision.png" 
+                src="/image/OcMusic.png"
                 alt="Himely Music" 
                 className="max-w-full h-auto rounded-lg shadow-2xl neon-border animate-pulse-soft"
               />
