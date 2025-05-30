@@ -1,6 +1,6 @@
 
 import { Music, Headphones } from "lucide-react";
-import { SiSpotify, SiDeezer, SiSoundcloud, SiAmazonmusic } from "react-icons/si";
+import { SiSpotify, SiSoundcloud, SiAmazonmusic } from "react-icons/si";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 const MusicPage = () => {
@@ -30,6 +30,13 @@ const MusicPage = () => {
       status: "coming-soon"
     }
   ];
+
+  // Custom Deezer icon component since SiDeezer doesn't exist
+  const DeezerIcon = () => (
+    <svg viewBox="0 0 24 24" className="w-6 h-6" fill="currentColor">
+      <path d="M18.81 12.74h-3.27v.74h3.27v-.74zm0-1.48h-3.27v.74h3.27v-.74zm-4.09 1.48h-3.27v.74h3.27v-.74zm0-1.48h-3.27v.74h3.27v-.74zm0-1.48h-3.27v.74h3.27v-.74zm-4.09 2.96h-3.27v.74h3.27v-.74zm0-1.48h-3.27v.74h3.27v-.74zm0-1.48h-3.27v.74h3.27v-.74zm0-1.48h-3.27v.74h3.27v-.74zm-4.09 4.44h-3.27v.74h3.27v-.74zm0-1.48h-3.27v.74h3.27v-.74zm0-1.48h-3.27v.74h3.27v-.74zm0-1.48h-3.27v.74h3.27v-.74zm0-1.48h-3.27v.74h3.27v-.74z"/>
+    </svg>
+  );
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-neon-dark via-black to-neon-darkpurple pt-20">
@@ -88,7 +95,7 @@ const MusicPage = () => {
                 </div>
                 <div className="neon-button p-3 text-center rounded-md cursor-not-allowed opacity-50">
                   <div className="mx-auto mb-2 w-6 h-6 flex items-center justify-center">
-                    <SiDeezer className="w-6 h-6 text-orange-500" />
+                    <DeezerIcon />
                   </div>
                   <span className="text-sm">Deezer</span>
                   <div className="text-xs text-neon-pink mt-1">In Coming</div>
