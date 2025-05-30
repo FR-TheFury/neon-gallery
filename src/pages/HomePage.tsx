@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -10,6 +9,8 @@ import ImageCard from "@/components/ImageCard";
 import ImageModal from "@/components/ImageModal";
 import ThreeBackground from "@/components/ThreeBackground";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { soundcloudService } from "@/services/soundcloudService";
+import { Music } from "lucide-react";
 
 const HomePage = () => {
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
@@ -21,6 +22,9 @@ const HomePage = () => {
     queryFn: () => fetchImagesFromFolder(galleries[0].folderId),
     staleTime: 1000 * 60 * 15, // 15 minutes
   });
+
+  // Get albums
+  const albums = soundcloudService.getAllAlbums();
 
   return (
     <>
@@ -111,8 +115,60 @@ const HomePage = () => {
         </div>
       </section>
       
-      {/* Gallery Categories */}
+      {/* Albums Section */}
       <section className="py-16 bg-gradient-to-b from-neon-dark to-black">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-between items-center mb-10">
+            <h2 className="text-3xl font-bold neon-text flex items-center">
+              <Music className="mr-3" />
+              Mes Albums
+            </h2>
+            <Link to="/music" className="text-neon-red hover:text-neon-pink transition-colors">
+              Voir Tout
+            </Link>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {albums.map((album) => (
+              <div
+                key={album.id}
+                className="cyberpunk-card p-6 hover:translate-y-[-5px] transition-all border border-neon-darkred hover:border-neon-red hover:shadow-[0_0_10px_rgba(212,9,93,0.5)]"
+              >
+                <div className="aspect-square overflow-hidden rounded-md mb-4 neon-border">
+                  <img 
+                    src={album.coverImage}
+                    alt={album.title}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <h3 className="text-xl font-bold mb-2 neon-text">{album.title}</h3>
+                <p className="text-gray-400 mb-4">Par {album.artist}</p>
+                <div className="flex gap-2">
+                  <Link
+                    to="/music"
+                    className="flex-1 px-4 py-2 neon-button rounded-md text-center"
+                  >
+                    Voir Plus
+                  </Link>
+                  {album.soundcloudUrl && (
+                    <a
+                      href={album.soundcloudUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700 transition-colors"
+                    >
+                      SoundCloud
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      
+      {/* Gallery Categories */}
+      <section className="py-16 bg-gradient-to-b from-black to-neon-dark">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold mb-10 text-center neon-text">Catégories de Galerie</h2>
           

@@ -1,4 +1,3 @@
-
 export interface SoundCloudTrack {
   id: string;
   title: string;
@@ -13,6 +12,7 @@ export interface SoundCloudAlbum {
   artist: string;
   tracks: SoundCloudTrack[];
   coverImage?: string;
+  soundcloudUrl?: string; // URL de l'album sur SoundCloud
 }
 
 // Albums avec leurs tracks
@@ -22,6 +22,7 @@ const himely_albums: SoundCloudAlbum[] = [
     title: "Fucked Up Vision",
     artist: "Himely",
     coverImage: "/image/FuckedUpVision.png",
+    soundcloudUrl: "https://soundcloud.com/himely_pup/sets/fucked-up-vision?si=1470bbf087f7455fb6b1568ee3159205&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing",
     tracks: [
       {
         id: "fuv-1",
