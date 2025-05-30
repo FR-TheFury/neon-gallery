@@ -1,22 +1,60 @@
-
 import { useState, useRef, useEffect } from "react";
-import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, ChevronUp, ChevronDown, Music } from "lucide-react";
+import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, ChevronUp, ChevronDown, Music, Shuffle } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 import { onAudioEvent } from "@/events/audioEvents";
+import { soundcloudService, SoundCloudTrack } from "@/services/soundcloudService";
 
 const AudioPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [volume, setVolume] = useState(0.5); // Lower default volume
+  const [volume, setVolume] = useState(0.5);
   const [audioLoaded, setAudioLoaded] = useState(false);
   const [audioError, setAudioError] = useState(false);
   const [userInteracted, setUserInteracted] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [wasPlayingBeforePause, setWasPlayingBeforePause] = useState(false);
+  const [currentTrack, setCurrentTrack] = useState<SoundCloudTrack | null>(null);
+  const [isLoadingTrack, setIsLoadingTrack] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   
+  // Initialize with a random track
+  useEffect(() => {
+    const initialTrack = soundcloudService.getRandomTrack();
+    setCurrentTrack(initialTrack);
+  }, []);
+
+  // Load next random track
+  const loadNextTrack = () => {
+    setIsLoadingTrack(true);
+    const nextTrack = soundcloudService.getNextRandomTrack(currentTrack?.id);
+    setCurrentTrack(nextTrack);
+    setAudioLoaded(false);
+    setAudioError(false);
+    setCurrentTime(0);
+    setDuration(0);
+    
+    // Reset audio element
+    const audio = audioRef.current;
+    if (audio) {
+      audio.pause();
+      setIsPlaying(false);
+    }
+  };
+
+  // Update audio source when track changes
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio || !currentTrack) return;
+
+    // For now, fallback to local file since we need real SoundCloud URLs
+    // In production, you would use: audio.src = currentTrack.url;
+    audio.src = "/music/background.mp3";
+    audio.load();
+    setIsLoadingTrack(false);
+  }, [currentTrack]);
+
   // Listen for user interaction with the page
   useEffect(() => {
     const handleInteraction = () => {
@@ -99,6 +137,8 @@ const AudioPlayer = () => {
     
     const handleEnded = () => {
       setIsPlaying(false);
+      // Auto-load next track when current one ends
+      loadNextTrack();
     };
     
     const handlePlay = () => {
@@ -147,7 +187,7 @@ const AudioPlayer = () => {
       audio.removeEventListener('play', handlePlay);
       audio.removeEventListener('pause', handlePause);
     };
-  }, []);
+  }, [currentTrack]);
   
   // Attempt to autoplay
   useEffect(() => {
@@ -257,7 +297,7 @@ const AudioPlayer = () => {
 
   return (
     <>
-      <audio ref={audioRef} src="/music/background.mp3" preload="metadata" loop />
+      <audio ref={audioRef} preload="metadata" loop={false} />
       
       {isMinimized ? (
         // Minimized player - just a circle with music note
@@ -272,11 +312,18 @@ const AudioPlayer = () => {
         </div>
       ) : (
         // Full player
-        <div className="fixed left-4 bottom-4 z-40 bg-neon-dark bg-opacity-90 backdrop-blur-sm p-4 rounded-lg border border-neon-red neon-border w-72 transition-all">
+        <div className="fixed left-4 bottom-4 z-40 bg-neon-dark bg-opacity-90 backdrop-blur-sm p-4 rounded-lg border border-neon-red neon-border w-80 transition-all">
           <div className="flex items-center justify-between mb-2">
-            <div className="text-sm font-medium text-neon-red truncate">Musique de fond</div>
-            <div className="flex items-center gap-2">
-              <div className="text-xs text-gray-400">
+            <div className="flex-1 min-w-0">
+              <div className="text-sm font-medium text-neon-red truncate">
+                {isLoadingTrack ? "Chargement..." : currentTrack?.title || "Musique"}
+              </div>
+              <div className="text-xs text-gray-400 truncate">
+                {currentTrack?.artist || "Himely"}
+              </div>
+            </div>
+            <div className="flex items-center gap-2 ml-2">
+              <div className="text-xs text-gray-400 whitespace-nowrap">
                 {formatTime(currentTime)} / {formatTime(duration)}
               </div>
               <button
@@ -303,7 +350,7 @@ const AudioPlayer = () => {
           
           {/* Contrôles */}
           <div className="flex items-center justify-between mt-3">
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-3">
               <button 
                 className="text-white hover:text-neon-red transition-colors"
                 onClick={() => {
@@ -319,12 +366,21 @@ const AudioPlayer = () => {
               <button 
                 className="p-2 rounded-full bg-neon-red text-white hover:bg-opacity-80 transition-all"
                 onClick={togglePlay}
+                disabled={isLoadingTrack}
               >
                 {isPlaying ? (
                   <Pause className="h-4 w-4" />
                 ) : (
                   <Play className="h-4 w-4" />
                 )}
+              </button>
+              
+              <button 
+                className="text-white hover:text-neon-red transition-colors"
+                onClick={loadNextTrack}
+                disabled={isLoadingTrack}
+              >
+                <Shuffle className="h-4 w-4" />
               </button>
               
               <button 
@@ -373,7 +429,7 @@ const AudioPlayer = () => {
                 className="ml-2 underline text-neon-red"
                 onClick={() => {
                   setAudioError(false);
-                  if (audioRef.current) {
+                  if (audioRef.current && currentTrack) {
                     audioRef.current.src = `/music/background.mp3?t=${Date.now()}`;
                     audioRef.current.load();
                   }
