@@ -16,7 +16,7 @@ interface Obstacle extends GameObject {
 
 const GAME_CONFIG = {
   CANVAS_WIDTH: 1000,
-  CANVAS_HEIGHT: 300,
+  CANVAS_HEIGHT: 400,
   DINO_WIDTH: 30,
   DINO_HEIGHT: 50,
   DINO_GROUND_Y: 220,
@@ -25,9 +25,9 @@ const GAME_CONFIG = {
   BIRD_WIDTH: 35,
   BIRD_HEIGHT: 25,
   JUMP_FORCE: -12, // Reduced from -15
-  GRAVITY: 0.6, // Reduced from 0.8
-  INITIAL_SPEED: 2, // Reduced from 4
-  MAX_SPEED: 5, // Reduced from 8
+  GRAVITY: 0.8, // Reduced from 0.8
+  INITIAL_SPEED: 4, // Reduced from 4
+  MAX_SPEED: 8, // Reduced from 8
   SPEED_INCREMENT: 0.0005, // Reduced from 0.001
   MIN_OBSTACLE_DISTANCE: 400, // Increased from 300
   MAX_OBSTACLE_DISTANCE: 800 // Increased from 600
