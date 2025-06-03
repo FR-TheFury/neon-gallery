@@ -24,8 +24,8 @@ const GAME_CONFIG = {
   OBSTACLE_HEIGHT: 60,
   BIRD_WIDTH: 50,
   BIRD_HEIGHT: 20,
-  JUMP_FORCE: -14,
-  GRAVITY: 0.9,
+  JUMP_FORCE: -18, // Increased from -14 to -18 for higher jumps
+  GRAVITY: 0.7, // Reduced from 0.9 to 0.7 for more floaty feeling
   INITIAL_SPEED: 6,
   MAX_SPEED: 14,
   SPEED_INCREMENT: 0.0008,
@@ -390,7 +390,8 @@ const DinoGamePage = () => {
     dino.velocityY += GAME_CONFIG.GRAVITY;
     dino.y += dino.velocityY;
 
-    if (dino.y >= GAME_CONFIG.DINO_GROUND_Y) {
+    // Smoother landing detection with small buffer
+    if (dino.y >= GAME_CONFIG.DINO_GROUND_Y - 2) {
       dino.y = GAME_CONFIG.DINO_GROUND_Y;
       dino.velocityY = 0;
       dino.isJumping = false;
