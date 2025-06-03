@@ -41,7 +41,7 @@ const AppContent = () => {
   useEffect(() => {
     if (isCodeValid && location.pathname !== '/dino-game') {
       console.log('Secret code detected, navigating to dino game...');
-      navigate('/dino-game');
+      navigate('/dino-game', { state: { fromSecretCode: true } });
       // Reset the code validity after navigation
       setTimeout(() => {
         resetCodeValidity();
@@ -53,7 +53,7 @@ const AppContent = () => {
     <div className="flex flex-col min-h-screen">
       <Navigation />
       <main className="flex-grow">
-        <FloatingCharacter count={4} /> {/* Set global count to 4 */}
+        <FloatingCharacter count={4} />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/gallery/:galleryId" element={<GalleryPage />} />

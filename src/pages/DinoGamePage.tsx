@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Play, Pause, Square, RotateCcw } from 'lucide-react';
@@ -25,13 +24,13 @@ const GAME_CONFIG = {
   OBSTACLE_HEIGHT: 40,
   BIRD_WIDTH: 35,
   BIRD_HEIGHT: 25,
-  JUMP_FORCE: -15,
-  GRAVITY: 0.8,
-  INITIAL_SPEED: 4,
-  MAX_SPEED: 8,
-  SPEED_INCREMENT: 0.001,
-  MIN_OBSTACLE_DISTANCE: 300,
-  MAX_OBSTACLE_DISTANCE: 600
+  JUMP_FORCE: -12, // Reduced from -15
+  GRAVITY: 0.6, // Reduced from 0.8
+  INITIAL_SPEED: 2, // Reduced from 4
+  MAX_SPEED: 5, // Reduced from 8
+  SPEED_INCREMENT: 0.0005, // Reduced from 0.001
+  MIN_OBSTACLE_DISTANCE: 400, // Increased from 300
+  MAX_OBSTACLE_DISTANCE: 800 // Increased from 600
 };
 
 const DinoGamePage = () => {
@@ -213,46 +212,69 @@ const DinoGamePage = () => {
   }, []);
 
   const drawBackground = useCallback((ctx: CanvasRenderingContext2D) => {
-    // Sky gradient
+    // Dark cyber gradient background to match site
     const skyGradient = ctx.createLinearGradient(0, 0, 0, GAME_CONFIG.CANVAS_HEIGHT);
-    skyGradient.addColorStop(0, '#87ceeb');
-    skyGradient.addColorStop(1, '#e0f6ff');
+    skyGradient.addColorStop(0, '#1a1f2c');
+    skyGradient.addColorStop(0.5, '#2d1b4e');
+    skyGradient.addColorStop(1, '#0f0f0f');
     ctx.fillStyle = skyGradient;
     ctx.fillRect(0, 0, GAME_CONFIG.CANVAS_WIDTH, GAME_CONFIG.CANVAS_HEIGHT);
     
-    // Clouds
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+    // Neon grid pattern
+    ctx.strokeStyle = 'rgba(212, 9, 93, 0.2)';
+    ctx.lineWidth = 1;
+    for (let i = 0; i < GAME_CONFIG.CANVAS_WIDTH; i += 50) {
+      ctx.beginPath();
+      ctx.moveTo(i, 0);
+      ctx.lineTo(i, GAME_CONFIG.CANVAS_HEIGHT);
+      ctx.stroke();
+    }
+    for (let i = 0; i < GAME_CONFIG.CANVAS_HEIGHT; i += 50) {
+      ctx.beginPath();
+      ctx.moveTo(0, i);
+      ctx.lineTo(GAME_CONFIG.CANVAS_WIDTH, i);
+      ctx.stroke();
+    }
+    
+    // Cyber clouds with neon glow
+    ctx.fillStyle = 'rgba(212, 9, 93, 0.3)';
+    ctx.shadowColor = '#D4095D';
+    ctx.shadowBlur = 10;
     cloudsRef.current.forEach(cloud => {
-      cloud.x -= 0.5;
+      cloud.x -= 0.3; // Slower clouds
       if (cloud.x + cloud.size < 0) {
         cloud.x = GAME_CONFIG.CANVAS_WIDTH;
-        cloud.y = 50 + Math.random() * 80;
+        cloud.y = 30 + Math.random() * 60;
       }
       
-      // Draw cloud
+      // Draw neon cloud
       ctx.beginPath();
-      ctx.arc(cloud.x, cloud.y, cloud.size * 0.5, 0, Math.PI * 2);
-      ctx.arc(cloud.x + cloud.size * 0.3, cloud.y, cloud.size * 0.4, 0, Math.PI * 2);
-      ctx.arc(cloud.x + cloud.size * 0.6, cloud.y, cloud.size * 0.3, 0, Math.PI * 2);
+      ctx.arc(cloud.x, cloud.y, cloud.size * 0.3, 0, Math.PI * 2);
+      ctx.arc(cloud.x + cloud.size * 0.2, cloud.y, cloud.size * 0.25, 0, Math.PI * 2);
+      ctx.arc(cloud.x + cloud.size * 0.4, cloud.y, cloud.size * 0.2, 0, Math.PI * 2);
       ctx.fill();
     });
+    ctx.shadowBlur = 0;
     
-    // Ground
+    // Cyber ground with neon line
     const groundGradient = ctx.createLinearGradient(0, GAME_CONFIG.DINO_GROUND_Y + GAME_CONFIG.DINO_HEIGHT, 0, GAME_CONFIG.CANVAS_HEIGHT);
-    groundGradient.addColorStop(0, '#8b7355');
-    groundGradient.addColorStop(1, '#6b5b73');
+    groundGradient.addColorStop(0, '#2d1b4e');
+    groundGradient.addColorStop(1, '#0f0f0f');
     ctx.fillStyle = groundGradient;
     ctx.fillRect(0, GAME_CONFIG.DINO_GROUND_Y + GAME_CONFIG.DINO_HEIGHT, GAME_CONFIG.CANVAS_WIDTH, GAME_CONFIG.CANVAS_HEIGHT);
     
-    // Ground line with pattern
-    ctx.strokeStyle = '#4b4b4b';
+    // Neon ground line
+    ctx.strokeStyle = '#D4095D';
     ctx.lineWidth = 3;
-    ctx.setLineDash([10, 5]);
+    ctx.shadowColor = '#D4095D';
+    ctx.shadowBlur = 15;
+    ctx.setLineDash([15, 10]);
     ctx.beginPath();
     ctx.moveTo(0, GAME_CONFIG.DINO_GROUND_Y + GAME_CONFIG.DINO_HEIGHT);
     ctx.lineTo(GAME_CONFIG.CANVAS_WIDTH, GAME_CONFIG.DINO_GROUND_Y + GAME_CONFIG.DINO_HEIGHT);
     ctx.stroke();
     ctx.setLineDash([]);
+    ctx.shadowBlur = 0;
   }, []);
 
   const updateGame = useCallback(() => {
@@ -394,114 +416,135 @@ const DinoGamePage = () => {
   }, [jump, duck]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-pink-900 p-8">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-neon-dark via-neon-darkpurple to-black relative overflow-hidden">
+      {/* Cyber background pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-neon-red via-transparent to-transparent"></div>
+      </div>
+      
+      <div className="relative z-10 max-w-7xl mx-auto p-6">
+        {/* Title */}
         <div className="text-center mb-8">
-          <h1 className="text-6xl font-bold bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent mb-4 drop-shadow-2xl">
-            🦕 Dino Runner Elite
+          <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-neon-red via-neon-pink to-neon-purple bg-clip-text text-transparent mb-4 animate-pulse-neon">
+            🦕 CYBER DINO ELITE
           </h1>
-          <p className="text-xl text-white/80 drop-shadow-lg">
-            Jump with SPACE/↑ • Duck with ↓ • Avoid obstacles!
+          <p className="text-lg text-white/70 neon-text">
+            SPACE/↑ to Jump • ↓ to Duck • Survive the Cyber World!
           </p>
         </div>
 
-        <div className="flex justify-center mb-8">
-          <div className="relative">
-            <canvas
-              ref={canvasRef}
-              width={GAME_CONFIG.CANVAS_WIDTH}
-              height={GAME_CONFIG.CANVAS_HEIGHT}
-              className="border-4 border-white/20 rounded-2xl shadow-2xl backdrop-blur-sm bg-white/10"
-              style={{
-                transform: 'perspective(1000px) rotateX(5deg)',
-                filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.3))'
-              }}
-            />
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
-          </div>
-        </div>
-
-        <div className="flex justify-center gap-6 mb-8">
-          {gameState === 'stopped' && (
-            <Button 
-              onClick={startGame} 
-              className="neon-button text-lg px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-            >
-              <Play className="w-6 h-6 mr-2" />
-              Start Game
-            </Button>
-          )}
-          
-          {gameState === 'playing' && (
-            <Button 
-              onClick={pauseGame} 
-              className="neon-button text-lg px-8 py-4 bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-            >
-              <Pause className="w-6 h-6 mr-2" />
-              Pause
-            </Button>
-          )}
-          
-          {gameState === 'paused' && (
-            <>
-              <Button 
-                onClick={resumeGame} 
-                className="neon-button text-lg px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-              >
-                <Play className="w-6 h-6 mr-2" />
-                Resume
-              </Button>
-              <Button 
-                onClick={stopGame} 
-                className="text-lg px-8 py-4 bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-              >
-                <Square className="w-6 h-6 mr-2" />
-                Stop
-              </Button>
-            </>
-          )}
-          
-          {(gameState === 'playing' || gameState === 'paused') && (
-            <Button 
-              onClick={stopGame} 
-              className="text-lg px-8 py-4 bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-            >
-              <Square className="w-6 h-6 mr-2" />
-              Stop
-            </Button>
-          )}
-        </div>
-
-        {gameState === 'gameOver' && (
-          <div className="text-center mb-8 p-8 bg-gradient-to-r from-red-900/80 to-pink-900/80 rounded-3xl border border-white/20 backdrop-blur-sm shadow-2xl">
-            <h2 className="text-4xl font-bold text-white mb-4 drop-shadow-lg">Game Over!</h2>
-            <p className="text-2xl mb-4 text-white/90">Final Score: <span className="font-bold text-yellow-300">{score}</span></p>
-            {score === highScore && score > 0 && (
-              <p className="text-xl text-yellow-300 mb-4 animate-pulse">🎉 New High Score! 🎉</p>
-            )}
-            <Button 
-              onClick={startGame} 
-              className="neon-button text-lg px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-            >
-              <RotateCcw className="w-6 h-6 mr-2" />
-              Play Again
-            </Button>
-          </div>
-        )}
-
-        <div className="text-center">
-          <div className="inline-block p-6 bg-white/10 rounded-2xl backdrop-blur-sm border border-white/20 shadow-xl">
-            <h3 className="text-xl font-bold text-white mb-4">Controls</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-white/80">
-              <div className="flex items-center justify-center gap-2">
-                <span className="px-3 py-1 bg-white/20 rounded-lg font-mono">SPACE</span>
-                <span>or</span>
-                <span className="px-3 py-1 bg-white/20 rounded-lg font-mono">↑</span>
-                <span>Jump</span>
+        {/* Game Container */}
+        <div className="relative">
+          {/* Canvas with cyber styling */}
+          <div className="flex justify-center mb-6">
+            <div className="relative">
+              <canvas
+                ref={canvasRef}
+                width={GAME_CONFIG.CANVAS_WIDTH}
+                height={GAME_CONFIG.CANVAS_HEIGHT}
+                className="rounded-2xl border-2 border-neon-red shadow-[0_0_30px_rgba(212,9,93,0.5)] bg-black"
+                style={{
+                  filter: 'drop-shadow(0 0 20px rgba(212, 9, 93, 0.3))'
+                }}
+              />
+              
+              {/* Game Controls - Top Right */}
+              <div className="absolute top-4 right-4 flex gap-3">
+                {gameState === 'stopped' && (
+                  <Button 
+                    onClick={startGame} 
+                    className="neon-button text-sm px-4 py-2 bg-transparent border-2 border-neon-red text-neon-red hover:bg-neon-red hover:text-white transition-all duration-300"
+                  >
+                    <Play className="w-4 h-4 mr-1" />
+                    START
+                  </Button>
+                )}
+                
+                {gameState === 'playing' && (
+                  <Button 
+                    onClick={pauseGame} 
+                    className="neon-button text-sm px-4 py-2 bg-transparent border-2 border-neon-pink text-neon-pink hover:bg-neon-pink hover:text-white transition-all duration-300"
+                  >
+                    <Pause className="w-4 h-4 mr-1" />
+                    PAUSE
+                  </Button>
+                )}
+                
+                {gameState === 'paused' && (
+                  <>
+                    <Button 
+                      onClick={resumeGame} 
+                      className="neon-button text-sm px-4 py-2 bg-transparent border-2 border-neon-red text-neon-red hover:bg-neon-red hover:text-white transition-all duration-300"
+                    >
+                      <Play className="w-4 h-4 mr-1" />
+                      RESUME
+                    </Button>
+                    <Button 
+                      onClick={stopGame} 
+                      className="text-sm px-4 py-2 bg-transparent border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300"
+                    >
+                      <Square className="w-4 h-4 mr-1" />
+                      STOP
+                    </Button>
+                  </>
+                )}
               </div>
-              <div className="flex items-center justify-center gap-2">
-                <span className="px-3 py-1 bg-white/20 rounded-lg font-mono">↓</span>
-                <span>Duck</span>
+
+              {/* Game Over Overlay */}
+              {gameState === 'gameOver' && (
+                <div className="absolute inset-0 bg-black/80 rounded-2xl flex items-center justify-center">
+                  <div className="text-center p-8 bg-gradient-to-r from-neon-red/20 to-neon-purple/20 rounded-xl border border-neon-red/50 backdrop-blur-sm">
+                    <h2 className="text-4xl font-bold text-neon-red mb-4 animate-pulse-neon">GAME OVER</h2>
+                    <p className="text-2xl mb-4 text-white">Score: <span className="font-bold text-neon-pink">{score}</span></p>
+                    {score === highScore && score > 0 && (
+                      <p className="text-xl text-neon-pink mb-4 animate-pulse">🏆 NEW RECORD! 🏆</p>
+                    )}
+                    <Button 
+                      onClick={startGame} 
+                      className="neon-button px-6 py-3 bg-transparent border-2 border-neon-red text-neon-red hover:bg-neon-red hover:text-white transition-all duration-300"
+                    >
+                      <RotateCcw className="w-5 h-5 mr-2" />
+                      RETRY
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Stats Panel */}
+          <div className="flex justify-center">
+            <div className="grid grid-cols-3 gap-6 p-6 bg-black/40 rounded-2xl border border-neon-red/30 backdrop-blur-sm">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-neon-red">{score}</div>
+                <div className="text-sm text-white/70">Score</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-neon-pink">{highScore}</div>
+                <div className="text-sm text-white/70">Best</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-neon-purple">{gameSpeedRef.current.toFixed(1)}x</div>
+                <div className="text-sm text-white/70">Speed</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Controls Info */}
+        <div className="text-center mt-8">
+          <div className="inline-block p-6 bg-black/40 rounded-2xl border border-neon-purple/30 backdrop-blur-sm">
+            <h3 className="text-xl font-bold text-neon-purple mb-4">CYBER CONTROLS</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-white/80">
+              <div className="flex items-center justify-center gap-3">
+                <span className="px-3 py-2 bg-neon-red/20 border border-neon-red rounded-lg font-mono text-neon-red">SPACE</span>
+                <span className="text-white/60">or</span>
+                <span className="px-3 py-2 bg-neon-red/20 border border-neon-red rounded-lg font-mono text-neon-red">↑</span>
+                <span className="text-neon-red">JUMP</span>
+              </div>
+              <div className="flex items-center justify-center gap-3">
+                <span className="px-3 py-2 bg-neon-pink/20 border border-neon-pink rounded-lg font-mono text-neon-pink">↓</span>
+                <span className="text-neon-pink">DUCK</span>
               </div>
             </div>
           </div>

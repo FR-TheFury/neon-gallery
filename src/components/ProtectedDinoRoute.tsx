@@ -3,16 +3,16 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import DinoGamePage from '@/pages/DinoGamePage';
 import CheaterPage from '@/pages/CheaterPage';
+import { useSecretCode } from '@/hooks/useSecretCode';
 
 const ProtectedDinoRoute = () => {
   const location = useLocation();
+  const { hasValidAccess } = useSecretCode();
   
-  // Check if the user accessed this route through the secret code
-  // We'll use a simple check - if they're on this route, assume they used the code
-  // The navigation logic in App.tsx ensures only valid code users reach here
-  const isValidAccess = location.pathname === '/dino-game';
+  // Check if user has valid access (either through secret code or session)
+  const isValidAccess = hasValidAccess() || location.state?.fromSecretCode === true;
 
-  console.log('ProtectedDinoRoute - Current path:', location.pathname, 'Valid access:', isValidAccess);
+  console.log('ProtectedDinoRoute - Valid access:', isValidAccess);
 
   return isValidAccess ? <DinoGamePage /> : <CheaterPage />;
 };
