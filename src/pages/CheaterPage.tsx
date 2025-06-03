@@ -6,7 +6,7 @@ const CheaterPage = () => {
     <div className="min-h-screen bg-black flex items-center justify-center">
       <div className="text-center">
         <h1 className="text-8xl md:text-9xl font-bold text-neon-red animate-pulse-neon mb-8">
-          YOU'R A CHEATER
+          YOU'RE A CHEATER
         </h1>
         <div className="text-2xl text-white animate-pulse">
           🚫 Access Denied 🚫

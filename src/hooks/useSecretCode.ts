@@ -16,6 +16,7 @@ export const useSecretCode = () => {
 
   const resetCodeValidity = useCallback(() => {
     setIsCodeValid(false);
+    setCurrentSequence([]);
   }, []);
 
   useEffect(() => {
@@ -23,8 +24,11 @@ export const useSecretCode = () => {
       const now = Date.now();
       const key = event.key.toLowerCase();
       
+      console.log('Key pressed:', key, 'Current sequence:', currentSequence);
+      
       // Reset if too much time passed
       if (now - lastKeyTime > TIME_LIMIT) {
+        console.log('Time limit exceeded, resetting sequence');
         resetSequence();
       }
       
@@ -32,25 +36,32 @@ export const useSecretCode = () => {
       
       // Check if key matches the next expected key in sequence
       const nextExpectedIndex = currentSequence.length;
-      if (key === SECRET_SEQUENCE[nextExpectedIndex]) {
+      const expectedKey = SECRET_SEQUENCE[nextExpectedIndex];
+      
+      console.log('Expected key:', expectedKey, 'Got:', key);
+      
+      if (key === expectedKey) {
         const newSequence = [...currentSequence, key];
         setCurrentSequence(newSequence);
+        console.log('Correct key! New sequence:', newSequence);
         
         // Check if sequence is complete
         if (newSequence.length === SECRET_SEQUENCE.length) {
+          console.log('Secret code completed! Setting isCodeValid to true');
           setIsCodeValid(true);
-          console.log('Secret code entered successfully!');
-          resetSequence();
         }
       } else {
         // Wrong key, reset sequence
+        console.log('Wrong key, resetting sequence');
         resetSequence();
       }
     };
 
+    console.log('Adding keydown listener');
     window.addEventListener('keydown', handleKeyDown);
     
     return () => {
+      console.log('Removing keydown listener');
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [currentSequence, lastKeyTime, resetSequence]);

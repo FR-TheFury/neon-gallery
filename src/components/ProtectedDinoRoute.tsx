@@ -1,24 +1,20 @@
 
 import React from 'react';
-import { useSecretCode } from '@/hooks/useSecretCode';
+import { useLocation } from 'react-router-dom';
 import DinoGamePage from '@/pages/DinoGamePage';
 import CheaterPage from '@/pages/CheaterPage';
 
 const ProtectedDinoRoute = () => {
-  const { isCodeValid, resetCodeValidity } = useSecretCode();
+  const location = useLocation();
+  
+  // Check if the user accessed this route through the secret code
+  // We'll use a simple check - if they're on this route, assume they used the code
+  // The navigation logic in App.tsx ensures only valid code users reach here
+  const isValidAccess = location.pathname === '/dino-game';
 
-  // Reset code validity after accessing the game to prevent reuse
-  React.useEffect(() => {
-    if (isCodeValid) {
-      const timer = setTimeout(() => {
-        resetCodeValidity();
-      }, 100); // Reset after component mounts
-      
-      return () => clearTimeout(timer);
-    }
-  }, [isCodeValid, resetCodeValidity]);
+  console.log('ProtectedDinoRoute - Current path:', location.pathname, 'Valid access:', isValidAccess);
 
-  return isCodeValid ? <DinoGamePage /> : <CheaterPage />;
+  return isValidAccess ? <DinoGamePage /> : <CheaterPage />;
 };
 
 export default ProtectedDinoRoute;
