@@ -1,8 +1,10 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import HomePage from "./pages/HomePage";
 import GalleryPage from "./pages/GalleryPage";
 import MusicPage from "./pages/MusicPage";
@@ -31,10 +33,53 @@ const queryClient = new QueryClient({
   },
 });
 
-const App = () => {
-  // Enable secret code detection globally
-  useSecretCode();
+const AppContent = () => {
+  const navigate = useNavigate();
+  const { isCodeValid } = useSecretCode();
 
+  useEffect(() => {
+    if (isCodeValid) {
+      console.log('Secret code detected, navigating to dino game...');
+      navigate('/dino-game');
+    }
+  }, [isCodeValid, navigate]);
+
+  return (
+    <div className="flex flex-col min-h-screen">
+      <Navigation />
+      <main className="flex-grow">
+        <FloatingCharacter count={4} /> {/* Set global count to 4 */}
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/gallery/:galleryId" element={<GalleryPage />} />
+          <Route path="/music" element={<MusicPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/dino-game" element={<ProtectedDinoRoute />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </main>
+      <Footer />
+      <AudioPlayer />
+      <KeyboardTriggeredAnimation 
+        triggerKey="h" 
+        cooldownTime={60000} 
+        gifUrl="/image/hello.gif" 
+        quote="ARF ARF WARFF BARK UwU !" 
+        goodbyeQuote="Your Stupid, Bye <3"
+      />
+      <FullscreenKeyboardAnimation 
+        triggerKey="g"
+        cooldownTime={60000}
+        gifUrl="/image/gay.gif"
+        soundUrl="/music/gay.mp3"
+        duration={3000}
+      />
+    </div>
+  );
+};
+
+const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
@@ -42,37 +87,7 @@ const App = () => {
         <Sonner />
         <NSFWWarningDialog />
         <BrowserRouter basename="/">
-          <div className="flex flex-col min-h-screen">
-            <Navigation />
-            <main className="flex-grow">
-              <FloatingCharacter count={4} /> {/* Set global count to 4 */}
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/gallery/:galleryId" element={<GalleryPage />} />
-                <Route path="/music" element={<MusicPage />} />
-                <Route path="/about" element={<AboutPage />} />
-                <Route path="/contact" element={<ContactPage />} />
-                <Route path="/dino-game" element={<ProtectedDinoRoute />} />
-                <Route path="*" element={<NotFoundPage />} />
-              </Routes>
-            </main>
-            <Footer />
-            <AudioPlayer />
-            <KeyboardTriggeredAnimation 
-              triggerKey="h" 
-              cooldownTime={60000} 
-              gifUrl="/image/hello.gif" 
-              quote="ARF ARF WARFF BARK UwU !" 
-              goodbyeQuote="Your Stupid, Bye <3"
-            />
-            <FullscreenKeyboardAnimation 
-              triggerKey="g"
-              cooldownTime={60000}
-              gifUrl="/image/gay.gif"
-              soundUrl="/music/gay.mp3"
-              duration={3000}
-            />
-          </div>
+          <AppContent />
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
