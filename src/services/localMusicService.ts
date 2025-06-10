@@ -70,7 +70,7 @@ class LocalMusicService {
       title: "Tout est flou d'en haut",
       artist: "Himely", 
       filename: "Tout est flou d'en haut.wav",
-      url: "/music/player/Tout est flou d'en haut.wav"
+      url: "/music/player/Tout est flou den haut.wav"
     },
     {
       id: "10",
