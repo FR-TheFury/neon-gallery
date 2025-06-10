@@ -1,14 +1,22 @@
+
 import FloatingCharacter from "@/components/FloatingCharacter";
-import { SiSoundcloud } from "react-icons/si";
+import { SiSoundcloud, SiSpotify, SiYoutube, SiApplemusic } from "react-icons/si";
 
 const ContactPage = () => {
+  // Custom Deezer icon component
+  const DeezerIcon = () => (
+    <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M18.81 12.74h-3.27v.74h3.27v-.74zm0-1.48h-3.27v.74h3.27v-.74zm-4.09 1.48h-3.27v.74h3.27v-.74zm0-1.48h-3.27v.74h3.27v-.74zm0-1.48h-3.27v.74h3.27v-.74zm-4.09 2.96h-3.27v.74h3.27v-.74zm0-1.48h-3.27v.74h3.27v-.74zm0-1.48h-3.27v.74h3.27v-.74zm0-1.48h-3.27v.74h3.27v-.74zm-4.09 4.44h-3.27v.74h3.27v-.74zm0-1.48h-3.27v.74h3.27v-.74zm0-1.48h-3.27v.74h3.27v-.74zm0-1.48h-3.27v.74h3.27v-.74zm0-1.48h-3.27v.74h3.27v-.74z"/>
+    </svg>
+  );
+
   return (
     <div className="pt-20 pb-16 min-h-screen bg-gradient-to-b from-neon-dark to-black">
       <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold mb-8 neon-text text-center">Find Me</h1>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
             <div className="cyberpunk-card p-6">
               <h2 className="text-2xl font-bold mb-4 neon-text">Social Media</h2>
               <ul className="space-y-4">
@@ -36,16 +44,6 @@ const ContactPage = () => {
                     <a href="https://www.instagram.com/himely_puppyvrc/" className="text-neon-purple hover:text-neon-pink transition-colors">@himely_puppyvrc</a>
                   </div>
                 </li>
-
-                <li className="flex items-center">
-                  <div className="w-12 h-12 flex items-center justify-center neon-border rounded-full mr-4">
-                    <SiSoundcloud className="h-6 w-6 text-orange-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-white">SoundCloud</h3>
-                    <a href="https://soundcloud.com/himely_pup" className="text-neon-purple hover:text-neon-pink transition-colors">himely_pup</a>
-                  </div>
-                </li>
                 
                 <li className="flex items-center">
                   <div className="w-12 h-12 flex items-center justify-center neon-border rounded-full mr-4">
@@ -56,6 +54,61 @@ const ContactPage = () => {
                   <div>
                     <h3 className="font-medium text-white">Discord</h3>
                     <a href="https://discordapp.com/users/himely_puppy" className="text-neon-purple hover:text-neon-pink transition-colors">himely_puppy</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div className="cyberpunk-card p-6">
+              <h2 className="text-2xl font-bold mb-4 neon-text">Music Platforms</h2>
+              <ul className="space-y-4">
+                <li className="flex items-center">
+                  <div className="w-12 h-12 flex items-center justify-center neon-border rounded-full mr-4">
+                    <SiSpotify className="h-6 w-6 text-green-500" />
+                  </div>
+                  <div>
+                    <h3 className="font-medium text-white">Spotify</h3>
+                    <a href="https://open.spotify.com/intl-fr/artist/0Lms7v1qvEfqjLRGMCJUuY?si=Sfp8IoYlReibnmQwRIjXDg" className="text-neon-purple hover:text-neon-pink transition-colors">Himely</a>
+                  </div>
+                </li>
+
+                <li className="flex items-center">
+                  <div className="w-12 h-12 flex items-center justify-center neon-border rounded-full mr-4">
+                    <SiApplemusic className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-medium text-white">Apple Music</h3>
+                    <a href="https://music.apple.com/fr/artist/himely/1818506619" className="text-neon-purple hover:text-neon-pink transition-colors">Himely</a>
+                  </div>
+                </li>
+
+                <li className="flex items-center">
+                  <div className="w-12 h-12 flex items-center justify-center neon-border rounded-full mr-4">
+                    <DeezerIcon />
+                  </div>
+                  <div>
+                    <h3 className="font-medium text-white">Deezer</h3>
+                    <a href="https://www.deezer.com/fr/artist/328787671" className="text-neon-purple hover:text-neon-pink transition-colors">Himely</a>
+                  </div>
+                </li>
+
+                <li className="flex items-center">
+                  <div className="w-12 h-12 flex items-center justify-center neon-border rounded-full mr-4">
+                    <SiSoundcloud className="h-6 w-6 text-orange-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-medium text-white">SoundCloud</h3>
+                    <a href="https://soundcloud.com/himely_pup" className="text-neon-purple hover:text-neon-pink transition-colors">himely_pup</a>
+                  </div>
+                </li>
+
+                <li className="flex items-center">
+                  <div className="w-12 h-12 flex items-center justify-center neon-border rounded-full mr-4">
+                    <SiYoutube className="h-6 w-6 text-red-500" />
+                  </div>
+                  <div>
+                    <h3 className="font-medium text-white">YouTube Music</h3>
+                    <a href="https://www.youtube.com/@Himely_pup" className="text-neon-purple hover:text-neon-pink transition-colors">Himely_pup</a>
                   </div>
                 </li>
               </ul>

@@ -1,6 +1,6 @@
 
 import { Music, Headphones } from "lucide-react";
-import { SiSpotify, SiSoundcloud, SiAmazonmusic } from "react-icons/si";
+import { SiSpotify, SiSoundcloud, SiAmazonmusic, SiYoutube, SiApplemusic } from "react-icons/si";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 const MusicPage = () => {
@@ -37,6 +37,51 @@ const MusicPage = () => {
       <path d="M18.81 12.74h-3.27v.74h3.27v-.74zm0-1.48h-3.27v.74h3.27v-.74zm-4.09 1.48h-3.27v.74h3.27v-.74zm0-1.48h-3.27v.74h3.27v-.74zm0-1.48h-3.27v.74h3.27v-.74zm-4.09 2.96h-3.27v.74h3.27v-.74zm0-1.48h-3.27v.74h3.27v-.74zm0-1.48h-3.27v.74h3.27v-.74zm0-1.48h-3.27v.74h3.27v-.74zm-4.09 4.44h-3.27v.74h3.27v-.74zm0-1.48h-3.27v.74h3.27v-.74zm0-1.48h-3.27v.74h3.27v-.74zm0-1.48h-3.27v.74h3.27v-.74zm0-1.48h-3.27v.74h3.27v-.74z"/>
     </svg>
   );
+
+  const musicPlatforms = [
+    {
+      name: "Spotify",
+      url: "https://open.spotify.com/intl-fr/artist/0Lms7v1qvEfqjLRGMCJUuY?si=Sfp8IoYlReibnmQwRIjXDg",
+      icon: SiSpotify,
+      color: "text-green-500",
+      status: "available"
+    },
+    {
+      name: "Apple Music",
+      url: "https://music.apple.com/fr/artist/himely/1818506619",
+      icon: SiApplemusic,
+      color: "text-white",
+      status: "available"
+    },
+    {
+      name: "Deezer",
+      url: "https://www.deezer.com/fr/artist/328787671",
+      icon: DeezerIcon,
+      color: "text-orange-500",
+      status: "available"
+    },
+    {
+      name: "SoundCloud",
+      url: "https://soundcloud.com/himely_pup",
+      icon: SiSoundcloud,
+      color: "text-orange-600",
+      status: "available"
+    },
+    {
+      name: "YouTube Music",
+      url: "https://www.youtube.com/@Himely_pup",
+      icon: SiYoutube,
+      color: "text-red-500",
+      status: "available"
+    },
+    {
+      name: "Amazon Music",
+      url: "#",
+      icon: SiAmazonmusic,
+      color: "text-blue-500",
+      status: "coming-soon"
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-neon-dark via-black to-neon-darkpurple pt-20">
@@ -85,40 +130,36 @@ const MusicPage = () => {
                 <Headphones className="mr-2" />
                 Retrouvez-moi sur
               </h3>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="neon-button p-3 text-center rounded-md cursor-not-allowed opacity-50">
-                  <div className="mx-auto mb-2 w-6 h-6 flex items-center justify-center">
-                    <SiSpotify className="w-6 h-6 text-green-500" />
-                  </div>
-                  <span className="text-sm">Spotify</span>
-                  <div className="text-xs text-neon-pink mt-1">In Coming</div>
-                </div>
-                <div className="neon-button p-3 text-center rounded-md cursor-not-allowed opacity-50">
-                  <div className="mx-auto mb-2 w-6 h-6 flex items-center justify-center">
-                    <DeezerIcon />
-                  </div>
-                  <span className="text-sm">Deezer</span>
-                  <div className="text-xs text-neon-pink mt-1">In Coming</div>
-                </div>
-                <a 
-                  href="https://soundcloud.com/himely_pup" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="neon-button p-3 text-center rounded-md hover:shadow-[0_0_20px_rgba(212,9,93,0.8)] transition-all duration-300"
-                >
-                  <div className="mx-auto mb-2 w-6 h-6 flex items-center justify-center">
-                    <SiSoundcloud className="w-6 h-6 text-orange-600" />
-                  </div>
-                  <span className="text-sm">SoundCloud</span>
-                  <div className="text-xs text-neon-pink mt-1">Available</div>
-                </a>
-                <div className="neon-button p-3 text-center rounded-md cursor-not-allowed opacity-50">
-                  <div className="mx-auto mb-2 w-6 h-6 flex items-center justify-center">
-                    <SiAmazonmusic className="w-6 h-6 text-blue-500" />
-                  </div>
-                  <span className="text-sm">Amazon Music</span>
-                  <div className="text-xs text-neon-pink mt-1">In Coming</div>
-                </div>
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+                {musicPlatforms.map((platform) => {
+                  const IconComponent = platform.icon;
+                  return (
+                    <div key={platform.name}>
+                      {platform.status === "available" ? (
+                        <a
+                          href={platform.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="neon-button p-3 text-center rounded-md hover:shadow-[0_0_20px_rgba(212,9,93,0.8)] transition-all duration-300 block"
+                        >
+                          <div className="mx-auto mb-2 w-6 h-6 flex items-center justify-center">
+                            <IconComponent className={`w-6 h-6 ${platform.color}`} />
+                          </div>
+                          <span className="text-sm">{platform.name}</span>
+                          <div className="text-xs text-neon-pink mt-1">Available</div>
+                        </a>
+                      ) : (
+                        <div className="neon-button p-3 text-center rounded-md cursor-not-allowed opacity-50">
+                          <div className="mx-auto mb-2 w-6 h-6 flex items-center justify-center">
+                            <IconComponent className={`w-6 h-6 ${platform.color}`} />
+                          </div>
+                          <span className="text-sm">{platform.name}</span>
+                          <div className="text-xs text-neon-pink mt-1">In Coming</div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
