@@ -19,7 +19,9 @@ import { NSFWWarningDialog } from "./components/NSFWWarningDialog";
 import KeyboardTriggeredAnimation from "./components/KeyboardTriggeredAnimation";
 import FullscreenKeyboardAnimation from "./components/FullscreenKeyboardAnimation";
 import ProtectedDinoRoute from "./components/ProtectedDinoRoute";
+import ProtectedNSFWRoute from "./components/ProtectedNSFWRoute";
 import { useSecretCode } from "./hooks/useSecretCode";
+import { useNSFWCode } from "./hooks/useNSFWCode";
 
 // Create a query client with optimized default options
 const queryClient = new QueryClient({
@@ -36,18 +38,28 @@ const queryClient = new QueryClient({
 const AppContent = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { isCodeValid, resetCodeValidity } = useSecretCode();
+  const { isCodeValid: isDinoCodeValid, resetCodeValidity: resetDinoCode } = useSecretCode();
+  const { isCodeValid: isNSFWCodeValid, resetCodeValidity: resetNSFWCode } = useNSFWCode();
 
   useEffect(() => {
-    if (isCodeValid && location.pathname !== '/dino-game') {
-      console.log('Secret code detected, navigating to dino game...');
+    if (isDinoCodeValid && location.pathname !== '/dino-game') {
+      console.log('Dino secret code detected, navigating to dino game...');
       navigate('/dino-game', { state: { fromSecretCode: true } });
       // Reset the code validity after navigation
       setTimeout(() => {
-        resetCodeValidity();
+        resetDinoCode();
       }, 100);
     }
-  }, [isCodeValid, navigate, location.pathname, resetCodeValidity]);
+    
+    if (isNSFWCodeValid && location.pathname !== '/nsfw-gallery') {
+      console.log('NSFW secret code detected, navigating to NSFW gallery...');
+      navigate('/nsfw-gallery', { state: { fromSecretCode: true } });
+      // Reset the code validity after navigation
+      setTimeout(() => {
+        resetNSFWCode();
+      }, 100);
+    }
+  }, [isDinoCodeValid, isNSFWCodeValid, navigate, location.pathname, resetDinoCode, resetNSFWCode]);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -61,6 +73,7 @@ const AppContent = () => {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/dino-game" element={<ProtectedDinoRoute />} />
+          <Route path="/nsfw-gallery" element={<ProtectedNSFWRoute />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>

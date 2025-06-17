@@ -33,3 +33,11 @@ export const galleries: Gallery[] = [
     images: []
   }
 ];
+
+// Galerie NSFW cachée - non incluse dans la liste principale
+export const nsfwGallery: Gallery = {
+  id: "galleryNSFW" as GalleryId,
+  name: "NSFW Gallery",
+  folderId: "1YgbjiMXx02cB8o35MdLMe54BayxeoA8e",
+  images: []
+};
