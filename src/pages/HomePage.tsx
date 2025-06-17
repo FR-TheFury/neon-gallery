@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -46,10 +47,10 @@ const HomePage = () => {
         
         <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
           <h1 className="text-5xl md:text-7xl font-bold mb-6">
-            <span className="text-white text-shadow-soft">Explorez les mondes<br/>virtuels de <span className="text-neon-red">VRChat</span></span>
+            <span className="text-white text-shadow-soft">A World of Emotion,<br/>That where <span className="text-neon-red">i live</span></span>
           </h1>
           <p className="text-lg md:text-xl max-w-2xl mb-8 text-white opacity-90">
-            Une collection de moments capturés dans le métavers avec un style cyberpunk néon
+            Découvrez mon univers musical et visuel, un voyage à travers mes émotions
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link 
@@ -57,6 +58,13 @@ const HomePage = () => {
               className="px-6 py-3 rounded-md bg-neon-red text-white font-medium hover:bg-opacity-80 transition-all neon-glow shadow-[0_0_10px_#D4095D]"
             >
               Explorer la galerie
+            </Link>
+            <Link
+              to="/music"
+              className="px-6 py-3 rounded-md bg-neon-red text-white font-medium hover:bg-opacity-80 transition-all neon-glow shadow-[0_0_10px_#D4095D] flex items-center"
+            >
+              <Music className="mr-2 h-4 w-4" />
+              Écouter ma music
             </Link>
             <Link
               to="/about"
