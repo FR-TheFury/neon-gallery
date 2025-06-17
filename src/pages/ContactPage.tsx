@@ -1,6 +1,6 @@
 
 import FloatingCharacter from "@/components/FloatingCharacter";
-import { SiSoundcloud, SiSpotify, SiYoutube, SiApplemusic } from "react-icons/si";
+import { SiSoundcloud, SiSpotify, SiYoutube, SiApplemusic, SiAmazonmusic } from "react-icons/si";
 
 const ContactPage = () => {
   // Custom Deezer icon component
@@ -109,6 +109,16 @@ const ContactPage = () => {
                   <div>
                     <h3 className="font-medium text-white">YouTube Music</h3>
                     <a href="https://www.youtube.com/@Himely_pup" className="text-neon-purple hover:text-neon-pink transition-colors">Himely_pup</a>
+                  </div>
+                </li>
+
+                <li className="flex items-center">
+                  <div className="w-12 h-12 flex items-center justify-center neon-border rounded-full mr-4">
+                    <SiAmazonmusic className="h-6 w-6 text-blue-500" />
+                  </div>
+                  <div>
+                    <h3 className="font-medium text-white">Amazon Music</h3>
+                    <a href="https://music.amazon.fr/artists/B0FBWJHY47/himely" className="text-neon-purple hover:text-neon-pink transition-colors">Himely</a>
                   </div>
                 </li>
               </ul>

@@ -76,10 +76,10 @@ const MusicPage = () => {
     },
     {
       name: "Amazon Music",
-      url: "#",
+      url: "https://music.amazon.fr/artists/B0FBWJHY47/himely",
       icon: SiAmazonmusic,
       color: "text-blue-500",
-      status: "coming-soon"
+      status: "available"
     }
   ];
 

@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import { SiSoundcloud, SiSpotify, SiYoutube, SiApplemusic } from "react-icons/si";
+import { SiSoundcloud, SiSpotify, SiYoutube, SiApplemusic, SiAmazonmusic } from "react-icons/si";
 
 const Footer = () => {
   // Custom Deezer icon component
@@ -89,6 +89,13 @@ const Footer = () => {
                  rel="noopener noreferrer">
                 <span className="sr-only">YouTube Music</span>
                 <SiYoutube className="h-6 w-6" />
+              </a>
+              <a href="https://music.amazon.fr/artists/B0FBWJHY47/himely" 
+                 className="text-gray-300 hover:text-blue-500 transition-colors" 
+                 target="_blank" 
+                 rel="noopener noreferrer">
+                <span className="sr-only">Amazon Music</span>
+                <SiAmazonmusic className="h-6 w-6" />
               </a>
             </div>
           </div>
