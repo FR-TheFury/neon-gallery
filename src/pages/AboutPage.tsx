@@ -29,10 +29,10 @@ const characters: Character[] = [
     imagePath: "/image/spy.png"
   },
   {
-    id: "babimm",
-    name: "BaBimm",
-    title: "My Baby Boy <3",
-    quote: "Every moment with you is a treasure, in VR and beyond.",
+    id: "hskn",
+    name: "HSKN",
+    title: "My Family",
+    quote: "Family isn't just blood, it's the bonds we forge in virtual worlds and beyond. Together, we are unstoppable.",
     gifUrl: "/image/gojo.gif", // Placeholder for you to replace later
     imagePath: "/image/baby.png"
   },
@@ -153,17 +153,15 @@ const AboutPage = () => {
               >
                 <img
                     src={characters[2].imagePath}
-                    alt="BaBimm"
+                    alt="HSKN"
                     className="w-full h-full object-cover"
                 />
               </div>
               <div>
-                <h3 className="text-xl font-bold mb-2 text-neon-pink">BaBimm !</h3>
-                <h4 className="text-2xl font-bold mb-4 neon-text">My Baby Boy &lt;3</h4>
+                <h3 className="text-xl font-bold mb-2 text-neon-pink">HSKN !</h3>
+                <h4 className="text-2xl font-bold mb-4 neon-text">My Family</h4>
                 <p className="text-gray-300 mb-4">
-                  I realized that I had found the Baby Boy of my life. BaBimm is not just my partner but my soulmate,
-                  someone who brings warmth and happiness to every moment of my life. Since that day, my world has been
-                  brighter, filled with love, and I can't wait to share more beautiful memories together.
+                  HSKN represents more than just a group - they are my chosen family in the virtual realm. In VRChat, we've built bonds that transcend pixels and avatars. Together, we navigate virtual worlds, support each other through challenges, and create memories that feel as real as any physical experience. They are the foundation of my digital existence, the ones who make every login feel like coming home.
                 </p>
               </div>
             </div>
