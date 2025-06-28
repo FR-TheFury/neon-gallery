@@ -24,7 +24,7 @@ const characters: Character[] = [
     id: "spy",
     name: "GNRL_K",
     title: "aka THE SPY !",
-    quote: "He kidnapped my boyfriend, help me please, donate 1€ on my Tipeee, #FREEBABIMM",
+    quote: "This Guys is and absolute Dumbass, But it's my big bro and i deal with him (Help me he want to put me in is cave #FREEHIMELY)",
     gifUrl: "/image/spy.gif", // Placeholder for you to replace later
     imagePath: "/image/spy.png"
   },
@@ -33,8 +33,8 @@ const characters: Character[] = [
     name: "HSKN",
     title: "My Family",
     quote: "Family isn't just blood, it's the bonds we forge in virtual worlds and beyond. Together, we are unstoppable.",
-    gifUrl: "/image/gojo.gif", // Placeholder for you to replace later
-    imagePath: "/image/baby.png"
+    gifUrl: "/image/AbosluteCInema.gif", // Placeholder for you to replace later
+    imagePath: "/image/HKSN Gang.jpg"
   },
   {
     id: "panda",
