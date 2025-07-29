@@ -31,6 +31,12 @@ export const galleries: Gallery[] = [
     name: "GIF Gallery", 
     folderId: "1ON0h93n--3cGcCG7LzIZO99QXJnBPelB",
     images: []
+  },
+  { 
+    id: "galleryFactori" as GalleryId, 
+    name: "Factori Event", 
+    folderId: "1dPSKIWFGWtMNSQe8QRQslvdNffBFULbl",
+    images: []
   }
 ];
 

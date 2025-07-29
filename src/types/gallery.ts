@@ -18,4 +18,5 @@ export type GalleryId =
   | "galleryFig" 
   | "galleryPrint" 
   | "galleryGif"
+  | "galleryFactori"
   | "galleryNSFW";
