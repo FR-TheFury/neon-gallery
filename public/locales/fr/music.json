@@ -1,0 +1,13 @@
+{
+  "title": "Musique",
+  "subtitle": "Écoutez mes créations musicales",
+  "nowPlaying": "En Cours de Lecture",
+  "playlist": "Liste de Lecture",
+  "play": "Lecture",
+  "pause": "Pause",
+  "next": "Suivant",
+  "previous": "Précédent",
+  "volume": "Volume",
+  "mute": "Muet",
+  "unmute": "Activer le Son"
+}

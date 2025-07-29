@@ -1,13 +1,16 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 import { galleries } from "@/config/galleries";
 import { Home, Menu } from "lucide-react";
+import LanguageSelector from "./LanguageSelector";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { t } = useTranslation('navigation');
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 bg-neon-dark bg-opacity-90 backdrop-blur-md border-b border-neon-red shadow-[0_0_10px_rgba(212,9,93,0.5)]">
@@ -30,7 +33,7 @@ const Navigation = () => {
           </div>
           
           {/* Desktop navigation */}
-          <div className="hidden md:block">
+          <div className="hidden md:flex items-center gap-4">
             <NavigationMenu>
               <NavigationMenuList className="gap-2">
                 <NavigationMenuItem>
@@ -38,13 +41,13 @@ const Navigation = () => {
                     to="/"
                     className="neon-menu-item flex items-center"
                   >
-                    <Home className="mr-2 h-4 w-4" /> Accueil
+                    <Home className="mr-2 h-4 w-4" /> {t('home')}
                   </Link>
                 </NavigationMenuItem>
                 
                 <NavigationMenuItem>
                   <NavigationMenuTrigger className="bg-transparent hover:bg-neon-dark hover:text-neon-pink relative after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-[2px] after:bg-neon-red after:transform after:-translate-x-1/2 after:transition-all after:duration-300 hover:after:w-full hover:after:shadow-[0_0_5px_#D4095D]">
-                    Galerie
+                    {t('gallery')}
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <ul className="grid w-[200px] gap-1 p-2 bg-neon-dark border border-neon-red neon-border">
@@ -59,7 +62,7 @@ const Navigation = () => {
                                 "after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-neon-red after:transform after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100"
                               )}
                             >
-                              {gallery.name}
+                              {t(`galleries.${gallery.id}`)}
                             </Link>
                           </NavigationMenuLink>
                         </li>
@@ -73,7 +76,7 @@ const Navigation = () => {
                     to="/music"
                     className="neon-menu-item relative after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-[2px] after:bg-neon-red after:transform after:-translate-x-1/2 after:transition-all after:duration-300 hover:after:w-full hover:after:shadow-[0_0_5px_#D4095D]"
                   >
-                    Music
+                    {t('music')}
                   </Link>
                 </NavigationMenuItem>
                 
@@ -82,7 +85,7 @@ const Navigation = () => {
                     to="/about"
                     className="neon-menu-item relative after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-[2px] after:bg-neon-red after:transform after:-translate-x-1/2 after:transition-all after:duration-300 hover:after:w-full hover:after:shadow-[0_0_5px_#D4095D]"
                   >
-                    À propos
+                    {t('about')}
                   </Link>
                 </NavigationMenuItem>
                 
@@ -91,11 +94,12 @@ const Navigation = () => {
                     to="/contact"
                     className="neon-menu-item relative after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-[2px] after:bg-neon-red after:transform after:-translate-x-1/2 after:transition-all after:duration-300 hover:after:w-full hover:after:shadow-[0_0_5px_#D4095D]"
                   >
-                    Contact
+                    {t('contact')}
                   </Link>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
+            <LanguageSelector />
           </div>
         </div>
         
@@ -107,11 +111,11 @@ const Navigation = () => {
               className="block px-4 py-2 rounded-md hover:bg-black hover:text-neon-red relative overflow-hidden after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-neon-red after:transform after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100"
               onClick={() => setIsMenuOpen(false)}
             >
-              <Home className="inline-block mr-2 h-4 w-4" /> Accueil
+              <Home className="inline-block mr-2 h-4 w-4" /> {t('home')}
             </Link>
             
             <div className="px-4 py-2">
-              <p className="mb-2 font-medium text-neon-red neon-text">Galeries</p>
+              <p className="mb-2 font-medium text-neon-red neon-text">{t('gallery')}</p>
               <div className="pl-4 space-y-2">
                 {galleries.map((gallery) => (
                   <Link 
@@ -120,7 +124,7 @@ const Navigation = () => {
                     className="block py-1 hover:text-neon-pink relative overflow-hidden after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-neon-pink after:transform after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    {gallery.name}
+                    {t(`galleries.${gallery.id}`)}
                   </Link>
                 ))}
               </div>
@@ -131,7 +135,7 @@ const Navigation = () => {
               className="block px-4 py-2 rounded-md hover:bg-black hover:text-neon-red relative overflow-hidden after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-neon-red after:transform after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100"
               onClick={() => setIsMenuOpen(false)}
             >
-              Music
+              {t('music')}
             </Link>
             
             <Link 
@@ -139,7 +143,7 @@ const Navigation = () => {
               className="block px-4 py-2 rounded-md hover:bg-black hover:text-neon-red relative overflow-hidden after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-neon-red after:transform after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100"
               onClick={() => setIsMenuOpen(false)}
             >
-              À propos
+              {t('about')}
             </Link>
             
             <Link 
@@ -147,8 +151,10 @@ const Navigation = () => {
               className="block px-4 py-2 rounded-md hover:bg-black hover:text-neon-red relative overflow-hidden after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-neon-red after:transform after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100"
               onClick={() => setIsMenuOpen(false)}
             >
-              Contact
+              {t('contact')}
             </Link>
+            
+            <LanguageSelector variant="mobile" />
           </div>
         )}
       </div>

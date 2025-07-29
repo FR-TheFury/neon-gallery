@@ -1,0 +1,17 @@
+{
+  "title": "À Propos de Moi",
+  "subtitle": "Apprenez à connaître la personne derrière la créativité",
+  "description": "Bienvenue dans mon espace numérique ! Je suis passionné par la photographie, la musique et la création d'expériences immersives dans les mondes virtuels.",
+  "photography": {
+    "title": "Photographie",
+    "description": "Je me spécialise dans la photographie VRChat, capturant des moments uniques et des scènes créatives dans des environnements virtuels."
+  },
+  "music": {
+    "title": "Musique",
+    "description": "La musique est ma passion. Je crée et sélectionne des morceaux qui inspirent et dynamisent."
+  },
+  "creativity": {
+    "title": "Créativité",
+    "description": "J'explore toujours de nouvelles façons d'exprimer la créativité à travers l'art numérique et les expériences virtuelles."
+  }
+}

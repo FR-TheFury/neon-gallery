@@ -1,0 +1,20 @@
+{
+  "loading": "Laden...",
+  "error": "Fehler",
+  "success": "Erfolg",
+  "close": "Schließen",
+  "open": "Öffnen",
+  "save": "Speichern",
+  "cancel": "Abbrechen",
+  "delete": "Löschen",
+  "edit": "Bearbeiten",
+  "search": "Suchen",
+  "filter": "Filter",
+  "sort": "Sortieren",
+  "download": "Herunterladen",
+  "share": "Teilen",
+  "copy": "Kopieren",
+  "copied": "Kopiert!",
+  "notFound": "Seite nicht gefunden",
+  "backHome": "Zurück zur Startseite"
+}

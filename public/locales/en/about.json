@@ -1,0 +1,17 @@
+{
+  "title": "About Me",
+  "subtitle": "Get to know the person behind the creativity",
+  "description": "Welcome to my digital space! I'm passionate about photography, music, and creating immersive experiences in virtual worlds.",
+  "photography": {
+    "title": "Photography",
+    "description": "I specialize in VRChat photography, capturing unique moments and creative scenes in virtual environments."
+  },
+  "music": {
+    "title": "Music",
+    "description": "Music is my passion. I create and curate tracks that inspire and energize."
+  },
+  "creativity": {
+    "title": "Creativity",
+    "description": "Always exploring new ways to express creativity through digital art and virtual experiences."
+  }
+}
