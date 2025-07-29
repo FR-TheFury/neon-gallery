@@ -16,5 +16,11 @@
   "copy": "Kopieren",
   "copied": "Kopiert!",
   "notFound": "Seite nicht gefunden",
-  "backHome": "Zurück zur Startseite"
+  "backHome": "Zurück zur Startseite",
+  "siteTitle": "VRChat Galerie",
+  "siteDescription": "Eine Präsentation meiner VRChat-Fotografie mit einer neon-cyberpunk-gotischen Ästhetik.",
+  "quickLinks": "Schnelle Links",
+  "myMusic": "Meine Musik",
+  "connectWithMe": "Verbinde dich mit mir",
+  "copyright": "VRChat Galerie. Alle Rechte vorbehalten."
 }

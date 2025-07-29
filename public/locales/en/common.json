@@ -16,5 +16,11 @@
   "copy": "Copy",
   "copied": "Copied!",
   "notFound": "Page not found",
-  "backHome": "Back to Home"
+  "backHome": "Back to Home",
+  "siteTitle": "VRChat Gallery",
+  "siteDescription": "A showcase of my VRChat photography with a neon cyberpunk gothic aesthetic.",
+  "quickLinks": "Quick Links",
+  "myMusic": "My Music",
+  "connectWithMe": "Connect With Me",
+  "copyright": "VRChat Gallery. All rights reserved."
 }

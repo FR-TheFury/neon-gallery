@@ -16,5 +16,11 @@
   "copy": "Copier",
   "copied": "Copié !",
   "notFound": "Page non trouvée",
-  "backHome": "Retour à l'Accueil"
+  "backHome": "Retour à l'Accueil",
+  "siteTitle": "Galerie VRChat",
+  "siteDescription": "Une vitrine de ma photographie VRChat avec une esthétique cyberpunk gothique néon.",
+  "quickLinks": "Liens Rapides",
+  "myMusic": "Ma Musique",
+  "connectWithMe": "Connectez-vous avec moi",
+  "copyright": "Galerie VRChat. Tous droits réservés."
 }

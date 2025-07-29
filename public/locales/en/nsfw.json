@@ -5,5 +5,12 @@
   "privateCollection": "Private collection - Access restricted",
   "ageConfirmation": "You must be 18+ to view this content",
   "accept": "I am 18+ and consent",
-  "decline": "Go back"
+  "decline": "Go back",
+  "adultContent": "Adult Content",
+  "ageWarning": "This site contains adult content (NSFW) that may include sexual or violent elements.",
+  "confirmAge": "By continuing, you confirm that you are",
+  "yearsOld": "18 years or older",
+  "ageConsent": "and consent to view this content.",
+  "quit": "Quit",
+  "iAmEighteenPlus": "I am 18 or older"
 }

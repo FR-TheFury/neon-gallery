@@ -16,5 +16,11 @@
   "copy": "复制",
   "copied": "已复制！",
   "notFound": "页面未找到",
-  "backHome": "返回首页"
+  "backHome": "返回首页",
+  "siteTitle": "VRChat画廊",
+  "siteDescription": "展示我的VRChat摄影作品，具有霓虹赛博朋克哥特美学。",
+  "quickLinks": "快速链接",
+  "myMusic": "我的音乐",
+  "connectWithMe": "与我联系",
+  "copyright": "VRChat画廊。保留所有权利。"
 }

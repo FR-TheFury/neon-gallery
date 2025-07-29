@@ -1,8 +1,11 @@
 
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { SiSoundcloud, SiSpotify, SiYoutube, SiApplemusic, SiAmazonmusic } from "react-icons/si";
 
 const Footer = () => {
+  const { t } = useTranslation(['common', 'navigation']);
+  
   // Custom Deezer icon component
   const DeezerIcon = () => (
     <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -15,45 +18,45 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-xl font-bold mb-4 neon-text">VRChat Gallery</h3>
+            <h3 className="text-xl font-bold mb-4 neon-text">{t('common:siteTitle')}</h3>
             <p className="text-sm text-gray-300">
-              A showcase of my VRChat photography with a neon cyberpunk gothic aesthetic.
+              {t('common:siteDescription')}
             </p>
           </div>
           
           <div>
-            <h3 className="text-xl font-bold mb-4 neon-text">Quick Links</h3>
+            <h3 className="text-xl font-bold mb-4 neon-text">{t('common:quickLinks')}</h3>
             <ul className="space-y-2">
               <li>
                 <Link to="/" className="text-sm text-gray-300 hover:text-neon-pink transition-colors">
-                  Home
+                  {t('navigation:home')}
                 </Link>
               </li>
               <li>
                 <Link to="/gallery/galleryMain" className="text-sm text-gray-300 hover:text-neon-pink transition-colors">
-                  Gallery
+                  {t('navigation:gallery')}
                 </Link>
               </li>
               <li>
                 <Link to="/music" className="text-sm text-gray-300 hover:text-neon-pink transition-colors">
-                  Music
+                  {t('navigation:music')}
                 </Link>
               </li>
               <li>
                 <Link to="/about" className="text-sm text-gray-300 hover:text-neon-pink transition-colors">
-                  About Me
+                  {t('navigation:about')}
                 </Link>
               </li>
               <li>
                 <Link to="/contact" className="text-sm text-gray-300 hover:text-neon-pink transition-colors">
-                  Contact
+                  {t('navigation:contact')}
                 </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-xl font-bold mb-4 neon-text">My Music</h3>
+            <h3 className="text-xl font-bold mb-4 neon-text">{t('common:myMusic')}</h3>
             <div className="flex flex-wrap gap-3">
               <a href="https://open.spotify.com/intl-fr/artist/0Lms7v1qvEfqjLRGMCJUuY?si=Sfp8IoYlReibnmQwRIjXDg" 
                  className="text-gray-300 hover:text-green-500 transition-colors" 
@@ -101,7 +104,7 @@ const Footer = () => {
           </div>
           
           <div>
-            <h3 className="text-xl font-bold mb-4 neon-text">Connect With Me</h3>
+            <h3 className="text-xl font-bold mb-4 neon-text">{t('common:connectWithMe')}</h3>
             <div className="flex space-x-4">
               <a href="https://vrchat.com/home/user/usr_2ae80e8b-e70e-494a-aebb-6e457a26fcff" className="text-gray-300 hover:text-neon-purple transition-colors">
                 <span className="sr-only">VRChat</span>
@@ -129,7 +132,7 @@ const Footer = () => {
         
         <div className="mt-8 border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-gray-400">
-            © {new Date().getFullYear()} VRChat Gallery. All rights reserved.
+            © {new Date().getFullYear()} {t('common:copyright')}
           </p>
         </div>
       </div>
