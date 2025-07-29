@@ -1,0 +1,17 @@
+{
+  "title": "Musik",
+  "subtitle": "Hören Sie meine musikalischen Kreationen",
+  "nowPlaying": "Aktuell Läuft",
+  "playlist": "Wiedergabeliste",
+  "play": "Abspielen",
+  "pause": "Pause",
+  "next": "Weiter",
+  "previous": "Zurück",
+  "volume": "Lautstärke",
+  "mute": "Stumm",
+  "unmute": "Ton An",
+  "loading": "Lädt...",
+  "retry": "Wiederholen",
+  "loadingError": "Ladefehler",
+  "audioLoadError": "Audio-Ladefehler"
+}

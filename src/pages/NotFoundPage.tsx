@@ -1,13 +1,16 @@
 
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const NotFoundPage = () => {
+  const { t } = useTranslation('common');
+  
   return (
     <>
       <div className="flex items-center justify-center min-h-screen bg-neon-dark">
         <div className="text-center">
           <h1 className="text-6xl font-bold mb-4 neon-text animate-pulse-neon">404</h1>
-          <h2 className="text-2xl font-bold mb-6 text-white">Page Not Found</h2>
+          <h2 className="text-2xl font-bold mb-6 text-white">{t('notFound')}</h2>
           <p className="text-gray-300 mb-8">
             The page you're looking for doesn't exist or has been moved.
           </p>
@@ -15,7 +18,7 @@ const NotFoundPage = () => {
             to="/" 
             className="px-6 py-3 rounded-md bg-neon-purple text-white font-medium hover:bg-opacity-80 transition-all neon-glow"
           >
-            Return Home
+            {t('backHome')}
           </Link>
         </div>
       </div>

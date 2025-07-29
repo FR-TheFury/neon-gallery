@@ -1,8 +1,11 @@
 
+import { useTranslation } from "react-i18next";
 import FloatingCharacter from "@/components/FloatingCharacter";
 import { SiSoundcloud, SiSpotify, SiYoutube, SiApplemusic, SiAmazonmusic } from "react-icons/si";
 
 const ContactPage = () => {
+  const { t } = useTranslation('contact');
+  
   // Custom Deezer icon component
   const DeezerIcon = () => (
     <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -14,7 +17,7 @@ const ContactPage = () => {
     <div className="pt-20 pb-16 min-h-screen bg-gradient-to-b from-neon-dark to-black">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl font-bold mb-8 neon-text text-center">Find Me</h1>
+          <h1 className="text-4xl font-bold mb-8 neon-text text-center">{t('findMe')}</h1>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
             <div className="cyberpunk-card p-6">

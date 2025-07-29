@@ -1,0 +1,16 @@
+{
+  "warning": "内容警告",
+  "title": "成人内容",
+  "description": "此画廊包含成人内容（NSFW）。通过访问此画廊，您确认您已达到法定年龄并同意查看此类材料。",
+  "privateCollection": "私人收藏 - 访问受限",
+  "ageConfirmation": "您必须年满18岁才能查看此内容",
+  "accept": "我已年满18岁并同意",
+  "decline": "返回",
+  "adultContent": "成人内容",
+  "ageWarning": "本网站包含成人内容（NSFW），可能包括性或暴力元素。",
+  "confirmAge": "继续浏览即表示您确认您",
+  "yearsOld": "已年满18岁",
+  "ageConsent": "并同意查看此内容。",
+  "quit": "退出",
+  "iAmEighteenPlus": "我已年满18岁"
+}

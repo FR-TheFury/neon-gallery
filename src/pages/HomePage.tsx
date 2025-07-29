@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { fetchImagesFromFolder } from "@/services/googleDriveService";
 import { galleries } from "@/config/galleries";
@@ -16,6 +17,7 @@ import { Music } from "lucide-react";
 const HomePage = () => {
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
   const isMobile = useIsMobile();
+  const { t } = useTranslation(['home', 'navigation']);
   
   // Fetch recent images
   const { data: recentImages = [], isLoading } = useQuery({
@@ -47,30 +49,30 @@ const HomePage = () => {
         
         <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
           <h1 className="text-5xl md:text-7xl font-bold mb-6">
-            <span className="text-white text-shadow-soft">A World of Emotion,<br/>That where <span className="text-neon-red">i live</span></span>
+            <span className="text-white text-shadow-soft">{t('home:heroTitle')}<br/>{t('home:heroSubtitle')} <span className="text-neon-red">{t('home:heroHighlight')}</span></span>
           </h1>
           <p className="text-lg md:text-xl max-w-2xl mb-8 text-white opacity-90">
-            Découvrez mon univers musical et visuel, un voyage à travers mes émotions
+            {t('home:heroDescription')}
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link 
               to="/gallery/galleryMain"
               className="px-6 py-3 rounded-md bg-neon-red text-white font-medium hover:bg-opacity-80 transition-all neon-glow shadow-[0_0_10px_#D4095D]"
             >
-              Explorer la galerie
+              {t('home:exploreGallery')}
             </Link>
             <Link
               to="/music"
               className="px-6 py-3 rounded-md bg-neon-red text-white font-medium hover:bg-opacity-80 transition-all neon-glow shadow-[0_0_10px_#D4095D] flex items-center"
             >
               <Music className="mr-2 h-4 w-4" />
-              Écouter ma music
+              {t('home:listenMyMusic')}
             </Link>
             <Link
               to="/about"
               className="px-6 py-3 rounded-md bg-neon-red text-white font-medium hover:bg-opacity-80 transition-all neon-glow shadow-[0_0_10px_#D4095D]"
             >
-              À propos
+              {t('home:aboutSection')}
             </Link>
           </div>
         </div>
@@ -86,9 +88,9 @@ const HomePage = () => {
       <section className="py-16 bg-neon-dark relative">
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex justify-between items-center mb-10">
-            <h2 className="text-3xl font-bold neon-text">Photos Récentes</h2>
+            <h2 className="text-3xl font-bold neon-text">{t('home:recentPhotos')}</h2>
             <Link to="/gallery/galleryMain" className="text-neon-red hover:text-neon-pink transition-colors">
-              Voir Tout
+              {t('home:viewAll')}
             </Link>
           </div>
           
@@ -129,10 +131,10 @@ const HomePage = () => {
           <div className="flex justify-between items-center mb-10">
             <h2 className="text-3xl font-bold neon-text flex items-center">
               <Music className="mr-3" />
-              Mes Albums
+              {t('home:myAlbums')}
             </h2>
             <Link to="/music" className="text-neon-red hover:text-neon-pink transition-colors">
-              Voir Tout
+              {t('home:viewAll')}
             </Link>
           </div>
           
@@ -150,13 +152,13 @@ const HomePage = () => {
                   />
                 </div>
                 <h3 className="text-xl font-bold mb-2 neon-text">{album.title}</h3>
-                <p className="text-gray-400 mb-4">Par {album.artist}</p>
+                <p className="text-gray-400 mb-4">{t('home:byArtist')} {album.artist}</p>
                 <div className="flex gap-2">
                   <Link
                     to="/music"
                     className="flex-1 px-4 py-2 neon-button rounded-md text-center"
                   >
-                    Voir Plus
+                    {t('home:viewMore')}
                   </Link>
                   {album.soundcloudUrl && (
                     <a
@@ -178,7 +180,7 @@ const HomePage = () => {
       {/* Gallery Categories */}
       <section className="py-16 bg-gradient-to-b from-black to-neon-dark">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-10 text-center neon-text">Catégories de Galerie</h2>
+          <h2 className="text-3xl font-bold mb-10 text-center neon-text">{t('home:galleryCategories')}</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {galleries.map((gallery) => (
@@ -187,11 +189,11 @@ const HomePage = () => {
                 to={`/gallery/${gallery.id}`}
                 className="cyberpunk-card p-6 text-center hover:translate-y-[-5px] transition-all border border-neon-darkred hover:border-neon-red hover:shadow-[0_0_10px_rgba(212,9,93,0.5)]"
               >
-                <h3 className="text-xl font-bold mb-2 neon-text">{gallery.name}</h3>
-                <p className="text-gray-400 mb-4">Explorez la collection {gallery.name}</p>
+                <h3 className="text-xl font-bold mb-2 neon-text">{t(`navigation:galleries.${gallery.id}`)}</h3>
+                <p className="text-gray-400 mb-4">{t('home:exploreCollection')} {t(`navigation:galleries.${gallery.id}`)}</p>
                 <div className="mt-4">
                   <span className="inline-block px-4 py-2 neon-button rounded-md">
-                    Voir la Galerie
+                    {t('home:viewGallery')}
                   </span>
                 </div>
               </Link>

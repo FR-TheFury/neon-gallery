@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { CharacterQuoteDialog } from "@/components/CharacterQuoteDialog";
 
 // Character data type
@@ -49,6 +50,7 @@ const characters: Character[] = [
 const AboutPage = () => {
   const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const { t } = useTranslation('about');
 
   const handleCharacterClick = (character: Character) => {
     setSelectedCharacter(character);
@@ -88,7 +90,7 @@ const AboutPage = () => {
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-5xl mx-auto lg:max-w-3xl">
-            <h1 className="text-4xl font-bold mb-8 neon-text text-center">About Me</h1>
+            <h1 className="text-4xl font-bold mb-8 neon-text text-center">{t('title')}</h1>
 
             {/* Main profile section */}
             <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 mb-12">

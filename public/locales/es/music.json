@@ -1,0 +1,17 @@
+{
+  "title": "Música",
+  "subtitle": "Escucha mis creaciones musicales",
+  "nowPlaying": "Reproduciendo Ahora",
+  "playlist": "Lista de Reproducción",
+  "play": "Reproducir",
+  "pause": "Pausar",
+  "next": "Siguiente",
+  "previous": "Anterior",
+  "volume": "Volumen",
+  "mute": "Silenciar",
+  "unmute": "Activar Sonido",
+  "loading": "Cargando...",
+  "retry": "Reintentar",
+  "loadingError": "Error de Carga",
+  "audioLoadError": "Error de Carga de Audio"
+}

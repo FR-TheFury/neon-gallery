@@ -1,0 +1,16 @@
+{
+  "warning": "Inhaltswarnung",
+  "title": "Erwachseneninhalte",
+  "description": "Diese Galerie enthält Erwachseneninhalte (NSFW). Durch den Zugang zu dieser Galerie bestätigen Sie, dass Sie volljährig sind und dem Betrachten solcher Inhalte zustimmen.",
+  "privateCollection": "Private Sammlung - Zugang beschränkt",
+  "ageConfirmation": "Sie müssen 18+ sein, um diesen Inhalt anzusehen",
+  "accept": "Ich bin 18+ und stimme zu",
+  "decline": "Zurück",
+  "adultContent": "Erwachseneninhalte",
+  "ageWarning": "Diese Website enthält Inhalte für Erwachsene (NSFW), die sexuelle oder gewalttätige Elemente enthalten können.",
+  "confirmAge": "Durch Fortfahren bestätigen Sie, dass Sie",
+  "yearsOld": "18 Jahre oder älter",
+  "ageConsent": "sind und zustimmen, diesen Inhalt anzusehen.",
+  "quit": "Verlassen",
+  "iAmEighteenPlus": "Ich bin 18 oder älter"
+}
