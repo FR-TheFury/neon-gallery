@@ -2,8 +2,10 @@
 import { Music, Headphones } from "lucide-react";
 import { SiSpotify, SiSoundcloud, SiAmazonmusic, SiYoutube, SiApplemusic } from "react-icons/si";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { useTranslation } from "react-i18next";
 
 const MusicPage = () => {
+  const { t } = useTranslation('music');
   const albums = [
     {
       id: 1,
@@ -13,19 +15,19 @@ const MusicPage = () => {
     },
     {
       id: 2,
-      title: "Coming Soon",
+      title: t('comingSoon'),
       image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=400&h=400&fit=crop",
       status: "coming-soon"
     },
     {
       id: 3,
-      title: "Coming Soon",
+      title: t('comingSoon'),
       image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=400&fit=crop",
       status: "coming-soon"
     },
     {
       id: 4,
-      title: "Coming Soon",
+      title: t('comingSoon'),
       image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=400&fit=crop",
       status: "coming-soon"
     }
@@ -89,10 +91,10 @@ const MusicPage = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="text-center mb-12">
           <h1 className="text-5xl md:text-7xl font-bold text-gradient-neon mb-4 animate-pulse-neon">
-            MUSIC
+            {t('title').toUpperCase()}
           </h1>
           <p className="text-xl text-neon-pink neon-text">
-            L'Expression de mon Âme à travers les Sons
+            {t('subtitle')}
           </p>
         </div>
 
@@ -103,23 +105,20 @@ const MusicPage = () => {
             <div className="cyberpunk-card p-8 neon-border">
               <h2 className="text-3xl font-bold text-neon-red mb-6 flex items-center">
                 <Music className="mr-3" />
-                Mon Univers Musical
+                {t('musicalUniverse')}
               </h2>
               <div className="space-y-4 text-gray-300 leading-relaxed">
                 <p>
-                  Welcome to my sonic universe, a space where my emotions come to life through beats and melodies.
-                  Every track I create is a fragment of my soul, a digital fingerprint of my most intense experiences.
+                  {t('description1')}
                 </p>
                 <p>
-                  My music is born from the fusion of my shifting moods and personal experiences.
-                  From the chaos of sleepless nights to the euphoria of moments of freedom, every sound tells an authentic story.
+                  {t('description2')}
                 </p>
                 <p className="text-neon-pink font-semibold">
-                  In this world where the virtual and the real collide, my music becomes the bridge between who I am and who I dream of being.
+                  {t('description3')}
                 </p>
                 <p>
-                  Let yourself be carried away by these electronic vibrations, these basslines that shake the soul,
-                  and these melodies that transcend the boundaries between the physical and the digital.
+                  {t('description4')}
                 </p>
               </div>
             </div>
@@ -128,7 +127,7 @@ const MusicPage = () => {
             <div className="cyberpunk-card p-6 neon-border">
               <h3 className="text-xl font-bold text-neon-red mb-4 flex items-center">
                 <Headphones className="mr-2" />
-                Retrouvez-moi sur
+                {t('findMeOn')}
               </h3>
               <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
                 {musicPlatforms.map((platform) => {
@@ -146,7 +145,7 @@ const MusicPage = () => {
                             <IconComponent className={`w-6 h-6 ${platform.color}`} />
                           </div>
                           <span className="text-sm">{platform.name}</span>
-                          <div className="text-xs text-neon-pink mt-1">Available</div>
+                          <div className="text-xs text-neon-pink mt-1">{t('available')}</div>
                         </a>
                       ) : (
                         <div className="neon-button p-3 text-center rounded-md cursor-not-allowed opacity-50">
@@ -154,7 +153,7 @@ const MusicPage = () => {
                             <IconComponent className={`w-6 h-6 ${platform.color}`} />
                           </div>
                           <span className="text-sm">{platform.name}</span>
-                          <div className="text-xs text-neon-pink mt-1">In Coming</div>
+                          <div className="text-xs text-neon-pink mt-1">{t('comingSoon')}</div>
                         </div>
                       )}
                     </div>
@@ -180,7 +179,7 @@ const MusicPage = () => {
         {/* Albums Carousel */}
         <div className="cyberpunk-card p-8 neon-border mb-8">
           <h2 className="text-3xl font-bold text-neon-red mb-6 text-center">
-            Mes Albums
+            {t('myAlbums')}
           </h2>
           <Carousel className="w-full max-w-5xl mx-auto">
             <CarouselContent className="-ml-2 md:-ml-4">
@@ -201,7 +200,7 @@ const MusicPage = () => {
                       />
                       {album.status === 'coming-soon' && (
                         <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
-                          <span className="text-neon-pink font-bold text-lg neon-text">SOON</span>
+                          <span className="text-neon-pink font-bold text-lg neon-text">{t('soon').toUpperCase()}</span>
                         </div>
                       )}
                     </div>
@@ -222,7 +221,7 @@ const MusicPage = () => {
         {/* SoundCloud Integration */}
         <div className="cyberpunk-card p-8 neon-border">
           <h2 className="text-3xl font-bold text-neon-red mb-6 text-center">
-            Fucked Up Vision - Mon Album Actuelle
+            {t('currentAlbum')}
           </h2>
           <div className="bg-black/50 p-4 rounded-lg neon-border">
             <iframe 
@@ -263,7 +262,7 @@ const MusicPage = () => {
         {/* Bottom Quote */}
         <div className="text-center mt-12">
           <p className="text-2xl font-bold text-gradient-neon animate-pulse-neon">
-            "La musique est l'écho de mon âme digitale"
+            {t('quote')}
           </p>
         </div>
       </div>

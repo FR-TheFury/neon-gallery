@@ -2,16 +2,30 @@
   "title": "About Me",
   "subtitle": "Get to know the person behind the creativity",
   "description": "Welcome to my digital space! I'm passionate about photography, music, and creating immersive experiences in virtual worlds.",
-  "photography": {
-    "title": "Photography",
-    "description": "I specialize in VRChat photography, capturing unique moments and creative scenes in virtual environments."
-  },
-  "music": {
-    "title": "Music",
-    "description": "Music is my passion. I create and curate tracks that inspire and energize."
-  },
-  "creativity": {
-    "title": "Creativity",
-    "description": "Always exploring new ways to express creativity through digital art and virtual experiences."
-  }
+  "personalDescription1": "Hi! I'm Himely, a virtual reality enthusiast and an untiring explorer of the VRChat worlds. My mission is to create unforgettable immersive experiences and connect with people from all over the world through this incredible platform.",
+  "personalDescription2": "On VRChat, I love customizing my avatars, exploring creative worlds, and most importantly, participating in community events. Every day is a new adventure, and I enjoy pushing the boundaries of what's possible in the virtual world.",
+  "friendsCollaborators": "Friends & Collaborators",
+  "shadowCompanion": "My Shadow Companion",
+  "spyDescription": "THE SPY isn't just one of my closest friends — he's a silent force behind the scenes. Always watching, always sharp, he spots what others miss. His presence is subtle but essential, woven into every move I make. Many plans wouldn't have come together without his insight and loyalty. Thank you, brother in the shadows, for your unmatched instinct and unwavering support.",
+  "myFamily": "My Family",
+  "familyDescription": "HSKN represents more than just a group - they are my chosen family in the virtual realm. In VRChat, we've built bonds that transcend pixels and avatars. Together, we navigate virtual worlds, support each other through challenges, and create memories that feel as real as any physical experience. They are the foundation of my digital existence, the ones who make every login feel like coming home.",
+  "buddyPhotographer": "My Buddy Photographer",
+  "photographerDescription": "MisterPandas is the talented photographer behind all the photos and GIFs on my site. His passion for capturing the perfect moments has made my VR experiences shine like never before. Every shot tells a story, and I am forever grateful for his amazing work and artistic vision.",
+  "vrSkills": "VR Skills",
+  "avatarEditing": "Avatar Editing",
+  "worldExploration": "World Exploration",
+  "eventHosting": "Event Hosting",
+  "socialInteraction": "Social Interaction",
+  "vrExperience": "VR Experience",
+  "vrAvatarEditor": "VR Avatar Editor",
+  "present": "Present",
+  "avatarEditorDesc": "I have customized numerous avatars for myself and others, exploring various techniques and tools to perfect my craft.",
+  "worldExplorer": "World Explorer",
+  "worldExplorerDesc": "I have traveled and explored more than 500 worlds in VRChat, discovering unique environments and participating in immersive quests.",
+  "interests": "Interests",
+  "vrContentCreation": "VR Content Creation",
+  "socialImmersion": "Social Immersion",
+  "threeDDesign": "3D Design",
+  "gaming": "Gaming",
+  "vrTechnology": "VR Technology"
 }

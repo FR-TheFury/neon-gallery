@@ -1,6 +1,18 @@
 {
   "title": "音乐",
-  "subtitle": "聆听我的音乐创作",
+  "subtitle": "通过声音表达我的灵魂",
+  "musicalUniverse": "我的音乐宇宙",
+  "description1": "欢迎来到我的声音宇宙，一个我的情感通过节拍和旋律生动起来的空间。我创作的每一首曲目都是我灵魂的片段，是我最激烈体验的数字指纹。",
+  "description2": "我的音乐诞生于我变化的情绪和个人经历的融合。从失眠夜晚的混乱到自由时刻的狂欢，每一个声音都讲述着一个真实的故事。",
+  "description3": "在这个虚拟与现实碰撞的世界里，我的音乐成为了我现在的自己和我梦想成为的自己之间的桥梁。",
+  "description4": "让自己沉浸在这些电子振动中，这些震撼灵魂的低音线，以及这些超越物理和数字界限的旋律中。",
+  "findMeOn": "在这里找到我",
+  "available": "可用",
+  "comingSoon": "即将推出",
+  "myAlbums": "我的专辑",
+  "soon": "即将",
+  "currentAlbum": "Fucked Up Vision - 我的当前专辑",
+  "quote": "\"音乐是我数字灵魂的回响\"",
   "nowPlaying": "正在播放",
   "playlist": "播放列表",
   "play": "播放",
@@ -9,9 +21,5 @@
   "previous": "上一首",
   "volume": "音量",
   "mute": "静音",
-  "unmute": "取消静音",
-  "loading": "加载中...",
-  "retry": "重试",
-  "loadingError": "加载错误",
-  "audioLoadError": "音频加载错误"
+  "unmute": "取消静音"
 }

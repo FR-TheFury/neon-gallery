@@ -110,29 +110,25 @@ const AboutPage = () => {
               <div className="cyberpunk-card p-6 border-l-4 border-neon-red neon-border">
                 <h2 className="text-2xl font-bold mb-4 neon-text">Himely_Puppy</h2>
                 <p className="text-gray-300 mb-4">
-                  Hi! I'm Himely, a virtual reality enthusiast and an untiring explorer of the VRChat worlds. My mission
-                  is to create unforgettable immersive experiences and connect with people from all over the world
-                  through this incredible platform.
+                  {t('personalDescription1')}
                 </p>
                 <p className="text-gray-300">
-                  On VRChat, I love customizing my avatars, exploring creative worlds, and most importantly,
-                  participating in community events. Every day is a new adventure, and I enjoy pushing the boundaries of
-                  what's possible in the virtual world.
+                  {t('personalDescription2')}
                 </p>
               </div>
             </div>
 
             {/* Featured friends and collaborators */}
-            <h2 className="text-3xl font-bold mb-6 neon-text text-center">Friends & Collaborators</h2>
+            <h2 className="text-3xl font-bold mb-6 neon-text text-center">{t('friendsCollaborators')}</h2>
 
             {/* First collaborator */}
             <div
                 className="cyberpunk-card p-6 mb-12 grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 items-center neon-border">
               <div>
                 <h3 className="text-xl font-bold mb-2 text-neon-pink">GNRL_K – aka THE SPY !</h3>
-                <h4 className="text-2xl font-bold mb-4 neon-text">My Shadow Companion</h4>
+                <h4 className="text-2xl font-bold mb-4 neon-text">{t('shadowCompanion')}</h4>
                 <p className="text-gray-300 mb-4">
-                  THE SPY isn't just one of my closest friends — he's a silent force behind the scenes. Always watching, always sharp, he spots what others miss. His presence is subtle but essential, woven into every move I make. Many plans wouldn't have come together without his insight and loyalty. Thank you, brother in the shadows, for your unmatched instinct and unwavering support.
+                  {t('spyDescription')}
                 </p>
               </div>
               <div 
@@ -161,9 +157,9 @@ const AboutPage = () => {
               </div>
               <div>
                 <h3 className="text-xl font-bold mb-2 text-neon-pink">HSKN !</h3>
-                <h4 className="text-2xl font-bold mb-4 neon-text">My Family</h4>
+                <h4 className="text-2xl font-bold mb-4 neon-text">{t('myFamily')}</h4>
                 <p className="text-gray-300 mb-4">
-                  HSKN represents more than just a group - they are my chosen family in the virtual realm. In VRChat, we've built bonds that transcend pixels and avatars. Together, we navigate virtual worlds, support each other through challenges, and create memories that feel as real as any physical experience. They are the foundation of my digital existence, the ones who make every login feel like coming home.
+                  {t('familyDescription')}
                 </p>
               </div>
             </div>
@@ -173,11 +169,9 @@ const AboutPage = () => {
                 className="cyberpunk-card p-6 mb-12 grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 items-center neon-border">
               <div>
                 <h3 className="text-xl font-bold mb-2 text-neon-pink">MisterPandas !</h3>
-                <h4 className="text-2xl font-bold mb-4 neon-text">My Buddy Photographer</h4>
+                <h4 className="text-2xl font-bold mb-4 neon-text">{t('buddyPhotographer')}</h4>
                 <p className="text-gray-300 mb-4">
-                  MisterPandas is the talented photographer behind all the photos and GIFs on my site. His passion for
-                  capturing the perfect moments has made my VR experiences shine like never before. Every shot tells a
-                  story, and I am forever grateful for his amazing work and artistic vision.
+                  {t('photographerDescription')}
                 </p>
               </div>
               <div 
@@ -194,12 +188,12 @@ const AboutPage = () => {
 
             {/* VR Skills Section */}
             <div className="cyberpunk-card p-6 border-l-4 border-neon-red neon-border mb-12">
-              <h2 className="text-3xl font-bold mb-6 text-neon-red">VR Skills</h2>
+              <h2 className="text-3xl font-bold mb-6 text-neon-red">{t('vrSkills')}</h2>
               
               <div className="space-y-6">
                 <div className="skill-item">
                   <div className="flex justify-between mb-2">
-                    <span className="font-semibold text-white">Avatar Edition</span>
+                    <span className="font-semibold text-white">{t('avatarEditing')}</span>
                     <span className="text-neon-pink">85%</span>
                   </div>
                   <div className="relative h-4 rounded-full bg-neon-dark">
@@ -209,7 +203,7 @@ const AboutPage = () => {
                 
                 <div className="skill-item">
                   <div className="flex justify-between mb-2">
-                    <span className="font-semibold text-white">World Exploration</span>
+                    <span className="font-semibold text-white">{t('worldExploration')}</span>
                     <span className="text-neon-pink">95%</span>
                   </div>
                   <div className="relative h-4 rounded-full bg-neon-dark">
@@ -219,7 +213,7 @@ const AboutPage = () => {
                 
                 <div className="skill-item">
                   <div className="flex justify-between mb-2">
-                    <span className="font-semibold text-white">Event Hosting</span>
+                    <span className="font-semibold text-white">{t('eventHosting')}</span>
                     <span className="text-neon-pink">90%</span>
                   </div>
                   <div className="relative h-4 rounded-full bg-neon-dark">
@@ -229,7 +223,7 @@ const AboutPage = () => {
                 
                 <div className="skill-item">
                   <div className="flex justify-between mb-2">
-                    <span className="font-semibold text-white">Social Interaction</span>
+                    <span className="font-semibold text-white">{t('socialInteraction')}</span>
                     <span className="text-neon-pink">98%</span>
                   </div>
                   <div className="relative h-4 rounded-full bg-neon-dark">
@@ -241,33 +235,33 @@ const AboutPage = () => {
             
             {/* VR Experience Section */}
             <div className="cyberpunk-card p-6 border-l-4 border-neon-red neon-border mb-12">
-              <h2 className="text-3xl font-bold mb-6 text-neon-red">VR Experience</h2>
+              <h2 className="text-3xl font-bold mb-6 text-neon-red">{t('vrExperience')}</h2>
               
               <div className="space-y-8">
                 <div>
-                  <h3 className="text-2xl font-bold text-neon-pink mb-1">VR Avatar Editor</h3>
-                  <p className="text-sm text-gray-400 mb-3">2022 - Present</p>
-                  <p className="text-gray-300">I have customized numerous avatars for myself and others, exploring various techniques and tools to perfect my craft.</p>
+                  <h3 className="text-2xl font-bold text-neon-pink mb-1">{t('vrAvatarEditor')}</h3>
+                  <p className="text-sm text-gray-400 mb-3">2022 - {t('present')}</p>
+                  <p className="text-gray-300">{t('avatarEditorDesc')}</p>
                 </div>
                 
                 <div>
-                  <h3 className="text-2xl font-bold text-neon-pink mb-1">World Explorer</h3>
-                  <p className="text-sm text-gray-400 mb-3">2018 - Present</p>
-                  <p className="text-gray-300">I have traveled and explored more than 500 worlds in VRChat, discovering unique environments and participating in immersive quests.</p>
+                  <h3 className="text-2xl font-bold text-neon-pink mb-1">{t('worldExplorer')}</h3>
+                  <p className="text-sm text-gray-400 mb-3">2018 - {t('present')}</p>
+                  <p className="text-gray-300">{t('worldExplorerDesc')}</p>
                 </div>
               </div>
             </div>
             
             {/* Interests Section */}
             <div className="cyberpunk-card p-6 border-l-4 border-neon-red neon-border">
-              <h2 className="text-3xl font-bold mb-6 text-neon-red">Interests</h2>
+              <h2 className="text-3xl font-bold mb-6 text-neon-red">{t('interests')}</h2>
               
               <div className="flex flex-wrap gap-3">
-                <span className="px-4 py-2 rounded-full bg-gradient-to-r from-neon-red to-neon-pink text-white transition-all hover:scale-105">VR Content Creation</span>
-                <span className="px-4 py-2 rounded-full bg-gradient-to-r from-neon-pink to-purple-500 text-white transition-all hover:scale-105">Social Immersion</span>
-                <span className="px-4 py-2 rounded-full bg-gradient-to-r from-purple-500 to-blue-400 text-white transition-all hover:scale-105">3D Design</span>
-                <span className="px-4 py-2 rounded-full bg-gradient-to-r from-blue-400 to-green-400 text-white transition-all hover:scale-105">Gaming</span>
-                <span className="px-4 py-2 rounded-full bg-gradient-to-r from-green-400 to-neon-red text-white transition-all hover:scale-105">VR Technology</span>
+                <span className="px-4 py-2 rounded-full bg-gradient-to-r from-neon-red to-neon-pink text-white transition-all hover:scale-105">{t('vrContentCreation')}</span>
+                <span className="px-4 py-2 rounded-full bg-gradient-to-r from-neon-pink to-purple-500 text-white transition-all hover:scale-105">{t('socialImmersion')}</span>
+                <span className="px-4 py-2 rounded-full bg-gradient-to-r from-purple-500 to-blue-400 text-white transition-all hover:scale-105">{t('threeDDesign')}</span>
+                <span className="px-4 py-2 rounded-full bg-gradient-to-r from-blue-400 to-green-400 text-white transition-all hover:scale-105">{t('gaming')}</span>
+                <span className="px-4 py-2 rounded-full bg-gradient-to-r from-green-400 to-neon-red text-white transition-all hover:scale-105">{t('vrTechnology')}</span>
               </div>
             </div>
           </div>

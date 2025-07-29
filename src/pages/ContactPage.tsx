@@ -17,11 +17,11 @@ const ContactPage = () => {
     <div className="pt-20 pb-16 min-h-screen bg-gradient-to-b from-neon-dark to-black">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl font-bold mb-8 neon-text text-center">{t('findMe')}</h1>
+          <h1 className="text-4xl font-bold mb-8 neon-text text-center">{t('title')}</h1>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
             <div className="cyberpunk-card p-6">
-              <h2 className="text-2xl font-bold mb-4 neon-text">Social Media</h2>
+              <h2 className="text-2xl font-bold mb-4 neon-text">{t('socialMedia')}</h2>
               <ul className="space-y-4">
                 <li className="flex items-center">
                   <div className="w-12 h-12 flex items-center justify-center neon-border rounded-full mr-4">
@@ -63,7 +63,7 @@ const ContactPage = () => {
             </div>
 
             <div className="cyberpunk-card p-6">
-              <h2 className="text-2xl font-bold mb-4 neon-text">Music Platforms</h2>
+              <h2 className="text-2xl font-bold mb-4 neon-text">{t('musicPlatforms')}</h2>
               <ul className="space-y-4">
                 <li className="flex items-center">
                   <div className="w-12 h-12 flex items-center justify-center neon-border rounded-full mr-4">
@@ -128,16 +128,16 @@ const ContactPage = () => {
             </div>
             
             <div className="cyberpunk-card p-6">
-              <h2 className="text-2xl font-bold mb-4 neon-text">Get In Touch</h2>
+              <h2 className="text-2xl font-bold mb-4 neon-text">{t('getInTouch')}</h2>
               <p className="text-gray-300 mb-6">
-                Have questions about my work or interested in collaborations? Feel free to reach out to me through any of my social media platforms.
+                {t('description')}
               </p>
 
               <div className="space-y-4">
                 <div>
-                  <h3 className="font-medium text-white mb-1">Virtual World Meet-ups</h3>
+                  <h3 className="font-medium text-white mb-1">{t('virtualWorldMeetups')}</h3>
                   <p className="text-gray-300">
-                    I regularly host virtual event sessions in VRChat.
+                    {t('virtualEventSessions')}
                   </p>
                 </div>
               </div>
@@ -145,12 +145,12 @@ const ContactPage = () => {
           </div>
 
           <div className="cyberpunk-card p-6">
-            <h2 className="text-2xl font-bold mb-4 neon-text">Soon</h2>
+            <h2 className="text-2xl font-bold mb-4 neon-text">{t('soon')}</h2>
             <p className="text-gray-300 mb-4">
-              More things will appear here in the future !
+              {t('moreFuture')}
             </p>
             <p className="text-gray-300">
-              So come take a look some times !
+              {t('comeBack')}
             </p>
           </div>
         </div>

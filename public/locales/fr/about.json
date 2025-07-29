@@ -2,16 +2,30 @@
   "title": "À Propos de Moi",
   "subtitle": "Apprenez à connaître la personne derrière la créativité",
   "description": "Bienvenue dans mon espace numérique ! Je suis passionné par la photographie, la musique et la création d'expériences immersives dans les mondes virtuels.",
-  "photography": {
-    "title": "Photographie",
-    "description": "Je me spécialise dans la photographie VRChat, capturant des moments uniques et des scènes créatives dans des environnements virtuels."
-  },
-  "music": {
-    "title": "Musique",
-    "description": "La musique est ma passion. Je crée et sélectionne des morceaux qui inspirent et dynamisent."
-  },
-  "creativity": {
-    "title": "Créativité",
-    "description": "J'explore toujours de nouvelles façons d'exprimer la créativité à travers l'art numérique et les expériences virtuelles."
-  }
+  "personalDescription1": "Salut ! Je suis Himely, un passionné de réalité virtuelle et un explorateur infatigable des mondes VRChat. Ma mission est de créer des expériences immersives inoubliables et de me connecter avec des gens du monde entier grâce à cette plateforme incroyable.",
+  "personalDescription2": "Sur VRChat, j'adore personnaliser mes avatars, explorer des mondes créatifs, et surtout, participer aux événements communautaires. Chaque jour est une nouvelle aventure, et j'aime repousser les limites de ce qui est possible dans le monde virtuel.",
+  "friendsCollaborators": "Amis et Collaborateurs",
+  "shadowCompanion": "Mon Compagnon des Ombres",
+  "spyDescription": "THE SPY n'est pas seulement l'un de mes amis les plus proches — c'est une force silencieuse en coulisses. Toujours vigilant, toujours perspicace, il repère ce que les autres ratent. Sa présence est subtile mais essentielle, tissée dans chacun de mes mouvements. Merci, frère dans l'ombre, pour ton instinct inégalé et ton soutien indéfectible.",
+  "myFamily": "Ma Famille",
+  "familyDescription": "HSKN représente plus qu'un simple groupe - ils sont ma famille choisie dans le royaume virtuel. Dans VRChat, nous avons construit des liens qui transcendent les pixels et les avatars. Ensemble, nous naviguons dans les mondes virtuels, nous nous soutenons mutuellement à travers les défis, et créons des souvenirs qui semblent aussi réels que toute expérience physique.",
+  "buddyPhotographer": "Mon Compagnon Photographe",
+  "photographerDescription": "MisterPandas est le photographe talentueux derrière toutes les photos et GIFs de mon site. Sa passion pour capturer les moments parfaits a fait briller mes expériences VR comme jamais auparavant. Chaque prise raconte une histoire, et je suis éternellement reconnaissant pour son travail incroyable et sa vision artistique.",
+  "vrSkills": "Compétences VR",
+  "avatarEditing": "Édition d'Avatar",
+  "worldExploration": "Exploration de Mondes",
+  "eventHosting": "Organisation d'Événements",
+  "socialInteraction": "Interaction Sociale",
+  "vrExperience": "Expérience VR",
+  "vrAvatarEditor": "Éditeur d'Avatar VR",
+  "present": "Présent",
+  "avatarEditorDesc": "J'ai personnalisé de nombreux avatars pour moi-même et d'autres, explorant diverses techniques et outils pour perfectionner mon art.",
+  "worldExplorer": "Explorateur de Mondes",
+  "worldExplorerDesc": "J'ai voyagé et exploré plus de 500 mondes dans VRChat, découvrant des environnements uniques et participant à des quêtes immersives.",
+  "interests": "Intérêts",
+  "vrContentCreation": "Création de Contenu VR",
+  "socialImmersion": "Immersion Sociale",
+  "threeDDesign": "Design 3D",
+  "gaming": "Gaming",
+  "vrTechnology": "Technologie VR"
 }

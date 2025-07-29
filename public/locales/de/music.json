@@ -1,6 +1,18 @@
 {
   "title": "Musik",
-  "subtitle": "Hören Sie meine musikalischen Kreationen",
+  "subtitle": "Der Ausdruck meiner Seele durch Klänge",
+  "musicalUniverse": "Mein Musikalisches Universum",
+  "description1": "Willkommen in meinem Klanguniversum, einem Raum, wo meine Emotionen durch Beats und Melodien zum Leben erwachen. Jeder Track, den ich erstelle, ist ein Fragment meiner Seele, ein digitaler Fingerabdruck meiner intensivsten Erfahrungen.",
+  "description2": "Meine Musik entsteht aus der Verschmelzung meiner wechselnden Stimmungen und persönlichen Erfahrungen. Vom Chaos schlafoser Nächte bis zur Euphorie der Momente der Freiheit erzählt jeder Klang eine authentische Geschichte.",
+  "description3": "In dieser Welt, wo das Virtuelle und das Reale kollidieren, wird meine Musik zur Brücke zwischen dem, wer ich bin und wem ich zu sein träume.",
+  "description4": "Lassen Sie sich von diesen elektronischen Vibrationen mitreißen, diesen Basslinien, die die Seele erschüttern, und diesen Melodien, die die Grenzen zwischen dem Physischen und dem Digitalen überschreiten.",
+  "findMeOn": "Finden Sie mich auf",
+  "available": "Verfügbar",
+  "comingSoon": "Demnächst",
+  "myAlbums": "Meine Alben",
+  "soon": "Bald",
+  "currentAlbum": "Fucked Up Vision - Mein Aktuelles Album",
+  "quote": "\"Musik ist das Echo meiner digitalen Seele\"",
   "nowPlaying": "Aktuell Läuft",
   "playlist": "Wiedergabeliste",
   "play": "Abspielen",
@@ -9,9 +21,5 @@
   "previous": "Zurück",
   "volume": "Lautstärke",
   "mute": "Stumm",
-  "unmute": "Ton An",
-  "loading": "Lädt...",
-  "retry": "Wiederholen",
-  "loadingError": "Ladefehler",
-  "audioLoadError": "Audio-Ladefehler"
+  "unmute": "Ton An"
 }
