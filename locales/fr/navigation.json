@@ -1,0 +1,16 @@
+{
+  "home": "Accueil",
+  "gallery": "Galerie",
+  "music": "Musique",
+  "about": "À propos",
+  "contact": "Contact",
+  "language": "Langue",
+  "galleries": {
+    "galleryNormal": "Galerie Normale",
+    "galleryShitpost": "Galerie Shitpost",
+    "galleryFig": "Galerie Figure",
+    "galleryPrint": "Galerie Print",
+    "galleryGif": "Galerie GIF",
+    "galleryFactori": "Événement Factori"
+  }
+}

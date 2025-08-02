@@ -1,0 +1,35 @@
+{
+  "title": "关于我",
+  "subtitle": "了解创造力背后的人",
+  "description": "欢迎来到我的数字空间！我对摄影、音乐和在虚拟世界中创造沉浸式体验充满热情。",
+  "photography": {
+    "title": "摄影",
+    "description": "我专门从事VRChat摄影，在虚拟环境中捕捉独特的时刻和创意场景。"
+  },
+  "music": {
+    "title": "音乐",
+    "description": "音乐是我的激情。我创作和策划能够启发和激励的音轨。"
+  },
+  "creativity": {
+    "title": "创造力",
+    "description": "我总是在探索通过数字艺术和虚拟体验表达创造力的新方式。"
+  },
+  "friendsCollaborators": "朋友和合作者",
+  "shadowCompanion": "我的暗影伙伴",
+  "myFamily": "我的家人",
+  "buddyPhotographer": "我的摄影师伙伴",
+  "vrSkills": "VR技能",
+  "avatarEditing": "头像编辑",
+  "worldExploration": "世界探索",
+  "eventHosting": "活动主持",
+  "socialInteraction": "社交互动",
+  "vrExperience": "VR体验",
+  "vrAvatarEditor": "VR头像编辑器",
+  "worldExplorer": "世界探索者",
+  "interests": "兴趣",
+  "vrContentCreation": "VR内容创作",
+  "socialImmersion": "社交沉浸",
+  "threeDDesign": "3D设计",
+  "gaming": "游戏",
+  "vrTechnology": "VR技术"
+}

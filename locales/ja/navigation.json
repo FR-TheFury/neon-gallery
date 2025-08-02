@@ -1,0 +1,16 @@
+{
+  "home": "ホーム",
+  "gallery": "ギャラリー",
+  "music": "音楽",
+  "about": "私について",
+  "contact": "連絡先",
+  "language": "言語",
+  "galleries": {
+    "galleryNormal": "通常ギャラリー",
+    "galleryShitpost": "シットポストギャラリー",
+    "galleryFig": "フィギュアギャラリー",
+    "galleryPrint": "プリントギャラリー",
+    "galleryGif": "GIFギャラリー",
+    "galleryFactori": "ファクトリイベント"
+  }
+}

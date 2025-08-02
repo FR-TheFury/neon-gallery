@@ -1,0 +1,35 @@
+{
+  "title": "私について",
+  "subtitle": "創造性の背後にある人を知る",
+  "description": "私のデジタル空間へようこそ！私は写真、音楽、そして仮想世界での没入体験の創造に情熱を注いでいます。",
+  "photography": {
+    "title": "写真",
+    "description": "VRChat写真を専門とし、仮想環境でユニークな瞬間とクリエイティブなシーンを捉えています。"
+  },
+  "music": {
+    "title": "音楽",
+    "description": "音楽は私の情熱です。インスピレーションとエネルギーを与えるトラックを作成し、キュレーションしています。"
+  },
+  "creativity": {
+    "title": "創造性",
+    "description": "デジタルアートと仮想体験を通じて創造性を表現する新しい方法を常に探求しています。"
+  },
+  "friendsCollaborators": "友達とコラボレーター",
+  "shadowCompanion": "私の影の相棒",
+  "myFamily": "私の家族",
+  "buddyPhotographer": "私の仲間の写真家",
+  "vrSkills": "VRスキル",
+  "avatarEditing": "アバター編集",
+  "worldExploration": "世界探索",
+  "eventHosting": "イベントホスト",
+  "socialInteraction": "社会的交流",
+  "vrExperience": "VR体験",
+  "vrAvatarEditor": "VRアバターエディター",
+  "worldExplorer": "世界探検家",
+  "interests": "興味",
+  "vrContentCreation": "VRコンテンツ作成",
+  "socialImmersion": "社会的没入",
+  "threeDDesign": "3Dデザイン",
+  "gaming": "ゲーミング",
+  "vrTechnology": "VR技術"
+}
