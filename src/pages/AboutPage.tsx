@@ -25,7 +25,7 @@ const characters: Character[] = [
     id: "spy",
     name: "GNRL_K",
     title: "aka THE SPY !",
-    quote: "This Guys is and absolute Dumbass, But it's my big bro and i deal with him (Help me he want to put me in is cave #FREEHIMELY).",
+    quote: "This Guys is and absolute Dumbass, But it's my big bro and i deal with him (Help me he want to put me in his cave #FREEHIMELY).",
     gifUrl: "/image/spy.gif", // Placeholder for you to replace later
     imagePath: "/image/spy.png"
   },
