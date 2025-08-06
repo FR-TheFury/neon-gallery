@@ -6,8 +6,8 @@
   "contact": "連絡先",
   "language": "言語",
   "galleries": {
-    "galleryMain": "メインギャラリー",
-    "galleryAIDesign": "AIデザイン",
+    "galleryNormal": "通常ギャラリー",
+    "galleryShitpost": "シットポストギャラリー",
     "galleryFig": "フィギュアギャラリー",
     "galleryPrint": "プリントギャラリー",
     "galleryGif": "GIFギャラリー",

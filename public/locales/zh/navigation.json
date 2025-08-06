@@ -6,8 +6,8 @@
   "contact": "联系方式",
   "language": "语言",
   "galleries": {
-    "galleryMain": "主画廊",
-    "galleryAIDesign": "AI设计",
+    "galleryNormal": "普通画廊",
+    "galleryShitpost": "恶搞画廊",
     "galleryFig": "手办画廊",
     "galleryPrint": "印刷画廊",
     "galleryGif": "GIF画廊",

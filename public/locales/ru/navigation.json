@@ -6,8 +6,8 @@
   "contact": "Контакты",
   "language": "Язык",
   "galleries": {
-    "galleryMain": "Главная Галерея",
-    "galleryAIDesign": "ИИ Дизайн",
+    "galleryNormal": "Обычная Галерея",
+    "galleryShitpost": "Шитпост Галерея",
     "galleryFig": "Фигурки Галерея",
     "galleryPrint": "Принт Галерея",
     "galleryGif": "GIF Галерея",
