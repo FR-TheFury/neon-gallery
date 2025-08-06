@@ -1,0 +1,19 @@
+{
+  "characters": {
+    "himely": {
+      "name": "HIMELY",
+      "title": "Sie/Ihr Die Schatten-Begleiterin",
+      "quote": "Eine mysteriöse Gestalt, die in Schatten und Licht tanzt. Ihre Anwesenheit bringt sowohl Trost als auch Faszination in jeden Moment."
+    },
+    "panda": {
+      "name": "PandaCat",
+      "title": "Er/Ihn Meine Familie",
+      "quote": "Ein treuer Begleiter mit einem goldenen Herzen. Sein verspielter Geist und seine unerschütterliche Unterstützung machen jedes Abenteuer unvergesslich."
+    },
+    "spy": {
+      "name": "GNRL_K",
+      "title": "Er/Ihn alias DER SPION !",
+      "quote": "Dieser Typ ist ein absoluter Idiot, aber er ist mein großer Bruder und ich muss mit ihm klarkommen (Helft mir, er will mich in seine Höhle stecken #FREIHIMELY)."
+    }
+  }
+}

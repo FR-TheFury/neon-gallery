@@ -12,45 +12,46 @@ type Character = {
   imagePath: string;
 };
 
-// Define character data
-const characters: Character[] = [
-  {
-    id: "himely",
-    name: "Himely_Puppy",
-    quote: "Arf Arf Bark Bark warf warf, and i don't care <3 !",
-    gifUrl: "/image/puppy.gif", // Placeholder for you to replace later
-    imagePath: "/image/profile.png"
-  },
-  {
-    id: "spy",
-    name: "GNRL_K",
-    title: "aka THE SPY !",
-    quote: "This Guys is and absolute Dumbass, But it's my big bro and i deal with him (Help me he want to put me in his cave #FREEHIMELY).",
-    gifUrl: "/image/spy.gif", // Placeholder for you to replace later
-    imagePath: "/image/spy.png"
-  },
-  {
-    id: "hskn",
-    name: "HSKN",
-    title: "My Family",
-    quote: "Family isn't just blood, it's the bonds we forge in virtual worlds and beyond. Together, we are unstoppable, WE ARE HSKN ABSOLUTE.",
-    gifUrl: "/image/AbosluteCInema.gif", // Placeholder for you to replace later
-    imagePath: "/image/HKSN Gang.jpg"
-  },
-  {
-    id: "panda",
-    name: "MisterPandas",
-    title: "My Buddy Photographer",
-    quote: "I don't take photos, I capture stories and emotions.",
-    gifUrl: "/image/photo.gif", // Placeholder for you to replace later
-    imagePath: "/image/panda.png"
-  }
-];
-
 const AboutPage = () => {
   const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const { t } = useTranslation('about');
+  const { t } = useTranslation(['about', 'characters']);
+
+  // Define character data with translations
+  const characters: Character[] = [
+    {
+      id: "himely",
+      name: t('characters:characters.himely.name'),
+      title: t('characters:characters.himely.title'),
+      quote: t('characters:characters.himely.quote'),
+      gifUrl: "/image/puppy.gif",
+      imagePath: "/image/profile.png"
+    },
+    {
+      id: "spy",
+      name: t('characters:characters.spy.name'),
+      title: t('characters:characters.spy.title'),
+      quote: t('characters:characters.spy.quote'),
+      gifUrl: "/image/spy.gif",
+      imagePath: "/image/spy.png"
+    },
+    {
+      id: "hskn",
+      name: "HSKN",
+      title: t('about:myFamily'),
+      quote: t('about:familyQuote'),
+      gifUrl: "/image/AbosluteCInema.gif",
+      imagePath: "/image/HKSN Gang.jpg"
+    },
+    {
+      id: "panda",
+      name: t('characters:characters.panda.name'),
+      title: t('characters:characters.panda.title'),
+      quote: t('characters:characters.panda.quote'),
+      gifUrl: "/image/photo.gif",
+      imagePath: "/image/panda.png"
+    }
+  ];
 
   const handleCharacterClick = (character: Character) => {
     setSelectedCharacter(character);
@@ -108,7 +109,7 @@ const AboutPage = () => {
               </div>
 
               <div className="cyberpunk-card p-6 border-l-4 border-neon-red neon-border">
-                <h2 className="text-2xl font-bold mb-4 neon-text">Himely_Puppy</h2>
+                <h2 className="text-2xl font-bold mb-4 neon-text">{characters[0].name}</h2>
                 <p className="text-gray-300 mb-4">
                   {t('personalDescription1')}
                 </p>
@@ -125,7 +126,7 @@ const AboutPage = () => {
             <div
                 className="cyberpunk-card p-6 mb-12 grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 items-center neon-border">
               <div>
-                <h3 className="text-xl font-bold mb-2 text-neon-pink">GNRL_K – aka THE SPY !</h3>
+                <h3 className="text-xl font-bold mb-2 text-neon-pink">{characters[1].name} – {characters[1].title}</h3>
                 <h4 className="text-2xl font-bold mb-4 neon-text">{t('shadowCompanion')}</h4>
                 <p className="text-gray-300 mb-4">
                   {t('spyDescription')}
@@ -156,7 +157,7 @@ const AboutPage = () => {
                 />
               </div>
               <div>
-                <h3 className="text-xl font-bold mb-2 text-neon-pink">HSKN !</h3>
+                <h3 className="text-xl font-bold mb-2 text-neon-pink">{characters[2].name} !</h3>
                 <h4 className="text-2xl font-bold mb-4 neon-text">{t('myFamily')}</h4>
                 <p className="text-gray-300 mb-4">
                   {t('familyDescription')}
@@ -168,7 +169,7 @@ const AboutPage = () => {
             <div
                 className="cyberpunk-card p-6 mb-12 grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 items-center neon-border">
               <div>
-                <h3 className="text-xl font-bold mb-2 text-neon-pink">MisterPandas !</h3>
+                <h3 className="text-xl font-bold mb-2 text-neon-pink">{characters[3].name} !</h3>
                 <h4 className="text-2xl font-bold mb-4 neon-text">{t('buddyPhotographer')}</h4>
                 <p className="text-gray-300 mb-4">
                   {t('photographerDescription')}

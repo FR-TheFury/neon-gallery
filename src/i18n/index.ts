@@ -24,7 +24,7 @@ i18n
       caches: ['localStorage'],
     },
 
-    ns: ['navigation', 'home', 'about', 'contact', 'gallery', 'music', 'common', 'nsfw'],
+    ns: ['navigation', 'home', 'about', 'contact', 'gallery', 'music', 'common', 'nsfw', 'characters'],
     defaultNS: 'common',
   });
 

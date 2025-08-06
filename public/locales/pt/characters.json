@@ -1,0 +1,19 @@
+{
+  "characters": {
+    "himely": {
+      "name": "HIMELY",
+      "title": "Ela/Dela A Companheira das Sombras",
+      "quote": "Uma figura misteriosa que dança nas sombras e na luz. Sua presença traz tanto conforto quanto intriga a cada momento."
+    },
+    "panda": {
+      "name": "PandaCat",
+      "title": "Ele/Dele Minha Família",
+      "quote": "Um companheiro leal com um coração de ouro. Seu espírito brincalhão e apoio inabalável tornam cada aventura memorável."
+    },
+    "spy": {
+      "name": "GNRL_K",
+      "title": "Ele/Dele também conhecido como O ESPIÃO!",
+      "quote": "Este cara é um idiota absoluto, mas é meu irmão mais velho e tenho que lidar com ele (Me ajudem, ele quer me colocar em sua caverna #LIBERTEHIMELY)."
+    }
+  }
+}

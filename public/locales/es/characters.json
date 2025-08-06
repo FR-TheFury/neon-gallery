@@ -1,0 +1,19 @@
+{
+  "characters": {
+    "himely": {
+      "name": "HIMELY",
+      "title": "Ella/Su La Compañera de las Sombras",
+      "quote": "Una figura misteriosa que baila en las sombras y la luz. Su presencia aporta tanto consuelo como intriga a cada momento."
+    },
+    "panda": {
+      "name": "PandaCat",
+      "title": "Él/Su Mi Familia",
+      "quote": "Un compañero leal con un corazón de oro. Su espíritu juguetón y apoyo inquebrantable hacen que cada aventura sea memorable."
+    },
+    "spy": {
+      "name": "GNRL_K",
+      "title": "Él/Su alias ¡EL ESPÍA!",
+      "quote": "Este tipo es un idiota absoluto, pero es mi hermano mayor y tengo que lidiar con él (Ayúdenme, quiere meterme en su cueva #LIBERENHIMELY)."
+    }
+  }
+}
