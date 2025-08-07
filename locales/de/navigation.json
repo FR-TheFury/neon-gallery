@@ -1,0 +1,16 @@
+{
+  "home": "Startseite",
+  "gallery": "Galerie",
+  "music": "Musik",
+  "about": "Über mich",
+  "contact": "Kontakt",
+  "language": "Sprache",
+  "galleries": {
+    "galleryMain": "Hauptgalerie",
+    "galleryAIDesign": "KI-Design",
+    "galleryFig": "Figuren Galerie",
+    "galleryPrint": "Print Galerie",
+    "galleryGif": "GIF Galerie",
+    "galleryFactori": "Factori Event"
+  }
+}
