@@ -6,9 +6,9 @@
   "contact": "Kontakt",
   "language": "Sprache",
   "galleries": {
-    "galleryNormal": "Normale Galerie",
-    "galleryShitpost": "Shitpost Galerie",
-    "galleryFig": "Figure Galerie",
+    "galleryMain": "Hauptgalerie",
+    "galleryAIDesign": "KI-Design",
+    "galleryFig": "Figuren Galerie",
     "galleryPrint": "Print Galerie",
     "galleryGif": "GIF Galerie",
     "galleryFactori": "Factori Event"

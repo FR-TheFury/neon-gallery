@@ -6,8 +6,8 @@
   "contact": "Contact",
   "language": "Language",
   "galleries": {
-    "galleryNormal": "Normal Gallery",
-    "galleryShitpost": "Shitpost Gallery",
+    "galleryMain": "Main Gallery",
+    "galleryAIDesign": "AI Design",
     "galleryFig": "Figure Gallery",
     "galleryPrint": "Print Gallery",
     "galleryGif": "GIF Gallery",
