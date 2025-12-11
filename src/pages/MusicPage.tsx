@@ -15,9 +15,9 @@ const MusicPage = () => {
     },
     {
       id: 2,
-      title: t('comingSoon'),
-      image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=400&h=400&fit=crop",
-      status: "coming-soon"
+      title: "Forevermode",
+      image: "/image/Forevermode.png",
+      status: "available"
     },
     {
       id: 3,
@@ -226,11 +226,11 @@ const MusicPage = () => {
           <div className="bg-black/50 p-4 rounded-lg neon-border">
             <iframe 
               width="100%" 
-              height="450" 
+              height="300" 
               scrolling="no" 
               frameBorder="no" 
               allow="autoplay" 
-              src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/2029378521&color=%23ed0055&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true"
+              src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2228096762&color=%23ff006b&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
               className="rounded-md"
             ></iframe>
             <div className="mt-4 text-center">
@@ -246,13 +246,13 @@ const MusicPage = () => {
                 </a>
                 {" · "}
                 <a 
-                  href="https://soundcloud.com/himely_pup/sets/fucked-up-vision" 
-                  title="Fucked Up Vision" 
+                  href="https://soundcloud.com/himely_pup/sets/forevermode" 
+                  title="Forevermode" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-neon-pink hover:text-neon-red transition-colors"
                 >
-                  Fucked Up Vision
+                  Forevermode
                 </a>
               </div>
             </div>
