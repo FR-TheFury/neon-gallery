@@ -21,6 +21,26 @@ export interface SoundCloudAlbum {
   releaseDate?: string;
 }
 
+// Albums statiques de fallback
+const STATIC_ALBUMS: SoundCloudAlbum[] = [
+  {
+    id: "forevermode",
+    title: "Forevermode",
+    artist: "Himely",
+    coverImage: "/image/Forevermode.png",
+    soundcloudUrl: "https://soundcloud.com/himely_pup/sets/forevermode",
+    tracks: []
+  },
+  {
+    id: "fucked-up-vision",
+    title: "Fucked Up Vision",
+    artist: "Himely",
+    coverImage: "/image/FuckedUpVision.png",
+    soundcloudUrl: "https://soundcloud.com/himely_pup/sets/fucked-up-vision",
+    tracks: []
+  }
+];
+
 // Albums avec données automatiquement récupérées
 let himely_albums: SoundCloudAlbum[] = [];
 
@@ -68,9 +88,9 @@ const ALBUM_URLS = [
 initializeAlbumsFromUrls(ALBUM_URLS);
 
 export const soundcloudService = {
-  // Récupère tous les albums
+  // Récupère tous les albums (avec fallback statique)
   getAllAlbums: (): SoundCloudAlbum[] => {
-    return himely_albums;
+    return himely_albums.length > 0 ? himely_albums : STATIC_ALBUMS;
   },
 
   // Récupère un album spécifique
