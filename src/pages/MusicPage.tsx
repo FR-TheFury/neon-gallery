@@ -1,4 +1,4 @@
-
+import { useState } from "react";
 import { Music, Headphones } from "lucide-react";
 import { SiSpotify, SiSoundcloud, SiAmazonmusic, SiYoutube, SiApplemusic } from "react-icons/si";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
@@ -6,6 +6,20 @@ import { useTranslation } from "react-i18next";
 
 const MusicPage = () => {
   const { t } = useTranslation('music');
+  const [selectedAlbum, setSelectedAlbum] = useState<string>("forevermode");
+
+  const albumIframes = {
+    "fucked-up-vision": {
+      title: "Fucked Up Vision",
+      src: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1744426083&color=%23ff006b&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true",
+      link: "https://soundcloud.com/himely_pup/sets/fucked-up-vision"
+    },
+    "forevermode": {
+      title: "Forevermode",
+      src: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2228096762&color=%23ff006b&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true",
+      link: "https://soundcloud.com/himely_pup/sets/forevermode"
+    }
+  };
   const albums = [
     {
       id: 1,
@@ -221,16 +235,35 @@ const MusicPage = () => {
         {/* SoundCloud Integration */}
         <div className="cyberpunk-card p-8 neon-border">
           <h2 className="text-3xl font-bold text-neon-red mb-6 text-center">
-            {t('currentAlbum')}
+            {t('selectAlbum')}
           </h2>
+          
+          {/* Album Tabs */}
+          <div className="flex justify-center gap-4 mb-6">
+            {Object.entries(albumIframes).map(([key, album]) => (
+              <button
+                key={key}
+                onClick={() => setSelectedAlbum(key)}
+                className={`px-6 py-3 rounded-md font-bold transition-all duration-300 ${
+                  selectedAlbum === key
+                    ? 'bg-neon-red text-white shadow-[0_0_20px_rgba(212,9,93,0.8)] neon-glow'
+                    : 'neon-button hover:shadow-[0_0_15px_rgba(212,9,93,0.5)]'
+                }`}
+              >
+                {album.title}
+              </button>
+            ))}
+          </div>
+
           <div className="bg-black/50 p-4 rounded-lg neon-border">
             <iframe 
+              key={selectedAlbum}
               width="100%" 
               height="300" 
               scrolling="no" 
               frameBorder="no" 
               allow="autoplay" 
-              src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2228096762&color=%23ff006b&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
+              src={albumIframes[selectedAlbum as keyof typeof albumIframes].src}
               className="rounded-md"
             ></iframe>
             <div className="mt-4 text-center">
@@ -246,13 +279,13 @@ const MusicPage = () => {
                 </a>
                 {" · "}
                 <a 
-                  href="https://soundcloud.com/himely_pup/sets/forevermode" 
-                  title="Forevermode" 
+                  href={albumIframes[selectedAlbum as keyof typeof albumIframes].link}
+                  title={albumIframes[selectedAlbum as keyof typeof albumIframes].title}
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-neon-pink hover:text-neon-red transition-colors"
                 >
-                  Forevermode
+                  {albumIframes[selectedAlbum as keyof typeof albumIframes].title}
                 </a>
               </div>
             </div>
