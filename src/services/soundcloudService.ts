@@ -60,7 +60,8 @@ export const initializeAlbumsFromUrls = async (albumUrls: string[]) => {
 
 // URLs des albums à charger automatiquement
 const ALBUM_URLS = [
-  "https://soundcloud.com/himely_pup/sets/fucked-up-vision"
+  "https://soundcloud.com/himely_pup/sets/fucked-up-vision",
+  "https://soundcloud.com/himely_pup/sets/forevermode"
 ];
 
 // Initialisation automatique au chargement du service
