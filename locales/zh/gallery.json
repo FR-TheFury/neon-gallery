@@ -1,0 +1,11 @@
+{
+  "title": "画廊",
+  "subtitle": "探索我的VRChat摄影收藏",
+  "refreshGallery": "刷新画廊",
+  "loading": "加载图片中...",
+  "error": "加载画廊失败",
+  "tryAgain": "重试",
+  "noImages": "此画廊中未找到图片",
+  "refreshing": "正在刷新画廊",
+  "refreshDescription": "请稍候，我们正在获取最新图片"
+}

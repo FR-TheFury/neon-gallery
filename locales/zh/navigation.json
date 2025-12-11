@@ -1,0 +1,16 @@
+{
+  "home": "首页",
+  "gallery": "画廊",
+  "music": "音乐",
+  "about": "关于我",
+  "contact": "联系方式",
+  "language": "语言",
+  "galleries": {
+    "galleryMain": "主画廊",
+    "galleryAIDesign": "AI设计",
+    "galleryFig": "手办画廊",
+    "galleryPrint": "印刷画廊",
+    "galleryGif": "GIF画廊",
+    "galleryFactori": "工厂活动"
+  }
+}
