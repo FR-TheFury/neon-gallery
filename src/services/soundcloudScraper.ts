@@ -155,6 +155,32 @@ const getMockAlbumData = (albumUrl: string): ScrapedAlbum | null => {
     };
   }
   
+  if (albumUrl.includes('forevermode')) {
+    return {
+      title: "Forevermode",
+      artist: "Himely",
+      coverImage: "/image/Forevermode.png",
+      description: "Album de Himely - Forevermode",
+      tracks: [
+        {
+          title: "Boot Sequence",
+          url: "/music/background.mp3",
+          duration: 180
+        },
+        {
+          title: "Forever Mode",
+          url: "/music/background.mp3",
+          duration: 240
+        },
+        {
+          title: "Digital Love",
+          url: "/music/background.mp3",
+          duration: 200
+        }
+      ]
+    };
+  }
+  
   return null;
 };
 
