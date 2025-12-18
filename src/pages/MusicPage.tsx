@@ -11,7 +11,7 @@ const MusicPage = () => {
   const albumIframes = {
     "fucked-up-vision": {
       title: "Fucked Up Vision",
-      src: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/soundcloud%253Aplaylists%253A2029378521&color=%23ff006b&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true",
+      src: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/soundcloud%253Aplaylists%253A2029378521&color=%23ff006b&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
       link: "https://soundcloud.com/himely_pup/sets/fucked-up-vision"
     },
     "forevermode": {
@@ -259,7 +259,7 @@ const MusicPage = () => {
             <iframe 
               key={selectedAlbum}
               width="100%" 
-              height="300" 
+              height="450" 
               scrolling="no" 
               frameBorder="no" 
               allow="autoplay" 
