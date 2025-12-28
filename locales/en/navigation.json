@@ -1,0 +1,16 @@
+{
+  "home": "Home",
+  "gallery": "Gallery",
+  "music": "Music",
+  "about": "About",
+  "contact": "Contact",
+  "language": "Language",
+  "galleries": {
+    "galleryMain": "Main Gallery",
+    "galleryAIDesign": "AI Design",
+    "galleryFig": "Figure Gallery",
+    "galleryPrint": "Print Gallery",
+    "galleryGif": "GIF Gallery",
+    "galleryFactori": "Factori Event"
+  }
+}

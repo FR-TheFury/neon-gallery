@@ -1,0 +1,11 @@
+{
+  "title": "Galerie",
+  "subtitle": "Explorez ma collection de photographies VRChat",
+  "refreshGallery": "Actualiser la Galerie",
+  "loading": "Chargement des images...",
+  "error": "Échec du chargement de la galerie",
+  "tryAgain": "Réessayer",
+  "noImages": "Aucune image trouvée dans cette galerie",
+  "refreshing": "Actualisation de la galerie",
+  "refreshDescription": "Veuillez patienter pendant que nous récupérons les dernières images"
+}

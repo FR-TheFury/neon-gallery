@@ -1,0 +1,16 @@
+{
+  "warning": "Advertencia de Contenido",
+  "title": "Contenido Adulto",
+  "description": "Esta galería contiene contenido adulto (NSFW). Al acceder a esta galería, confirmas que eres mayor de edad y consientes ver este tipo de material.",
+  "privateCollection": "Colección privada - Acceso restringido",
+  "ageConfirmation": "Debes tener 18+ años para ver este contenido",
+  "accept": "Tengo 18+ años y consiento",
+  "decline": "Volver",
+  "adultContent": "Contenido Adulto",
+  "ageWarning": "Este sitio contiene contenido para adultos (NSFW) que puede incluir elementos sexuales o violentos.",
+  "confirmAge": "Al continuar, confirmas que tienes",
+  "yearsOld": "18 años o más",
+  "ageConsent": "y consientes ver este contenido.",
+  "quit": "Salir",
+  "iAmEighteenPlus": "Tengo 18 años o más"
+}

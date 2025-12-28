@@ -1,0 +1,11 @@
+{
+  "title": "Gallery",
+  "subtitle": "Explore my collection of VRChat photography",
+  "refreshGallery": "Refresh Gallery",
+  "loading": "Loading images...",
+  "error": "Failed to load gallery",
+  "tryAgain": "Try Again",
+  "noImages": "No images found in this gallery",
+  "refreshing": "Refreshing gallery",
+  "refreshDescription": "Please wait while we fetch the latest images"
+}

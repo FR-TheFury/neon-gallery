@@ -1,0 +1,16 @@
+{
+  "home": "Главная",
+  "gallery": "Галерея",
+  "music": "Музыка",
+  "about": "О нас",
+  "contact": "Контакты",
+  "language": "Язык",
+  "galleries": {
+    "galleryMain": "Главная Галерея",
+    "galleryAIDesign": "ИИ Дизайн",
+    "galleryFig": "Фигурки Галерея",
+    "galleryPrint": "Принт Галерея",
+    "galleryGif": "GIF Галерея",
+    "galleryFactori": "Событие Factori"
+  }
+}

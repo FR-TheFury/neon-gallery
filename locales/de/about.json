@@ -1,0 +1,35 @@
+{
+  "title": "Über Mich",
+  "subtitle": "Lernen Sie die Person hinter der Kreativität kennen",
+  "description": "Willkommen in meinem digitalen Raum! Ich bin leidenschaftlich für Fotografie, Musik und das Erstellen immersiver Erlebnisse in virtuellen Welten.",
+  "photography": {
+    "title": "Fotografie",
+    "description": "Ich spezialisiere mich auf VRChat-Fotografie und halte einzigartige Momente und kreative Szenen in virtuellen Umgebungen fest."
+  },
+  "music": {
+    "title": "Musik",
+    "description": "Musik ist meine Leidenschaft. Ich erstelle und kuratiere Tracks, die inspirieren und energetisieren."
+  },
+  "creativity": {
+    "title": "Kreativität",
+    "description": "Ich erforsche immer neue Wege, Kreativität durch digitale Kunst und virtuelle Erlebnisse auszudrücken."
+  },
+  "friendsCollaborators": "Freunde & Mitarbeiter",
+  "shadowCompanion": "Mein Schattenbegleiter",
+  "myFamily": "Meine Familie",
+  "buddyPhotographer": "Mein Kumpel Fotograf",
+  "vrSkills": "VR-Fähigkeiten",
+  "avatarEditing": "Avatar-Bearbeitung",
+  "worldExploration": "Welterkundung",
+  "eventHosting": "Event-Hosting",
+  "socialInteraction": "Soziale Interaktion",
+  "vrExperience": "VR-Erfahrung",
+  "vrAvatarEditor": "VR-Avatar-Editor",
+  "worldExplorer": "Weltentdecker",
+  "interests": "Interessen",
+  "vrContentCreation": "VR-Inhaltserstellung",
+  "socialImmersion": "Soziale Immersion",
+  "threeDDesign": "3D-Design",
+  "gaming": "Gaming",
+  "vrTechnology": "VR-Technologie"
+}

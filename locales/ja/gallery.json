@@ -1,0 +1,11 @@
+{
+  "title": "ギャラリー",
+  "subtitle": "VRChat写真コレクションをご覧ください",
+  "refreshGallery": "ギャラリーを更新",
+  "loading": "画像を読み込み中...",
+  "error": "ギャラリーの読み込みに失敗しました",
+  "tryAgain": "再試行",
+  "noImages": "このギャラリーに画像が見つかりません",
+  "refreshing": "ギャラリーを更新中",
+  "refreshDescription": "最新の画像を取得中です。お待ちください"
+}
