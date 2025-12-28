@@ -37,14 +37,6 @@ const characters: Character[] = [
     gifUrl: "/image/AbosluteCInema.gif", // Placeholder for you to replace later
     imagePath: "/image/HKSN Gang.jpg"
   },
-  {
-    id: "panda",
-    name: "MisterPandas",
-    title: "My Buddy Photographer",
-    quote: "I don't take photos, I capture stories and emotions.",
-    gifUrl: "/image/photo.gif", // Placeholder for you to replace later
-    imagePath: "/image/panda.png"
-  }
 ];
 
 const AboutPage = () => {
@@ -164,27 +156,6 @@ const AboutPage = () => {
               </div>
             </div>
 
-            {/* Second collaborator */}
-            <div
-                className="cyberpunk-card p-6 mb-12 grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 items-center neon-border">
-              <div>
-                <h3 className="text-xl font-bold mb-2 text-neon-pink">MisterPandas !</h3>
-                <h4 className="text-2xl font-bold mb-4 neon-text">{t('buddyPhotographer')}</h4>
-                <p className="text-gray-300 mb-4">
-                  {t('photographerDescription')}
-                </p>
-              </div>
-              <div 
-                className="rounded-md overflow-hidden border border-neon-pink neon-border cursor-pointer transition-transform hover:scale-105"
-                onClick={() => handleCharacterClick(characters[3])}
-              >
-                <img
-                    src={characters[3].imagePath}
-                    alt="MisterPandas"
-                    className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
 
             {/* VR Skills Section */}
             <div className="cyberpunk-card p-6 border-l-4 border-neon-red neon-border mb-12">
