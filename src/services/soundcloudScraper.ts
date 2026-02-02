@@ -119,6 +119,32 @@ export const scrapeAlbumData = async (albumUrl: string): Promise<ScrapedAlbum | 
 
 // Données simulées pour le développement (quand l'API n'est pas encore configurée)
 const getMockAlbumData = (albumUrl: string): ScrapedAlbum | null => {
+  if (albumUrl.includes('echoes-in-the-buffer')) {
+    return {
+      title: "Echoes in the Buffer",
+      artist: "Himely",
+      coverImage: "/image/EchoesInTheBuffer.png",
+      description: "Album de Himely - Echoes in the Buffer",
+      tracks: [
+        {
+          title: "Buffer Overflow",
+          url: "/music/background.mp3",
+          duration: 180
+        },
+        {
+          title: "Memory Leak",
+          url: "/music/background.mp3",
+          duration: 210
+        },
+        {
+          title: "Echoes",
+          url: "/music/background.mp3",
+          duration: 195
+        }
+      ]
+    };
+  }
+  
   if (albumUrl.includes('fucked-up-vision')) {
     return {
       title: "Fucked Up Vision",
