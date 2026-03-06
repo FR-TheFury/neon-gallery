@@ -1,8 +1,9 @@
 
 import { GalleryImage } from "@/types/gallery";
 import { toast } from "@/components/ui/use-toast";
+import { CONFIG } from "@/config/keys";
 
-const API_KEY = "AIzaSyB5WsFxRU6G95rjFliPZM0suaRTfrCu0xI";
+const API_KEY = CONFIG.GOOGLE_DRIVE_API_KEY;
 const FALLBACK_IMAGES = [
   "/placeholder.svg",
   "/placeholder.svg",
