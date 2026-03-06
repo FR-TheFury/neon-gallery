@@ -46,6 +46,14 @@ const STATIC_ALBUMS: SoundCloudAlbum[] = [
     coverImage: "/image/EchoesInTheBuffer.png",
     soundcloudUrl: "https://soundcloud.com/himely_pup/sets/echoes-in-the-buffer",
     tracks: []
+  },
+  {
+    id: "black-static",
+    title: "Black Static",
+    artist: "Himely",
+    coverImage: "/image/black static.png",
+    soundcloudUrl: "https://soundcloud.com/himely_pup/sets/black-static",
+    tracks: []
   }
 ];
 
@@ -90,7 +98,8 @@ export const initializeAlbumsFromUrls = async (albumUrls: string[]) => {
 const ALBUM_URLS = [
   "https://soundcloud.com/himely_pup/sets/fucked-up-vision",
   "https://soundcloud.com/himely_pup/sets/forevermode",
-  "https://soundcloud.com/himely_pup/sets/echoes-in-the-buffer"
+  "https://soundcloud.com/himely_pup/sets/echoes-in-the-buffer",
+  "https://soundcloud.com/himely_pup/sets/black-static"
 ];
 
 // Initialisation automatique au chargement du service
