@@ -1,8 +1,8 @@
 
 import { GalleryImage } from "@/types/gallery";
 import { toast } from "@/components/ui/use-toast";
-import { supabase } from "@/integrations/supabase/client";
 
+const API_KEY = "AIzaSyB5WsFxRU6G95rjFliPZM0suaRTfrCu0xI";
 const FALLBACK_IMAGES = [
   "/placeholder.svg",
   "/placeholder.svg",
@@ -24,37 +24,32 @@ interface DriveResponse {
 }
 
 // Implement a retry function with exponential backoff
-const fetchWithRetry = async (folderId: string, retries = 3, delay = 1000): Promise<DriveResponse | null> => {
+const fetchWithRetry = async (url: string, options: RequestInit, retries = 3, delay = 1000) => {
   try {
-    const { data, error } = await supabase.functions.invoke('google-drive-proxy', {
-      body: { folderId, pageSize: 1000 },
-    });
-
-    if (error) {
-      console.warn(`Edge function error, retrying...`, error);
+    const response = await fetch(url, options);
+    if (response.ok) return response;
+    
+    if (response.status === 403 || response.status === 429) {
+      console.warn(`Rate limited or forbidden (${response.status}), retrying...`);
+      toast({
+        title: "Loading images...",
+        description: "Please wait while we retrieve your images",
+        duration: 3000,
+      });
+      
       if (retries > 0) {
         await new Promise(resolve => setTimeout(resolve, delay));
-        return fetchWithRetry(folderId, retries - 1, delay * 2);
+        return fetchWithRetry(url, options, retries - 1, delay * 2);
       }
-      return null;
     }
-
-    if (data?.error) {
-      console.warn(`API error: ${data.error}`);
-      if (retries > 0) {
-        await new Promise(resolve => setTimeout(resolve, delay));
-        return fetchWithRetry(folderId, retries - 1, delay * 2);
-      }
-      return null;
-    }
-
-    return data as DriveResponse;
+    
+    return response;
   } catch (error) {
     if (retries > 0) {
       await new Promise(resolve => setTimeout(resolve, delay));
-      return fetchWithRetry(folderId, retries - 1, delay * 2);
+      return fetchWithRetry(url, options, retries - 1, delay * 2);
     }
-    return null;
+    throw error;
   }
 };
 
@@ -63,10 +58,37 @@ export const fetchImagesFromFolder = async (
   isGifGallery: boolean = false
 ): Promise<GalleryImage[]> => {
   try {
-    const data = await fetchWithRetry(folderId);
-    const timestamp = new Date().getTime();
+    const url = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents`
+      + `&key=${API_KEY}&fields=nextPageToken,files(id,name,mimeType)`
+      + `&pageSize=1000`;
 
-    if (data && data.files && data.files.length > 0) {
+    const timestamp = new Date().getTime();
+    const urlWithTimestamp = `${url}&timestamp=${timestamp}`;
+
+    const response = await fetchWithRetry(
+      urlWithTimestamp,
+      {
+        method: 'GET',
+        headers: { 'Accept': 'application/json' },
+        cache: 'no-store',
+      },
+      3,
+      1000
+    );
+
+    if (response.ok) {
+      const data: DriveResponse = await response.json();
+      
+      if (!data.files || data.files.length === 0) {
+        console.warn(`No images found in folder ${folderId}, using fallbacks`);
+        toast({
+          title: "No images found",
+          description: "Using placeholder images instead",
+          variant: "destructive",
+        });
+        return createFallbackImages();
+      }
+
       const filteredFiles = isGifGallery
         ? data.files.filter(file => file.mimeType.includes("gif"))
         : data.files;
@@ -77,10 +99,10 @@ export const fetchImagesFromFolder = async (
         url: `https://drive.google.com/thumbnail?id=${file.id}&sz=w1000&t=${timestamp}`
       }));
     } else {
-      console.warn(`No images found in folder ${folderId}, using fallbacks`);
+      console.warn(`Error fetching from Google Drive: ${response.status}, using fallbacks`);
       toast({
-        title: "No images found",
-        description: "Using placeholder images instead",
+        title: "Error loading images",
+        description: "Could not load images from Google Drive",
         variant: "destructive",
       });
       return createFallbackImages();
@@ -96,7 +118,6 @@ export const fetchImagesFromFolder = async (
   }
 };
 
-// Function to create fallback images when Google Drive fails
 const createFallbackImages = (): GalleryImage[] => {
   return FALLBACK_IMAGES.map((url, index) => ({
     id: `fallback-${index}`,
