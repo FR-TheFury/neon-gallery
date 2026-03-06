@@ -78,7 +78,21 @@ class LocalMusicService {
       artist: "Himely",
       filename: "UPRISING.wav",
       url: "/music/player/UPRISING.wav"
-    }
+    },
+    {
+      id: "11",
+      title: "Silent Flesh",
+      artist: "Himely",
+      filename: "SILENT FLESH.wav",
+      url: "/music/player/SILENT FLESH.wav"
+    },
+    {
+      id: "12",
+      title: "Low Life Halo",
+       artist: "Himely",
+       filename: "LOW LIFE HALO.wav",
+       url: "/music/player/LOW LIFE HALO.wav"
+      }
   ];
 
   private currentTrackIndex: number = 0;
