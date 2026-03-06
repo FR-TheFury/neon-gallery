@@ -23,6 +23,11 @@ const MusicPage = () => {
       title: "Echoes in the Buffer",
       src: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/soundcloud%253Aplaylists%253A2163688712&color=%23e60764&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
       link: "https://soundcloud.com/himely_pup/sets/echoes-in-the-buffer"
+    },
+    "black-static": {
+      title: "Black Static",
+      src: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/soundcloud%253Aplaylists%253A2163690602&color=%23e60764&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
+      link: "https://soundcloud.com/himely_pup/sets/black-static"
     }
   };
   const albums = [
@@ -46,6 +51,12 @@ const MusicPage = () => {
     },
     {
       id: 4,
+      title: "Black Static",
+      image: "/image/black static.png",
+      status: "available"
+    },
+    {
+      id: 5,
       title: t('comingSoon'),
       image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=400&fit=crop",
       status: "coming-soon"
