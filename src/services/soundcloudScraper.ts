@@ -207,6 +207,27 @@ const getMockAlbumData = (albumUrl: string): ScrapedAlbum | null => {
     };
   }
   
+  if (albumUrl.includes('black-static')) {
+    return {
+      title: "Black Static",
+      artist: "Himely",
+      coverImage: "/image/black static.png",
+      description: "Album de Himely - Black Static",
+      tracks: [
+        {
+          title: "Black Static",
+          url: "/music/background.mp3",
+          duration: 200
+        },
+        {
+          title: "Signal Lost",
+          url: "/music/background.mp3",
+          duration: 240
+        }
+      ]
+    };
+  }
+  
   return null;
 };
 
